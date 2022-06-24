@@ -1,16 +1,154 @@
 {
+	"easycom": {
+			"^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
+		},
+	
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "首页"
 			}
 		}
 	],
+	"subPackages": [{
+			"root": "aUserPages",
+			"pages": [{
+                    "path" : "vipPages/vipPages",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "VIP服务包",
+                    "enablePullDownRefresh": true,
+					"backgroundColor":"#ffffff"
+                }
+                
+                }
+                ,{
+                    "path" : "vipPages/writeOrder",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "填写订单",
+                    "enablePullDownRefresh": true,
+					"backgroundColor":"#ffffff"
+                }
+                
+                }
+                ,{
+                    "path" : "patientList/patientList",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "就诊人信息",
+                    "enablePullDownRefresh": true,
+					"backgroundColor":"#ffffff"
+                }
+                
+                }
+                ,{
+                    "path" : "patientList/addPatient",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "添加诊人",
+                    "enablePullDownRefresh": false,
+					"backgroundColor":"#ffffff"
+                }
+                
+                }
+                ,{
+                    "path" : "vipPages/wholeProcess ",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "全程陪诊",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+                ,{
+                    "path" : "hospital/hospital",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+                ,{
+                    "path" : "hospital/expertAppoing",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "名家有约",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+                ,{
+                    "path" : "address/address",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "请选择服务城市",
+                    "enablePullDownRefresh": true
+                }
+                
+                }
+                ,{
+                    "path" : "my/my",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "我的",
+                    "enablePullDownRefresh": true
+                }
+                
+                }
+                ,{
+                    "path" : "my/myOrder",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "我的订单",
+                    "enablePullDownRefresh": true
+                }
+                
+                }
+                ,{
+                    "path" : "my/orderDetail",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "订单详情",
+                    "enablePullDownRefresh": true
+                }
+                
+                }
+                ,{
+                    "path" : "my/evaluate",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "评价",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+                ,{
+                    "path" : "my/invoice",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "开具发票",
+                    "enablePullDownRefresh": true
+                }
+                
+                }
+            ]
+		}, {
+			"root": "accompanyPages",
+			"pages": []
+		}],
+	// "preloadRule": { // 分包预载配置。
+	// 		"pagesB/detail/detail": {
+	// 			"network": "all",
+	// 			"packages": ["auserPage"]
+	// 		}
+	// 	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"navigationBarBackgroundColor": "#ffffff",
+		"backgroundColor": "#ffffff"
 	}
 }

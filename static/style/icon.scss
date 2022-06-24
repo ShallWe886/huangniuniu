@@ -1,0 +1,68 @@
+//选择按钮
+.select_icon{
+	display: inline-block;
+	width: 36rpx;
+	height: 36rpx;
+	border-radius: 50%;
+	border: 2rpx solid $color-black-ccc;
+	&.right{
+		position: relative;
+		border: 2rpx solid $color-blue;
+		background: $color-blue;
+		transition: all 0.3s;
+		&::before{
+			position: absolute;
+			content: "";
+			left: 6rpx;
+			top: 22rpx;
+			width: 10rpx;
+			height: 4rpx;
+			background: #ffffff;
+			border-radius: 2rpx;
+			transform: rotate(45deg);
+		}
+		&::after{
+			position: absolute;
+			content: "";
+			left: 10rpx;
+			top: 18rpx;
+			width: 22rpx;
+			height: 4rpx;
+			background: #ffffff;
+			border-radius: 2rpx;
+			transform: rotate(-45deg);
+		}
+	}
+	&.fault,&.disabled{
+		position: relative;
+		border: 2rpx solid $color-red;
+		background: $color-red;
+		transition: all 0.3s;
+		&::before{
+			position: absolute;
+			content: "";
+			left: 6rpx;
+			top: 16rpx;
+			width: 24rpx;
+			height: 6rpx;
+			background: #ffffff;
+			border-radius: 3rpx;
+			transform: rotate(45deg);
+		}
+		&::after{
+			position: absolute;
+			content: "";
+			left: 6rpx;
+			top: 16rpx;
+			width: 24rpx;
+			height: 6rpx;
+			background: #ffffff;
+			border-radius: 3rpx;
+			transform: rotate(-45deg);
+		}
+	}
+	&.disabled{
+		border: 2rpx solid #DDDDDD;
+		background: #DDDDDD;
+	}
+}

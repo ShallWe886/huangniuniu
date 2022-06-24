@@ -1,0 +1,101 @@
+<template>
+	<view class="flex_column padding_bottom_m">
+		<view class="box_690 padding_0_l ">
+			<view class="flex_row border_bottom padding_l_0" v-for="(value,key) in orderDetail">
+				<view class="font_size_text_xl color_black_333 font_weight">
+					{{key}}
+				</view>
+				<view class="margin_left color_black_888 font_size_text_l">
+					{{value}}
+				</view>
+			</view>
+			<view class="padding_m_xl step_box margin_top_m margin_bottom_m" v-if="status == 2 || status == 3 || status == 4"> 
+				<u-steps current="2"  activeColor="#FF6437" inactiveColor="#999999" activeIcon="/static/image/orderDetail01.png" inactiveIcon="/static/image/orderDetail02.png">
+					<u-steps-item title="提交订单" desc="2022-05-12 08:23:59" iconSize="40"></u-steps-item>
+					<u-steps-item title="付款成功" desc="2022-05-12 08:24:05" iconSize="40"></u-steps-item>
+					<u-steps-item title="待接单" desc="2022-05-12 08:24:09" iconSize="40"></u-steps-item>
+					<u-steps-item title="已完成" iconSize="40" ></u-steps-item>
+				</u-steps>
+			</view>
+		</view>
+		<!-- <image src="../.." mode=""></image> -->
+		<view class="flex_row margin_top_xxl" v-if="status == 1">
+			<view class="detail_white_m">
+				取消订单
+			</view>
+			<view class="detail_orange_m margin_left_xl">
+				去支付
+			</view>
+		</view>
+		<view class="flex_row margin_top_xxl" v-if="status == 4">
+			<view class="detail_white_m">
+				评价
+			</view>
+			<view class="detail_orange_m margin_left_xl">
+				申请开票
+			</view>
+		</view>
+		<view class="sure_buttton margin_top_xxl" v-if="status == 2">
+			取消订单
+		</view>
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				orderDetail: {
+					'医院': '华夏第一军区医院',
+					'科室': '内控',
+					'时间': '2022-05-12  8:00-9:00',
+					'就诊人': '李先生',
+					'代办人': '无',
+					'服务内容': '住院陪诊服务',
+					'价格': '¥199.00',
+					'联系人': '杨先生',
+					'联系电话': '181****4627'
+				},
+				status:4 //订单状态
+			}
+		},
+		onLoad(optinos) {
+			this.status = optinos.status
+		},
+		methods: {
+
+		}
+	}
+</script>
+
+<style lang="scss" scoped>
+	//按钮
+	[class*=detail_] {
+		display: inline-block;
+		width: 265rpx;
+		height: 90rpx;
+		line-height: 90rpx;
+		border-radius: 40rpx;
+		transition: all 0.3s;
+		text-align: center;
+		font-size: 32rpx;
+	}
+
+	.detail_white_m {
+		background: #ffffff;
+		color: #FF6437;
+		border: 2rpx #FF6437 solid;
+		box-sizing: border-box;
+	}
+
+	.detail_orange_m {
+		background: linear-gradient(to right, #FF6437, #FF9B51);
+		color: #ffffff;
+	}
+	
+	.step_box{
+		width: 630rpx;
+		background-color: #F8F8F8;
+		border-radius: 20rpx;
+	}
+</style>

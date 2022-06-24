@@ -1,0 +1,39 @@
+@charset "utf-8";
+
+/* 四周阴影 */
+@mixin box-shadow($bulr: 10px, $color: rgba(189, 205, 211, 0.5)) {
+  -webkit-box-shadow: 0 0 $bulr $color;
+  -moz-box-shadow: 0 0 $bulr $color;
+  box-shadow: 0 0 $bulr $color;
+}
+
+// flex布局
+@mixin layout($dir: row, $justify: flex-start, $align: center) {
+  display: flex;
+  flex-direction: $dir;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+//多行文本省略
+@mixin overflow($row: 1) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $row;
+  -webkit-box-orient: vertical;
+}
+
+// 自定义字体
+@mixin font-family-light($color: $color-prompt,$weight: 300) {
+  font-family: "SF Grandezza Light", serif;
+  font-weight: $weight;
+  color: $color;
+}
+
+// 自定义字体
+@mixin font-family-medium($color: $color-prompt,$weight: 300) {
+  font-family: "SF Grandezza Medium", serif;
+  font-weight: $weight;
+  color: $color;
+}

@@ -1,0 +1,29 @@
+[class*=move_]{animation-duration: 0.3s;}
+[class*=move_fixed_]{animation-fill-mode: forwards;}
+
+.move_bounce_in_up{animation-name:bounceInUps;}
+.move_up{animation-name:up;}
+.move_fixed_bottom_show{animation-name:fixedBottomShow;}
+.move_fixed_bottom_hide{animation-name:fixedBottomHide;}
+
+
+@keyframes bounceInUp{
+	  0%,60%,75%,90%,100%{transition-timing-function:cubic-bezier(0.215,.610,.355,1.000)}
+	  0%{opacity:0;transform:translate3d(0,300rpx,0)}
+	  60%{opacity:1;transform:translate3d(0,-25rpx,0)}
+	  75%{transform:translate3d(0,10rpx,0)}
+	  90%{transform:translate3d(0,-5rpx,0)}
+	  100%{transform:none}
+}
+@keyframes up{
+	  from{opacity: 0;transform:translate3d(0,100%,0)}
+	  to{opacity:1;transform:translate3d(0,0,0)}
+}
+@keyframes fixedBottomShow{
+	  from{opacity: 0;transform:translate3d(0,100%,0)}
+	  to{opacity:1;transform:translate3d(0,0,0)}
+}
+@keyframes fixedBottomHide{
+	  from{opacity: 1;transform:translate3d(0,0,0)}
+	  to{opacity:0;transform:translate3d(0,100%,0)}
+}
