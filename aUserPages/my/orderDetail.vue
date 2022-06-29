@@ -1,7 +1,7 @@
 <template>
 	<view class="flex_column padding_bottom_m">
 		<view class="box_690 padding_0_l ">
-			<view class="flex_row border_bottom padding_l_0" v-for="(value,key) in orderDetail">
+			<view class="flex_row border_bottom padding_l_0" v-for="(value,key) in orderDetail" :key="key">
 				<view class="font_size_text_xl color_black_333 font_weight">
 					{{key}}
 				</view>
@@ -9,15 +9,11 @@
 					{{value}}
 				</view>
 			</view>
-			<view class="padding_m_xl step_box margin_top_m margin_bottom_m" v-if="status == 2 || status == 3 || status == 4"> 
-				<u-steps current="2"  activeColor="#FF6437" inactiveColor="#999999" activeIcon="/static/image/orderDetail01.png" inactiveIcon="/static/image/orderDetail02.png">
-					<u-steps-item title="提交订单" desc="2022-05-12 08:23:59" iconSize="40"></u-steps-item>
-					<u-steps-item title="付款成功" desc="2022-05-12 08:24:05" iconSize="40"></u-steps-item>
-					<u-steps-item title="待接单" desc="2022-05-12 08:24:09" iconSize="40"></u-steps-item>
-					<u-steps-item title="已完成" iconSize="40" ></u-steps-item>
-				</u-steps>
+			<view class=" step_box margin_top_m margin_bottom_m padding_top_xl padding_bottom_l" v-if="status == 2 || status == 3 || status == 4"> 
+				<step :value="2"> </step>
 			</view>
 		</view>
+		
 		<!-- <image src="../.." mode=""></image> -->
 		<view class="flex_row margin_top_xxl" v-if="status == 1">
 			<view class="detail_white_m">
@@ -42,7 +38,11 @@
 </template>
 
 <script>
+	import step from "@/components/step.vue"
 	export default {
+		components:{
+			step
+		},
 		data() {
 			return {
 				orderDetail: {
@@ -97,5 +97,6 @@
 		width: 630rpx;
 		background-color: #F8F8F8;
 		border-radius: 20rpx;
+		box-sizing: border-box;
 	}
 </style>

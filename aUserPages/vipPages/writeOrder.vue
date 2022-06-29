@@ -64,7 +64,7 @@
 			@close="cancelSelect">
 		</u-picker>
 		<u-datetime-picker :show="timeShow" v-model="orderInfo.time" mode="datetime" :formatter="formatter"
-			@confirm="sureSelectTime" @close="cancelSelectTime"></u-datetime-picker>
+			@confirm="sureSelectTime" @close="cancelSelectTime" ></u-datetime-picker>
 		<!-- <u-popup :show="show" mode="bottom" :round="15" :closeable="true"  @close="close" @open="open">
 		    <view>
 		        <text>人生若只如初见，何事秋风悲画扇</text>

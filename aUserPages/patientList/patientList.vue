@@ -1,6 +1,6 @@
 <template>
-	<view class="padding_left_l padding_top_xl">
-		<block v-for="(item,index) in patientList" v-if="patientList.length >0">
+	<view class=" padding_l">
+		<block v-for="(item,index) in patientList" v-if="patientList.length >0" :key="index">
 			<view class="box_690 flex_row padding_l">
 				<view class="">
 					<view class="flex_row">
@@ -23,7 +23,7 @@
 					</view>
 				</view>
 				<view class="flex_column margin_left margin_top_l patient_info">
-					<view class="update_patient">
+					<view class="update_patient" @click="addPatient">
 						修改
 					</view>
 					<view class="update_patient margin_top_m">
@@ -60,7 +60,8 @@
 				uni.navigateTo({
 					url:'/aUserPages/patientList/addPatient'
 				})
-			}
+			},
+			
 		}
 	}
 </script>

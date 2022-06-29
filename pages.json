@@ -1,144 +1,350 @@
 {
 	"easycom": {
-			"^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
-		},
-	
+		"^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
+	},
+
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "首页"
+				"navigationStyle": "custom"
+				
+				
 			}
 		}
 	],
 	"subPackages": [{
-			"root": "aUserPages",
-			"pages": [{
-                    "path" : "vipPages/vipPages",
+		"root": "aUserPages",
+		"pages": [{
+				"path": "vipPages/vipPages",
+				"style": {
+					"navigationBarTitleText": "VIP服务包",
+					"enablePullDownRefresh": true,
+					"backgroundColor": "#ffffff"
+				}
+
+			}, {
+				"path": "vipPages/writeOrder",
+				"style": {
+					"navigationBarTitleText": "填写订单",
+					"enablePullDownRefresh": true,
+					"backgroundColor": "#ffffff"
+				}
+
+			}, {
+				"path": "patientList/patientList",
+				"style": {
+					"navigationBarTitleText": "就诊人信息",
+					"enablePullDownRefresh": true,
+					"backgroundColor": "#ffffff"
+				}
+
+			}, {
+				"path": "patientList/addPatient",
+				"style": {
+					"navigationBarTitleText": "添加诊人",
+					"enablePullDownRefresh": false,
+					"backgroundColor": "#ffffff"
+				}
+
+			}, {
+				"path": "vipPages/wholeProcess ",
+				"style": {
+					"navigationBarTitleText": "全程陪诊",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "hospital/hospital",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "hospital/expertAppoing",
+				"style": {
+					"navigationBarTitleText": "名家有约",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "address/address",
+				"style": {
+					"navigationBarTitleText": "请选择服务城市",
+					"enablePullDownRefresh": true
+				}
+
+			}, {
+				"path": "my/my",
+				"style": {
+					"navigationBarTitleText": "我的",
+					"enablePullDownRefresh": true
+				}
+
+			}, {
+				"path": "my/myOrder",
+				"style": {
+					"navigationBarTitleText": "我的订单",
+					"enablePullDownRefresh": true
+				}
+
+			}, {
+				"path": "my/orderDetail",
+				"style": {
+					"navigationBarTitleText": "订单详情",
+					"enablePullDownRefresh": true
+				}
+
+			}, {
+				"path": "my/evaluate",
+				"style": {
+					"navigationBarTitleText": "评价",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "my/invoice",
+				"style": {
+					"navigationBarTitleText": "开具发票",
+					"enablePullDownRefresh": true
+				}
+
+			}, {
+				"path": "my/refund",
+				"style": {
+					"navigationBarTitleText": "申请退款",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "integralShop/integralShop",
+				"style": {
+					"navigationBarTitleText": "积分商城",
+					"enablePullDownRefresh": true
+				}
+
+			}, {
+				"path": "integralShop/shopDetail/shopDetail",
+				"style": {
+					"navigationBarTitleText": "商品详情",
+					"enablePullDownRefresh": true
+				}
+
+			}, {
+				"path": "integralShop/confirm/confirm",
+				"style": {
+					"navigationBarTitleText": "订单确认",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "my/addAddress/addAddress",
+				"style": {
+					"navigationBarTitleText": "添加地址",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "resultPage/resultPage",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "my/dongdong/dongdong",
+				"style": {
+					"navigationBarTitleText": "咚咚币",
+					"enablePullDownRefresh": true
+				}
+
+			}, {
+				"path": "my/myCard/myCard",
+				"style": {
+					"navigationBarTitleText": "我的卡包",
+					"enablePullDownRefresh": true
+				}
+
+			}, {
+				"path": "my/myCard/withdrawal",
+				"style": {
+					"navigationBarTitleText": "提现",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "inviteFriends/inviteFriends",
+				"style": {
+					"navigationBarTitleText": "邀请好友",
+					"enablePullDownRefresh": false
+				}
+
+			}
+
+			, {
+				"path": "my/myCard/recharge",
+				"style": {
+					"navigationBarTitleText": "充值",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "inviteFriends/myFriend",
+				"style": {
+					"navigationBarTitleText": "我的好友",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "question/question",
+				"style": {
+					"navigationBarTitleText": "常见问题",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "contract/contract",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "setTime/setTime",
+				"style": {
+					"navigationBarTitleText": "消息推送设置",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "healthy/healthy",
+				"style": {
+					"navigationStyle": "custom"
+				}
+
+			}, {
+				"path": "healthy/healthyCon/healthyCon",
+				"style": {
+					"navigationBarTitleText": "标题",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "healthy/comment/comment",
+				"style": {
+					"navigationBarTitleText": "标题",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "login/login",
+				"style": {
+					"navigationBarTitleText": "登录",
+					"enablePullDownRefresh": false
+				}
+
+			}, {
+				"path": "login/register/register",
+				"style": {
+					"navigationBarTitleText": "注册",
+					"enablePullDownRefresh": false
+				}
+
+			}
+		    ,{
+                    "path" : "my/myCard/addCard/addCard",
                     "style" :                                                                                    
                 {
-                    "navigationBarTitleText": "VIP服务包",
-                    "enablePullDownRefresh": true,
-					"backgroundColor":"#ffffff"
-                }
-                
-                }
-                ,{
-                    "path" : "vipPages/writeOrder",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "填写订单",
-                    "enablePullDownRefresh": true,
-					"backgroundColor":"#ffffff"
-                }
-                
-                }
-                ,{
-                    "path" : "patientList/patientList",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "就诊人信息",
-                    "enablePullDownRefresh": true,
-					"backgroundColor":"#ffffff"
-                }
-                
-                }
-                ,{
-                    "path" : "patientList/addPatient",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "添加诊人",
-                    "enablePullDownRefresh": false,
-					"backgroundColor":"#ffffff"
-                }
-                
-                }
-                ,{
-                    "path" : "vipPages/wholeProcess ",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "全程陪诊",
+                    "navigationBarTitleText": "新增银行卡",
                     "enablePullDownRefresh": false
-                }
-                
-                }
-                ,{
-                    "path" : "hospital/hospital",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "",
-                    "enablePullDownRefresh": false
-                }
-                
-                }
-                ,{
-                    "path" : "hospital/expertAppoing",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "名家有约",
-                    "enablePullDownRefresh": false
-                }
-                
-                }
-                ,{
-                    "path" : "address/address",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "请选择服务城市",
-                    "enablePullDownRefresh": true
-                }
-                
-                }
-                ,{
-                    "path" : "my/my",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "我的",
-                    "enablePullDownRefresh": true
-                }
-                
-                }
-                ,{
-                    "path" : "my/myOrder",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "我的订单",
-                    "enablePullDownRefresh": true
-                }
-                
-                }
-                ,{
-                    "path" : "my/orderDetail",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "订单详情",
-                    "enablePullDownRefresh": true
-                }
-                
-                }
-                ,{
-                    "path" : "my/evaluate",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "评价",
-                    "enablePullDownRefresh": false
-                }
-                
-                }
-                ,{
-                    "path" : "my/invoice",
-                    "style" :                                                                                    
-                {
-                    "navigationBarTitleText": "开具发票",
-                    "enablePullDownRefresh": true
                 }
                 
                 }
             ]
-		}, {
-			"root": "accompanyPages",
-			"pages": []
-		}],
+	}, {
+		"root": "accompanyPages",
+		"pages": [{
+			"path": "acceptOrder/acceptOrder",
+			"style": {
+				"navigationBarTitleText": "接单",
+				"enablePullDownRefresh": true
+			}
+
+		}    ,{
+                    "path" : "orderList/orderList",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "订单列表",
+                    "enablePullDownRefresh": true
+                }
+                
+                }
+                ,{
+                    "path" : "selfInfo/selfInfo",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "我的",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+                ,{
+                    "path" : "selfInfo/updateSelfInfo/updateSelfInfo",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "我的",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+                ,{
+                    "path" : "commentList/commentList",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "评价列表",
+                    "enablePullDownRefresh": true
+                }
+                
+                }
+                ,{
+                    "path" : "inform/inform",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "通知",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+                ,{
+                    "path" : "cancelDetail/cancelDetail",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "我的钱包",
+                    "enablePullDownRefresh": true
+                }
+                
+                }
+                ,{
+                    "path" : "wallet/wallet",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "钱包",
+                    "enablePullDownRefresh": true
+                }
+                
+                }
+                ,{
+                    "path" : "feedback/feedback",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "常见问题",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+            ]
+	}],
 	// "preloadRule": { // 分包预载配置。
 	// 		"pagesB/detail/detail": {
 	// 			"network": "all",

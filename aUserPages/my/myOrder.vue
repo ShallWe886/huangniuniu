@@ -1,15 +1,6 @@
 <template>
-	<view class="padding_bottom_m">
-		<view class="" style="background-color: #ffffff;">
-			<view class="flex_row width_all order_input_box margin_left_l padding_0_s  ">
-				<u-icon name="search" size="40" color="#999999"></u-icon>
-				<input type="text" style="width: 600rpx;" placeholder="请输入搜索内容" v-model="keyWord"
-					placeholder-class="font_size_text_m color_black_999">
-				<view>
-					<u-icon name="mic" size="30" color="#999999"></u-icon>
-				</view>
-			</view>
-		</view>
+	<view class="fixed_padding_bottom_xxxl">
+		<search></search>
 
 		<view class="flex_row justify_around order_top_box">
 			<view class="order_top_item padding_bottom_s" :class="{'active':orderIndex == index}"
@@ -74,13 +65,13 @@
 				</view>
 			</view>
 		</view>
-		<u-popup :show="cancelStatus" :closeable="true" mode="center" :round="20" @close="closeQuick">
-			<view class="flex_column padding_xl">
+		<u-popup :show="cancelStatus" :closeable="true" mode="center" :round="20" @close="closeQuick" customStyle="width:600rpx;padding:60rpx;box-sizing: border-box;">
+			<view class="flex_column ">
 
 				<view class="font_size_title_s color_black_666  margin_top_s" @click="setText">
 					确定取消此订单吗？
 				</view>
-				<view class="flex_row margin_top_xl" >
+				<view class="flex_row margin_top_xl">
 					<view class="quick_btn font_size_title_s color_orange " @click="closeQuickPop(0)">
 						取消
 					</view>
@@ -90,19 +81,28 @@
 				</view>
 			</view>
 		</u-popup>
-		<u-popup :show="cancelSucess" :closeable="true" mode="center" :round="20" @close="closeSucess" customStyle="width:280rpx;">
-			<view class="flex_column padding_xl">
+		<u-popup :show="cancelSucess" :closeable="true" mode="center" :round="20" @close="closeSucess"
+			customStyle="width:600rpx;padding:60rpx;box-sizing: border-box;">
+			<view class="flex_column ">
 				<image src="/static/image/cancelSucessImg.png" mode="aspectFill" class="cancelSucessImg"></image>
 				<view class="font_size_title_xxl color_orange font_weight margin_top_m ">
 					取消成功
 				</view>
 			</view>
 		</u-popup>
+		<!-- 底部导航栏 -->
+		<keep-alive>
+			<tabbar :type='2' ></tabbar>
+		</keep-alive>
 	</view>
 </template>
 
 <script>
+	import search from '@/components/search.vue'
 	export default {
+		components: {
+			search
+		},
 		data() {
 			return {
 				orderTitleList: [{
@@ -205,13 +205,6 @@
 		background: #FF6437;
 	}
 
-	.order_input_box {
-		width: 690rpx;
-		border-radius: 30rpx;
-		background-color: #F5F5F5;
-		height: 60rpx;
-	}
-
 	.order_top_box {
 		background-color: #fff;
 		height: 90rpx;
@@ -270,5 +263,11 @@
 	.cancelSucessImg {
 		width: 160rpx;
 		height: 160rpx;
+	}
+
+	.cancel_box {
+		width: 600rpx;
+		padding: 60rpx;
+		box-sizing: border-box;
 	}
 </style>

@@ -1,9 +1,11 @@
 import App from './App'
 import tabbar from "@/components/tabbar.vue"
+import uFoot from "@/components/u-foot/u-foot.vue"
 // #ifndef VUE3
 import Vue from 'vue'
 Vue.config.productionTip = false
-Vue.component('tabbar', tabbar);  
+Vue.component('tabbar', tabbar); 
+ Vue.component('uFoot', uFoot);  
 App.mpType = 'app'
 const app = new Vue({
     ...App

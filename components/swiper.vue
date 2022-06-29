@@ -1,15 +1,15 @@
 <template>
 	<view>
 		<!-- 详情轮播图 -->
-		<swiper :style="{height:height+'px',width:width+'rpx'}" :indicator-dots="true" @change="change">
+		<swiper :style="{height:height+'px',width:width+'rpx'}" indicator-active-color='#FF6437' indicator-color="#FBCCBF" :indicator-dots="true" @change="change">
 			<block v-for="(item,index) in list">
-				<swiper-item :style="{height:height+'px',width:width+'rpx'}">
+				<swiper-item :style="{height:height+'px',width:width+'rpx'}"  >
 					<view >
 						<image :src="item.url" mode="aspectFill" :style="{height:height+'px',width:width+'rpx'}" @click="lookImg(item,index)"></image>
 					</view>
-					<!-- <view :style="{height:height+'px',width:width+'rpx'}" else>
+					<view :style="{height:height+'px',width:width+'rpx'}" else>
 						<video :src="item.url" controls  :loop="true"  :style="{height:height+'px',width:width+'rpx'}" :show-mute-btn="true"  :enable-play-gesture="true" :id="MyVideo"></video>
-					</view> -->
+					</view>
 				</swiper-item>
 			</block>
 		</swiper>
@@ -58,7 +58,7 @@
 				}
 				this.list.push({'url':res,"status":status})
 			})
-			console.log(this.preview,"lirb")
+			// console.log(this.preview,"lirb")
 		
 		
 		},

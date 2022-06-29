@@ -10,12 +10,12 @@
 							<view class="font_size_title_l color_black_333 font_weight">
 								钢铁**超甜
 							</view>
-							<view class="patient_man color_white font_size_text_s margin_left">
+							<view class="patient_man color_white font_size_text_s margin_left" @click="toManPatient">
 								患者管理
 							</view>
 						</view>
 						<view class="flex_row margin_top_l">
-							<view class="flex_row my_label">
+							<view class="flex_row my_label" @click="lookIntShop">
 								<image src="/static/image/my_label_img01.png" mode="aspectFill" class="label_img">
 								</image>
 								<view class="font_size_text_s color_orange flex_row">
@@ -25,10 +25,10 @@
 									<u-icon name="arrow-right" color="#FF6437" size="25"></u-icon>
 								</view>
 							</view>
-							<view class="flex_row my_label margin_left_m">
+							<view class="flex_row my_label margin_left_m" @click="lookDong">
 								<image src="/static/image/my_label_img02.png" mode="aspectFill" class="label_img">
 								</image>
-								<view class="font_size_text_s color_orange flex_row">
+								<view class="font_size_text_s color_orange flex_row" >
 									<view class="margin_right_xs">
 										冬冬币 96
 									</view>
@@ -61,21 +61,21 @@
 		</view>
 
 		<view class="flex_row  margin_left_l margin_top_l">
-			<view class="my_center_box">
+			<view class="my_center_box" >
 				<image src="/static/image/my_center01.png" mode="aspectFill"></image>
-				<view class="my_center_item">
+				<view class="my_center_item" >
 					<view class="font_size_title_m color_white font_weight">
 						邀请好友
 					</view>
 					<view class="font_size_text_s color_white margin_top_s">
 						副标题副标题
 					</view>
-					<view class="font_size_text_xs color_white my_center_invite margin_top_s">
+					<view class="font_size_text_xs color_white my_center_invite margin_top_s" @click="invitefriend">
 						立即邀请
 					</view>
 				</view>
 			</view>
-			<view class="my_center_box margin_left_l">
+			<view class="my_center_box margin_left_l" >
 				<image src="/static/image/my_center02.png" mode="aspectFill"></image>
 				<view class="my_center_item">
 					<view class="font_size_title_m color_white font_weight">
@@ -84,13 +84,13 @@
 					<view class="font_size_text_s color_white margin_top_s">
 						副标题副标题
 					</view>
-					<view class="font_size_text_xs color_white my_center_invite margin_top_s">
+					<view class="font_size_text_xs color_white my_center_invite margin_top_s" @click="lookQuestion">
 						立即查看
 					</view>
 				</view>
 			</view>
 		</view>
-		<view class="flex_row my_list margin_left_l margin_top_xl margin_bottom_m" v-for="(item,index) in myList">
+		<view class="flex_row my_list margin_left_l margin_top_xl margin_bottom_m" v-for="(item,index) in myList" @click="lookItem(item,index)" :key="index">
 			<image :src="item.img" mode="aspectFill"></image>
 			<view class="font_size_text_l color_black_333 margin_left_l">
 				{{item.title}}
@@ -105,12 +105,29 @@
 				<u-icon name="arrow-right"></u-icon>
 			</view>
 		</view>
-		<view class="my_out font_size_text_l color_black_333 margin_top_l">
+		<view class="my_out font_size_text_l color_black_333 margin_top_l" @click="signOut">
 			退出登录
 		</view>
-		
+		<u-popup :show="clearShow" :round="20" mode="center" :closeable="true" @close="closeClaer">
+			<view style="width: 600rpx; height: 390rpx;box-sizing: border-box;padding-top: 80rpx;" class="flex_column">
+				<view class="font_weight font_size_title_xl color_black_333 text_align_center">
+					清除缓存
+				</view>
+				<view class="margin_top_l color_black_666 font_size_text_l margin_top_l text_align_center">
+					所有缓存将会被清除
+				</view>
+				<view class="flex_row margin_top_xl">
+					<view class="quick_btn font_size_title_s color_orange " @click="closeQuickPop(0)">
+						取消
+					</view>
+					<view class="quick_btn font_size_title_s color_white margin_left_l" @click="closeQuickPop(1)">
+						确认
+					</view>
+				</view>
+			</view>
+		</u-popup>
 		<keep-alive>
-			<tabbar :type='5' ></tabbar>
+			<tabbar :type='5'></tabbar>
 		</keep-alive>
 		<!-- <tabbar :type='1'></tabbar> -->
 	</view>
@@ -120,6 +137,7 @@
 	export default {
 		data() {
 			return {
+				clearShow: false,
 				orderList: [{
 						title: '待付款',
 						img: '/static/image/my_order01.png'
@@ -149,7 +167,8 @@
 					{
 						img: '/static/image/my_list02.png',
 						title: '消息推送设置',
-						isShow: 'true'
+						isShow: 'true',
+						src:'/aUserPages/setTime/setTime'
 					},
 					{
 						img: '/static/image/my_list03.png',
@@ -159,21 +178,77 @@
 					{
 						img: '/static/image/my_list04.png',
 						title: '用户协议',
-						isShow: 'true'
+						isShow: 'true',
+						src:'/aUserPages/contract/contract'
 					},
 					{
 						img: '/static/image/my_list05.png',
 						title: '隐私条款',
-						isShow: 'true'
+						isShow: 'true',
+						src:'/aUserPages/contract/contract'
 					},
 				]
 			}
 		},
 		methods: {
 			//查看订单
-			toMyOrder(status){
+			toMyOrder(status) {
+				uni.reLaunch({
+					url: "/aUserPages/my/myOrder?status=" + status
+				})
+			},
+			invitefriend(e){ // 邀请好友
 				uni.navigateTo({
-					url:"/aUserPages/my/myOrder?status="+status
+					url:"/aUserPages/inviteFriends/inviteFriends"
+				})
+			},
+			lookQuestion(e){ //常见问题
+				uni.navigateTo({
+					url:"/aUserPages/question/question"
+				})
+			},
+			lookItem(item,index){
+				if(index == 0){
+					
+				}else if(index == 1){
+					uni.navigateTo({
+						url:item.src
+					})
+				}else if(index == 2){
+					this.clearShow = true
+				}else if(index == 3){
+					uni.navigateTo({
+						url:item.src+"?type="+0
+					})
+				}else if(index == 4){
+					uni.navigateTo({
+						url:item.src+"?type="+1
+					})
+				}
+			},
+			lookDong(e){//查看东东币
+			console.log(11111111)
+				uni.navigateTo({
+					url:"/aUserPages/my/dongdong/dongdong"
+				})
+				
+			},
+			lookIntShop(e){//积分商城
+				uni.navigateTo({
+					url:"/aUserPages/integralShop/integralShop"
+				})
+			},
+			toManPatient(e){//患者管理
+				uni.navigateTo({
+					url:"/aUserPages/patientList/patientList"
+				})
+			},
+			closeClaer(e){
+				this.clearShow = false
+			},
+			signOut(e){
+				uni.navigateTo({
+					url:'/aUserPages/login/login'
 				})
 			}
 		}
@@ -192,9 +267,12 @@
 		}
 
 		.avator_box {
+			width: 750rpx;
 			position: absolute;
 			top: 40rpx;
-			left: 30rpx;
+			left:0;
+			padding-left: 30rpx;
+			box-sizing: border-box;
 		}
 
 		.avator_img {
@@ -268,8 +346,8 @@
 			height: 42rpx;
 		}
 	}
-	
-	.my_out{
+
+	.my_out {
 		width: 280rpx;
 		height: 70rpx;
 		line-height: 70rpx;
@@ -277,5 +355,23 @@
 		border-radius: 40rpx;
 		background-color: #FAE5DD;
 		margin-left: 235rpx;
+	}
+
+	.quick_btn {
+		width: 220rpx;
+		text-align: center;
+		height: 72rpx;
+		line-height: 72rpx;
+		border-radius: 70rpx;
+
+
+		&:nth-child(1) {
+			background-color: #f8f8f8;
+			border: 2rpx solid #FF6437;
+		}
+
+		&:nth-child(2) {
+			background: linear-gradient(to right, #FF6437, #FF9B51);
+		}
 	}
 </style>

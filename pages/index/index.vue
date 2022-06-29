@@ -1,5 +1,16 @@
 <template>
 	<view class="margin_0_l fixed_padding_bottom_xxxl">
+		<zq-navbar :props="{'navbarTitle':'首页','hasLocation':true}" >
+			  <template v-slot:left>
+				  <view class="flex_row" @click="goAddress">
+				  	<u-icon name="map" color="#333333" size="30"></u-icon>
+					<view class="font_size_title_s color_black_333  padding_0_s">
+						深圳市
+					</view>
+					<u-icon name="arrow-down-fill" color="#333333" size="30"></u-icon>
+				  </view>
+			  </template>
+		</zq-navbar>
 		<view class="  margin_top_m">
 			<u-swiper :list="swiperList" @click="lookSwiper" indicator indicatorMode="dot" circular height="280">
 			</u-swiper>
@@ -17,7 +28,7 @@
 		<view class="margin_top_xl color_black_333 font_weight font_size_title_l padding_bottom_m">
 			医院列表
 		</view>
-		<block v-for="(item,index) in clinicList">
+		<block v-for="(item,index) in clinicList" :key="index">
 			<view class="box_690 flex_row padding_s_m" @click="lookDetail(item,index)">
 				<image src="" class="clinic_img flex_shrink"></image>
 				<view class=" padding_left_m">
@@ -34,30 +45,9 @@
 				</view>
 			</view>
 		</block>
-
-
-		<u-popup :show="quickAppointShow" :closeable="true" mode="center" :round="20" @close="closeQuick">
-			<view class="flex_column padding_xl">
-				<view class="font_size_title_xxl color_black_333 font_weight">
-					咨询热线
-				</view>
-				<view class="font_size_title_xl color_black_333 font_weight margin_top_s" @click="setText">
-					010-6565-556
-				</view>
-				<view class="flex_row margin_top_xl">
-					<view class="quick_btn font_size_title_s color_orange " @click="closeQuickPop(0)">
-						取消
-					</view>
-					<view class="quick_btn font_size_title_s color_white margin_left_l" @click="closeQuickPop(1)">
-						确认
-					</view>
-				</view>
-			</view>
-		</u-popup>
-
 		<!-- 底部导航栏 -->
 		<keep-alive>
-			<tabbar :type='1' @openQuickShow="openQuickShow"></tabbar>
+			<tabbar :type='1' ></tabbar>
 		</keep-alive>
 
 	</view>
@@ -93,6 +83,11 @@
 
 		},
 		methods: {
+			goAddress(e){//定位
+				uni.navigateTo({
+					url:"/aUserPages/address/address"
+				})
+			},
 			lookSwiper(e) {
 				//查看轮播图
 			},
@@ -121,35 +116,6 @@
 					url: '/aUserPages/hospital/hospital'
 				})
 			},
-			setText(e) {
-				//点击复制
-				uni.setClipboardData({
-					data: '010-6565-556',
-					success: function() {
-						uni.showToast({
-							title: "复制成功",
-							icon: "none"
-						})
-					}
-				});
-			},
-			closeQuickPop(type) {
-				this.quickAppointShow = !this.quickAppointShow
-				if (type == 1) {
-					uni.makePhoneCall({
-						phoneNumber: '010-6565-556' //仅为示例
-					});
-				}
-			},
-			closeQuick(e) {
-				console.log("关闭")
-				this.quickAppointShow = false
-			},
-			openQuickShow(e){
-				if(e == 'open'){
-					this.quickAppointShow = true
-				}
-			}
 		}
 	}
 </script>
@@ -185,21 +151,5 @@
 		background-color: #f8f8f8;
 	}
 
-	.quick_btn {
-		width: 220rpx;
-		text-align: center;
-		height: 72rpx;
-		line-height: 72rpx;
-		border-radius: 70rpx;
-
-
-		&:nth-child(1) {
-			background-color: #f8f8f8;
-			border: 2rpx solid #FF6437;
-		}
-
-		&:nth-child(2) {
-			background: linear-gradient(to right, #FF6437, #FF9B51);
-		}
-	}
+	
 </style>
