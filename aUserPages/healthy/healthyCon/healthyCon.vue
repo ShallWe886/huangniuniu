@@ -1,8 +1,8 @@
 <template>
 	<view>
 		<view class="box_690 padding_l margin_left_l">
-			<view class="" style="width: 630rpx;height: 750rpx;border:1rpx solid #E6E6E6;	border-radius: 10rpx;">
-				<rich-text :nodes="con"></rich-text>
+			<view class="" style="width: 630rpx;height: 750rpx;border:1rpx solid #E6E6E6;	border-radius: 10rpx;padding: 30rpx;">
+				<rich-text :nodes="con" ></rich-text>
 			</view>
 
 		</view>
@@ -44,11 +44,15 @@
 				</view>
 			</view>
 		</view>
-		<u-popup :show="sharePop" mode="bottom" :round="30" closeable='true' @close="closePop">
+		<u-popup :show="sharePop" mode="bottom" :round="30"  @close="closePop">
 			<view class="padding_l">
-				<view class="font_weight color_black_333 font_size_text_xl">
-					请选择分享方式
+				<view class="flex_row">
+					<view class="font_weight color_black_333 font_size_text_xl">
+						请选择分享方式
+					</view>
+					<image src="/static/image/health_close.png" mode="aspectFill" class="close_icon margin_left"></image>
 				</view>
+				
 				<view class="flex_row justify_between margin_bottom_l padding_xs margin_top_l">
 					<view class="flex_column" v-for="(item,index) in shareList" :key="index">
 						<image :src="item.img" mode="aspectFill" class="share_img"></image>

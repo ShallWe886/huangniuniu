@@ -86,7 +86,7 @@
 		methods: {
 			toSucess(e){//支付成功
 				uni.navigateTo({
-					url:"/aUserPages/resultPage/resultPage?type="+0
+					url:"/aUserPages/resultPage/resultPage?type="+3
 				})
 			},
 			selectAddress(e){

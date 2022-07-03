@@ -1,5 +1,5 @@
 <template>
-	<view class=" padding_l">
+	<view class=" padding_bottom_l padding_left_l">
 		<block v-for="(item,index) in patientList" v-if="patientList.length >0" :key="index">
 			<view class="box_690 flex_row padding_l">
 				<view class="">

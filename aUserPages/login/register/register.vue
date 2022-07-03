@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="padding_bottom_m">
 		<view class="flex_row margin_top_xl margin_left_l">
 			<view class="add_bg"></view>
 			<view class="font_size_title_l color_black_333 font_weight margin_left_s">
@@ -17,7 +17,7 @@
 				</view>
 
 			</view>
-			<view class="flex_row padding_l_0 border_bottom" v-if="key == 'name'">
+			<view class="flex_row padding_l_0 border_bottom" >
 				<view class="font_size_text_xl color_black_333 font_weight">
 					性别
 				</view>
@@ -147,5 +147,9 @@
 		color: #FF6437;
 		font-size: 28rpx;
 		border-radius: 8rpx;
+	}
+	.icon_img {
+		width: 32rpx;
+		height: 32rpx;
 	}
 </style>

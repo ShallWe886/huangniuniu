@@ -13,7 +13,7 @@
 		</zq-navbar>
 		<search></search>
 		<view class="  margin_top_m padding_0_l">
-			<u-swiper :list="swiperList" @click="lookSwiper" indicator indicatorMode="dot" circular height="280">
+			<u-swiper :list="swiperList" @click="lookSwiper" indicator indicatorMode="dot" circular height="280" :radius="20">
 			</u-swiper>
 			<scroll-view scroll-x="true" style="width: 690rpx;margin-top: 20rpx;padding-left: 20rpx;box-sizing: border-box;" >
 				<view class="flex_row">
@@ -27,7 +27,7 @@
 				</view>
 			</scroll-view>
 			<view class="box_690 health_box" v-for="(item,index) in healthList" :key="index" @click="lookDetail(item)">
-				<image src="" mode="aspectFill" class="health_img"></image>
+				<image :src="imageUrl+'/health_item.png'" mode="aspectFill" class="health_img"></image>
 				<view class="margin_top_m padding_left_l padding_right_l padding_bottom_m">
 					<view class="font_size_title_s color_black font_weight text_overflow_1">
 						早餐决定着每个人健康

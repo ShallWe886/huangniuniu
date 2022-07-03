@@ -28,7 +28,7 @@
 			</view>
 		</view>
 		<view class="box_690 padding_l_m">
-			<view class="work_item flex_row padding_s_m" v-for="(item,index) in timeList">
+			<view class="work_item flex_row padding_s_m margin_bottom_m" v-for="(item,index) in timeList">
 				<view class="flex_column padding_right_m time_right">
 					<view class="font_size_title_m color_orange font_weight">
 						周 二

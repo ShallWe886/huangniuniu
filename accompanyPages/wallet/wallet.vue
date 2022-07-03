@@ -25,12 +25,21 @@
 		</view>
 		<view class="box_690 padding_0_l">
 			<view class="flex_row justify_around border_bottom">
-				<view class="select_box padding_m_0" :class="{'active':selectId == 0}" @click="select(0)">
-					收入明细
+				<view class="flex_column">
+					<view class="select_box padding_m_0" :class="{'active':selectId == 0}" @click="select(0)">
+						充值记录
+					</view>
+					<view class="border_box" :class="{'active':selectId == 0}">
+					</view>
 				</view>
-				<view class="select_box padding_m_0" :class="{'active':selectId == 1}" @click="select(1)">
-					提现记录
+				<view class="flex_column">
+					<view class="select_box padding_m_0" :class="{'active':selectId == 1}" @click="select(1)">
+						提现记录
+					</view>
+					<view class="border_box" :class="{'active':selectId == 1}">
+					</view>
 				</view>
+				
 			</view>
 			<view class="flex_row border_bottom padding_l_0" v-for="(item,index) in list" :key="index">
 				<view class="">
@@ -98,7 +107,7 @@
 			position: absolute;
 			top: 0;
 			left: 0%;
-			padding: 40rpx;
+			padding: 40rpx 40rpx 30rpx 50rpx;
 			box-sizing: border-box;
 			.wallet_label{
 				width: 130rpx;
@@ -116,10 +125,18 @@
 		font-size: 36rpx;
 		color: #333333;
 		font-weight: bold;
-		border-bottom: 10rpx solid #ffffff;
 		&.active{
 			color: #FF6437;
-			border-bottom: 6rpx solid #FF6437;
+		}
+	}
+	.border_box{
+		width: 80rpx;
+		height: 6rpx;
+		border-radius: 3rpx;
+		background: #ffffff;
+		
+		&.active{
+			background: linear-gradient(135deg, #FF6437 0%, #FF9B51 100%);
 		}
 	}
 </style>

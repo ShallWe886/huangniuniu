@@ -25,6 +25,18 @@
 					重新支付
 				</view>
 			</block>
+			<block v-if="type == 3">
+				<image src="/static/image/order_result01.png" mode="aspectFill" class="result_img"></image>
+				<view class=" font_weight margin_top_xl" style="font-size: 50rpx;color: #17CD44;">
+					支付成功
+				</view>
+				<view class="margin_top_xxl color_black_999 font_size_title_l">
+					支付金额：<text class="font_weight color_black_333" style="font-size: 50rpx;">¥299.00</text>
+				</view>
+				<view class="result_button">
+					返回首页
+				</view>
+			</block>
 		</view>
 		
 
@@ -35,7 +47,7 @@
 	export default {
 		data() {
 			return {
-				type: 0 // 0：接单成功 1：支付失败
+				type: 0 // 0：接单成功 1：支付失败 3：支付成功
 			}
 		},
 		onLoad(options) {

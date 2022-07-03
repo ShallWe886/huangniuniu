@@ -1,7 +1,7 @@
 <template>
 	<view class="fixed_padding_bottom_xxxl">
 		<view class="bg_box">
-			<image src="/static/image/my_bg.png" mode="aspectFill" class="my_bg"></image>
+			<image :src="imageUrl+'/my_bg.png'" mode="aspectFill" class="my_bg"></image>
 			<view class="avator_box">
 				<view class="flex_row ">
 					<image src="/static/image/avator.png" mode="aspectFill" class="avator_img flex_shrink"></image>
@@ -49,7 +49,7 @@
 						</view>
 					</view>
 					<view class="flex_row justify_between margin_top_l">
-						<view class="flex_column" v-for="(item,index) in orderList" @click="toMyOrder(index+1)">
+						<view class="flex_column" v-for="(item,index) in orderList" @click="toMyOrder(index+1)" :key="index">
 							<image :src="item.img" mode="aspectFill" class="my_order_img"></image>
 							<view class="font_size_text_l color_black_333 margin_top_m">
 								{{item.title}}
@@ -62,7 +62,7 @@
 
 		<view class="flex_row  margin_left_l margin_top_l">
 			<view class="my_center_box" >
-				<image src="/static/image/my_center01.png" mode="aspectFill"></image>
+				<image :src="imageUrl+'/my_center01.png'" mode="aspectFill"></image>
 				<view class="my_center_item" >
 					<view class="font_size_title_m color_white font_weight">
 						邀请好友
@@ -76,7 +76,7 @@
 				</view>
 			</view>
 			<view class="my_center_box margin_left_l" >
-				<image src="/static/image/my_center02.png" mode="aspectFill"></image>
+				<image :src="imageUrl+'/my_center02.png'" mode="aspectFill"></image>
 				<view class="my_center_item">
 					<view class="font_size_title_m color_white font_weight">
 						常见问题
@@ -134,6 +134,7 @@
 </template>
 
 <script>
+	import enviroment from "@/static/js/enviroment.js"
 	export default {
 		data() {
 			return {
@@ -189,6 +190,8 @@
 					},
 				]
 			}
+		},
+		onLoad() {
 		},
 		methods: {
 			//查看订单

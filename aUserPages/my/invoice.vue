@@ -2,7 +2,7 @@
 	<view class="flex_column padding_bottom_l">
 		<view class="box_690 padding_0_l">
 			<view class="flex_row border_bottom padding_l_0">
-				<image src="/static/image/hospitalImg.png" mode="aspectFill" class="invoice_img"></image>
+				<image :src="imageUrl+'/hospitalImg.png'" mode="aspectFill" class="invoice_img"></image>
 				<view class="margin_left_l">
 					<view class="font_size_text_xl color_black_333 ">
 						华夏第一军区医院

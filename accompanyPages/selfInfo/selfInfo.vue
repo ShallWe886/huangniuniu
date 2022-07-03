@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="self_box">
-			<image src="/static/image/my_bg.png" mode="aspectFill" class="my_bg"></image>
+			<image :src="imageUrl+'/my_bg.png'" mode="aspectFill" class="my_bg"></image>
 			<view class="selfInfo_box">
 				<view class="flex_row">
 					<image src="/static/image/avator.png" mode="aspectFill" class="avator_img flex_shrink"></image>

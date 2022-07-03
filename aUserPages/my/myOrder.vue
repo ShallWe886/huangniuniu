@@ -53,13 +53,13 @@
 						去支付
 					</view>
 
-					<view class="btn_orange_m margin_top_l" v-if=" item.status == 2">
+					<view class="btn_orange_m margin_top_l" v-if=" item.status == 2" @click.stop="refund(item,index)">
 						申请退款
 					</view>
 					<view class="btn_white_m margin_top_l" v-if=" item.status == 4">
 						已评价
 					</view>
-					<view class="btn_orange_m margin_left_xl margin_top_l" v-if=" item.status == 4">
+					<view class="btn_orange_m margin_left_xl margin_top_l" v-if=" item.status == 4" @click.stop="toInvoice">
 						申请开票
 					</view>
 				</view>
@@ -150,6 +150,9 @@
 			},
 			selectOrderStatus(status) {
 				this.orderIndex = status
+				this.orderList.map(res=>{
+					res.status = status
+				})
 			},
 			toDetail(item) { //查看详情
 				uni.navigateTo({
@@ -171,6 +174,16 @@
 			},
 			closeSucess(e) {
 				this.cancelSucess = !this.cancelSucess
+			},
+			refund(e){//申请退款
+				uni.navigateTo({
+					url:'/aUserPages/my/refund'
+				})
+			},
+			toInvoice(e){
+				uni.navigateTo({
+					url:"/aUserPages/my/invoice"
+				})
 			}
 
 		}

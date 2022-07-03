@@ -10,7 +10,7 @@
 				</view>
 			</view>
 			<view class=" step_box margin_top_m margin_bottom_m padding_top_xl padding_bottom_l" v-if="status == 2 || status == 3 || status == 4"> 
-				<step :value="2"> </step>
+				<step :value="status"> </step>
 			</view>
 		</view>
 		
@@ -24,7 +24,7 @@
 			</view>
 		</view>
 		<view class="flex_row margin_top_xxl" v-if="status == 4">
-			<view class="detail_white_m">
+			<view class="detail_white_m" @click="toEvalute">
 				评价
 			</view>
 			<view class="detail_orange_m margin_left_xl">
@@ -47,7 +47,7 @@
 			return {
 				orderDetail: {
 					'医院': '华夏第一军区医院',
-					'科室': '内控',
+					'科室': '内容',
 					'时间': '2022-05-12  8:00-9:00',
 					'就诊人': '李先生',
 					'代办人': '无',
@@ -63,7 +63,11 @@
 			this.status = optinos.status
 		},
 		methods: {
-
+			toEvalute(e){
+				uni.navigateTo({
+					url:"/aUserPages/my/evaluate"
+				})
+			}
 		}
 	}
 </script>

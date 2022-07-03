@@ -9,7 +9,7 @@
 					</view>
 				</block>
 				<block v-else>
-					<image src="/static/image/selfInfo00.png" mode="aspectFill" class="foot_img"></image>
+					<image src="/static/image/selfInfo01.png" mode="aspectFill" class="foot_img"></image>
 					<view class="font_size_text_s color_black_888 margin_top_s">
 						接单
 					</view>

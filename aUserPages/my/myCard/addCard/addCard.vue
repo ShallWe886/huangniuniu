@@ -56,7 +56,7 @@
 		</view>
 		<view class="box_690 flex_row ">
 			<view class="flex_row padding_l border_bottom ">
-				<view class="font_size_text_xl color_black_333">
+				<view class="font_size_text_xl color_black_333 flex_shrink">
 					验证码
 				</view>
 				<view class="  margin_left flex_row">

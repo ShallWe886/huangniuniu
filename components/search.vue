@@ -36,5 +36,7 @@
 		border-radius: 30rpx;
 		background-color: #F5F5F5;
 		height: 60rpx;
+		box-sizing: border-box;
+		padding: 0 25rpx ;
 	}
 </style>

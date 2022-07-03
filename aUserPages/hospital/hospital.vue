@@ -1,7 +1,7 @@
 <template>
 	<view class="padding_bottom_xl">
 		<view class="vip_box">
-			<image src="/static/image/hospitalImg.png" class="vip_topImg"></image>
+			<image :src="imageUrl+'/hospitalImg.png'" class="vip_topImg"></image>
 			<view class="box_690 padding_top_l padding_bottom_xl padding_left_xl padding_right_xl vip_tip_box">
 				<view class="font_weight color_black_333 font_size_title_l">
 					华夏第一军区医院
@@ -39,10 +39,10 @@
 				</swiper-item>
 				<swiper-item >
 					<scroll-view scroll-y="true" style="height: 500rpx;">
-						<view v-for="(item,index) in docList">
+						<view v-for="(item,index) in docList" :key="index">
 								<view class="box_690 padding_l flex_row" :key="index">
 									<image src="/static/image/docImg.png" mode="aspectFill" class="doc_img flex_shrink"></image>
-									<view class="flex_column margin_left_s">
+									<view class=" margin_left_l">
 										<view class="font_size_title_m color_black_333">
 											欧阳华夏
 										</view>

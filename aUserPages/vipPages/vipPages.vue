@@ -1,7 +1,7 @@
 <template>
 	<view class="padding_bottom_xl">
 		<view class="vip_box">
-			<image src="/static/image/vipTopImg.png" class="vip_topImg"></image>
+			<image  :src="imageUrl+'/vipTopImg.png'" class="vip_topImg"></image>
 			<view class="box_690 padding_l_xl vip_tip_box">
 				<view class="font_weight color_black_333 font_size_title_l">
 					一对一专业陪诊
@@ -14,23 +14,23 @@
 		<view class="padding_0_l " style="margin-top: 100rpx;">
 			<view
 				class="box_690 padding_xl_l flex_column flex_center"
-				v-for="(item,index) in serviceList">
+				v-for="(item,index) in serviceList" :key="index">
 				<view class="service_box ">
 					<view
 						style="width: 15rpx;height: 15rpx;border-radius: 50%;background-color: #fff;position: absolute;left: 10px;top: 13px;">
 					</view>
 					<view class="font_size_title_s color_orange">
-						VIP服务
+						{{item.name}}
 					</view>
 					<view
 						style="width: 15rpx;height: 15rpx;border-radius: 50%;background-color: #fff;position: absolute;right: 10px;top: 13px;">
 					</view>
 				</view>
-				<block v-for="(items,indexs) in item.list">
+				<block v-for="(items,indexs) in item.list" :key="indexs">
 					<view class="service_item margin_top_m">
-						<text class="font_size_text_xl color_black_888">基础服务包 </text>
-						<text class="font_size_text_xl color_orange margin_left_xl"> ¥999</text>
-						<text class="font_size_text_m color_orange">.00起</text>
+						<text class="font_size_text_xl color_black_888 margin_right_xl" v-if="item.showTitle">{{items.title}} </text>
+						<text class="font_size_text_xl color_orange  font_weight"> ¥{{items.money}}</text>
+						<text class="font_size_text_m color_orange font_weight">.00起</text>
 					</view>
 				</block>
 			</view>
@@ -44,20 +44,19 @@
 		data() {
 			return {
 				serviceList: [{
-						name: "",
-						list: [{}, {}, {}, {}]
+						name: "门诊服务",
+						showTitle:true,
+						list: [{title:"基础服务包",money:599}, {title:"优享服务包",money:999},{title:"尊享服务包",money:1299}]
 					},
 					{
-						name: "",
-						list: [{}, {}, {}, {}]
+						name: "住院服务",
+						showTitle:true,
+						list: [{title:"基础服务包",money:599}, {title:"优享服务包",money:999},{title:"尊享服务包",money:1299}]
 					},
 					{
-						name: "",
-						list: [{}, {}, {}, {}]
-					},
-					{
-						name: "",
-						list: [{}, {}, {}, {}]
+						name: "VIP服务",
+						showTitle:false,
+						list: [{title:"",money:599}]
 					}
 				]
 			}

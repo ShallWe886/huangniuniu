@@ -35,7 +35,7 @@
 				</view>
 				<view class="flex_row padding_l_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
-						年 龄
+						性别
 					</view>
 					<view class="color_black_888 font_size_text_l margin_left">
 						女
@@ -44,7 +44,7 @@
 				<view class=" padding_l_0 border_bottom">
 					<view class="flex_row">
 						<view class="font_size_text_xl color_black_333 font_weight">
-							年 龄
+							资质
 						</view>
 						<view class="color_black_888 font_size_text_xs margin_left">
 							*如有此项更容易通过审核

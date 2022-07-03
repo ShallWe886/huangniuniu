@@ -123,7 +123,7 @@
 					默认
 				</view>
 				<view class=" addCard_box font_size_title_s color_white margin_top_l" @click="sureAdd">
-					新增
+					提交
 				</view>
 			</view>
 		</u-popup>

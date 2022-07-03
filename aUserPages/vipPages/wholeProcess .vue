@@ -1,7 +1,7 @@
 <template>
 	<view class="padding_bottom_xl">
 		<view class="vip_box">
-			<image src="/static/image/vipTopImg.png" class="vip_topImg"></image>
+			<image :src="imageUrl+'/vipTopImg.png'" class="vip_topImg"></image>
 			<view class="box_690 padding_l_xl vip_tip_box">
 				<view class="font_weight color_black_333 font_size_title_l">
 					全程就医陪诊
@@ -17,7 +17,7 @@
 					<view
 						style="width: 15rpx;height: 15rpx;border-radius: 50%;background-color: #fff;position: absolute;left: 10px;top: 13px;">
 					</view>
-					<view class="font_size_title_s color_orange">
+					<view class="font_size_title_s color_orange font_weight">
 						服务范围
 					</view>
 					<view
@@ -40,7 +40,7 @@
 					<view
 						style="width: 15rpx;height: 15rpx;border-radius: 50%;background-color: #fff;position: absolute;left: 10px;top: 13px;">
 					</view>
-					<view class="font_size_title_s color_orange">
+					<view class="font_size_title_s color_orange font_weight">
 						收费标准
 					</view>
 					<view

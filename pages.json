@@ -320,7 +320,7 @@
                     "path" : "cancelDetail/cancelDetail",
                     "style" :                                                                                    
                 {
-                    "navigationBarTitleText": "我的钱包",
+                    "navigationBarTitleText": "详情",
                     "enablePullDownRefresh": true
                 }
                 

@@ -1,6 +1,6 @@
 <template>
 	<view class="padding_l">
-		<image src="/static/image/friengBg.png" mode="aspectFill" class="friend_bg"></image>
+		<image :src="imageUrl+'/friengBg.png'" mode="aspectFill" class="friend_bg"></image>
 		<view class="flex_row margin_top_l">
 			<view class="font_size_title_s color_orange font_weight" @click="lookMyfriends">
 				我的好友

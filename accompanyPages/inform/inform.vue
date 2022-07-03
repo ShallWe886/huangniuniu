@@ -1,7 +1,7 @@
 <template>
 	<view class="padding_bottom_m">
 		<search></search>
-		<view class="box_690 padding_l_0 margin_left_l" style="display: flex; flex-direction: row;" v-for="(item,index) in informList" :key="index">
+		<view class="box_690 padding_l_0 margin_left_l" style="display: flex; flex-direction: row;" v-for="(item,index) in informList" :key="index" @click="lookDetail">
 			<view class="gray_box">
 			</view>
 			<view class="margin_0_l width_all">
@@ -46,7 +46,11 @@
 			}
 		},
 		methods: {
-			
+			lookDetail(e){
+				uni.navigateTo({
+					url:"/accompanyPages/cancelDetail/cancelDetail"
+				})
+			}
 		}
 	}
 </script>

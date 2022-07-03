@@ -60,8 +60,11 @@
 				</view>
 			</view>
 		</view>
-		<u-popup :show="withPop" mode="bottom" :round="30" closeable='true' @close="closePop">
-			<view  style="padding-left: 50rpx;padding-bottom: 30rpx;padding-top: 30rpx;">
+		<u-popup :show="withPop" mode="bottom" :round="30" @close="closePop">
+			<view  style="padding-left: 50rpx;padding-bottom: 30rpx;padding-top: 30rpx;padding-right: 40rpx;">
+				<view class="flex_row">
+					<image src="/static/image/health_close.png" mode="aspectFill" class="delet_icon margin_left"></image>
+				</view>
 				<view class="flex_row" v-for="(item,index) in cardList" :key="index">
 					<view class="card_box margin_top_m">
 						<image :src="item.img" mode="aspectFill" class="card_img"></image>
@@ -80,7 +83,7 @@
 							</view>
 						</view>
 					</view>
-					<radio value="2" color='#FF6437' style="transform:scale(0.6)" class="margin_left_m" />
+					<radio value="2" color='#FF6437' style="transform:scale(0.7)" class="margin_left_m" />
 				</view>
 				<view class="addCard_box flex_row margin_top_m padding_0_l">
 					<image src="/static/image/card_icon.png" mode="aspectFill" class="card_icon"></image>
@@ -188,4 +191,5 @@
 		}
 
 	}
+	.delet_icon{width: 36rpx;height: 36rpx;}
 </style>

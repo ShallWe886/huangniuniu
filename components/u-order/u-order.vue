@@ -6,8 +6,7 @@
 					<image src="" mode="aspectFill" class="accept_item_img flex_shrink"></image>
 					<view class="margin_left_m">
 						<view class="font_size_text_s" style="line-height: 24rpx;">
-							<text style="color: #BEBEBE;">订单时间：</text><text class="color_black_888">2022-12-12
-								11:30</text>
+							<text style="color: #BEBEBE;">订单时间：</text><text class="color_black_888">2022-12-12 11:30</text>
 						</view>
 						<view class="flex_row margin_top_m">
 							<view class="accept_item_label margin_right_s ">
@@ -28,10 +27,13 @@
 							李先生<text class="margin_left_l">185****9393</text>
 						</view>
 						<view class="color_black_333 font_size_text_s margin_top_m" style="line-height: 24rpx;">
-							用户期望就诊时间：2022-12-12 3:00
+							<text v-if="type!=5">用户期望就诊时间：</text>2022-12-12 3:00
 						</view>
-						<view class="font_size_text_m color_orange margin_top_m" style="line-height: 26rpx;">
+						<view class="font_size_text_m color_orange margin_top_m" style="line-height: 26rpx;" v-if="type!=5">
 							2022-12-12 3:00-5:00
+						</view>
+						<view class="font_size_text_l color_black_333 margin_top_m" style="line-height: 26rpx;" v-if="type==5">
+							收入：￥23
 						</view>
 					</view>
 				</view>

@@ -17,7 +17,7 @@
 						22
 					</view>
 				</view>
-				<view class="flex_row">
+				<view class="flex_row margin_top_m">
 					<view class="font_size_text_l color_black_888">
 						规格
 					</view>
@@ -25,7 +25,7 @@
 						23mm x 32mm
 					</view>
 				</view>
-				<view class="flex_row">
+				<view class="flex_row margin_top_m">
 					<view class="font_size_text_l color_black_888">
 						品牌
 					</view>
@@ -33,7 +33,7 @@
 						西门子
 					</view>
 				</view>
-				<view class="flex_row">
+				<view class="flex_row margin_top_m">
 					<view class="font_size_text_l color_black_888">
 						颜色
 					</view>
@@ -41,7 +41,7 @@
 						粉红
 					</view>
 				</view>
-				<view class="flex_row">
+				<view class="flex_row margin_top_m">
 					<view class="font_size_text_l color_black_888">
 						货号
 					</view>
@@ -122,7 +122,7 @@
 		data() {
 			return {
 				shopInfo: {
-					slider: ['/static/image/shopimg.png', '/static/image/shopimg.png', '/static/image/shopimg.png'],
+					slider: ['','',''],
 					specList: [{
 						name: '黄色'
 					}, {

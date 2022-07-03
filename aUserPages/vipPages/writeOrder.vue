@@ -45,10 +45,12 @@
 			<view class="margin_l_0 font_size_text_xl color_black_333 font_weight">
 				支付方式
 			</view>
-			<view class="flex_row width_all margin_top_s padding_bottom_xl" v-for="(item, index) in payStyle">
+			<view class="flex_row width_all margin_top_s padding_bottom_xl" v-for="(item, index) in payStyle"
+				:key="index">
 				<image :src="item.img" class="pay_img"></image>
 				<view class="font_size_text_l color_black_333 font_weight margin_left_l">
-					{{item.name}}
+					{{item.name}} <text class="color_orange font_size_text_l font_weight margin_left_m"
+						v-if="index == 2">（余额：254）</text>
 				</view>
 				<view class="margin_left">
 					<image src="/static/image/select01.png" class="icon_img" v-if="payValue == item.name"></image>
@@ -61,10 +63,10 @@
 			立即支付
 		</view>
 		<u-picker :show="show" :columns="hospitalList" keyName="name" :title="selecttitle" @confirm="sureSelect"
-			@close="cancelSelect">
+			@close="cancelSelect" visibleItemCount="12"  itemHeight="48">
 		</u-picker>
 		<u-datetime-picker :show="timeShow" v-model="orderInfo.time" mode="datetime" :formatter="formatter"
-			@confirm="sureSelectTime" @close="cancelSelectTime" ></u-datetime-picker>
+			@confirm="sureSelectTime" @close="cancelSelectTime" visibleItemCount="12"  itemHeight="48"></u-datetime-picker>
 		<!-- <u-popup :show="show" mode="bottom" :round="15" :closeable="true"  @close="close" @open="open">
 		    <view>
 		        <text>人生若只如初见，何事秋风悲画扇</text>
@@ -96,7 +98,7 @@
 						placeholderText: "请选择就诊时间"
 					},
 					{
-						title: '请选择就诊患者',
+						title: '就诊患者',
 						isSure: true,
 						content: '',
 						placeholderText: "请选择就诊患者"
@@ -129,6 +131,22 @@
 				selecttitle: '',
 				hospitalList: [
 					[{
+						name: "华夏军区第一医院"
+					}, {
+						name: "华夏军区第一医院"
+					}, {
+						name: "华夏军区第一医院"
+					}, {
+						name: "华夏军区第一医院"
+					},{
+						name: "华夏军区第一医院"
+					}, {
+						name: "华夏军区第一医院"
+					}, {
+						name: "华夏军区第一医院"
+					}, {
+						name: "华夏军区第一医院"
+					},{
 						name: "华夏军区第一医院"
 					}, {
 						name: "华夏军区第一医院"

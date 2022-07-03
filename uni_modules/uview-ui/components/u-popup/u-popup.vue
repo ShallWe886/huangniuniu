@@ -31,12 +31,7 @@
 					hover-class="u-popup__content__close--hover"
 					hover-stay-time="150"
 				>
-					<u-icon
-						name="close"
-						color="#909399"
-						size="18"
-						bold
-					></u-icon>
+					<image src="/static/image/close_icon.png" mode="aspectFill" class="close_icon margin_left" @click="closeQuick"></image>
 				</view>
 				<u-safe-bottom v-if="safeAreaInsetBottom"></u-safe-bottom>
 			</view>

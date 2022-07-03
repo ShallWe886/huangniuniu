@@ -84,16 +84,18 @@
 
 			</view>
 		</view>
-		<u-popup :show="quickAppointShow" :closeable="true" mode="center" :round="20" @close="closeQuick">
+		<u-popup :show="quickAppointShow" closeable="true"  mode="center" :round="20" @close="closeQuick">
+			
 			<view class="flex_column "
-				style="width: 600rpx; height: 390rpx;box-sizing: border-box;padding: 80rpx 30rpx 30rpx 30rpx">
-				<view class="font_size_title_xxl color_black_333 font_weight">
+				style="width: 600rpx; box-sizing: border-box;padding: 50rpx 30rpx 60rpx 30rpx ;">
+				<!-- <image src="/static/image/close_icon.png" mode="aspectFill" class="close_icon margin_left" @click="closeQuick"></image> -->
+				<view class="font_size_title_xxl color_black_333 font_weight " style="margin-top: 30rpx;">
 					咨询热线
 				</view>
-				<view class="font_size_title_xl color_black_333 font_weight margin_top_s" @click="setText">
+				<view class="font_size_title_xl color_black_333 font_weight margin_top_m" @click="setText">
 					010-6565-556
 				</view>
-				<view class="flex_row margin_top_xl">
+				<view class="flex_row margin_top_xl ">
 					<view class="quick_btn font_size_title_s color_orange " @click="closeQuickPop(0)">
 						取消
 					</view>
