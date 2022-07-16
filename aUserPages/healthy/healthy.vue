@@ -42,9 +42,7 @@
 			</view>
 		</view>
 		<!-- 底部导航栏 -->
-		<keep-alive>
-			<tabbar :type='4' ></tabbar>
-		</keep-alive>
+		<tabbar :tabbarIndex="4"></tabbar>
 	</view>
 </template>
 

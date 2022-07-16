@@ -30,7 +30,7 @@
 								</image>
 								<view class="font_size_text_s color_orange flex_row" >
 									<view class="margin_right_xs">
-										冬冬币 96
+										咚咚币 96
 									</view>
 									<u-icon name="arrow-right" color="#FF6437" size="25"></u-icon>
 								</view>
@@ -61,21 +61,8 @@
 		</view>
 
 		<view class="flex_row  margin_left_l margin_top_l">
-			<view class="my_center_box" >
-				<image :src="imageUrl+'/my_center01.png'" mode="aspectFill"></image>
-				<view class="my_center_item" >
-					<view class="font_size_title_m color_white font_weight">
-						邀请好友
-					</view>
-					<view class="font_size_text_s color_white margin_top_s">
-						副标题副标题
-					</view>
-					<view class="font_size_text_xs color_white my_center_invite margin_top_s" @click="invitefriend">
-						立即邀请
-					</view>
-				</view>
-			</view>
-			<view class="my_center_box margin_left_l" >
+			
+			<view class="my_center_box " >
 				<image :src="imageUrl+'/my_center02.png'" mode="aspectFill"></image>
 				<view class="my_center_item">
 					<view class="font_size_title_m color_white font_weight">
@@ -86,6 +73,20 @@
 					</view>
 					<view class="font_size_text_xs color_white my_center_invite margin_top_s" @click="lookQuestion">
 						立即查看
+					</view>
+				</view>
+			</view>
+			<view class="my_center_box margin_left_l" >
+				<image :src="imageUrl+'/my_center01.png'" mode="aspectFill"></image>
+				<view class="my_center_item" >
+					<view class="font_size_title_m color_white font_weight">
+						邀请好友
+					</view>
+					<view class="font_size_text_s color_white margin_top_s">
+						患者邀请赠送100积分
+					</view>
+					<view class="font_size_text_xs color_white my_center_invite margin_top_s" @click="invitefriend">
+						立即邀请
 					</view>
 				</view>
 			</view>
@@ -126,10 +127,7 @@
 				</view>
 			</view>
 		</u-popup>
-		<keep-alive>
-			<tabbar :type='5'></tabbar>
-		</keep-alive>
-		<!-- <tabbar :type='1'></tabbar> -->
+		<tabbar :tabbarIndex="5"></tabbar>
 	</view>
 </template>
 
@@ -196,7 +194,7 @@
 		methods: {
 			//查看订单
 			toMyOrder(status) {
-				uni.reLaunch({
+				uni.navigateTo({
 					url: "/aUserPages/my/myOrder?status=" + status
 				})
 			},

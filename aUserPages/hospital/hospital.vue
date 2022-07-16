@@ -28,17 +28,17 @@
 					医院介绍
 				</view>
 				<view class="tab_box" :class="{'active':tabId == 1}" @click="selectTab(1)">
-					名家有约
+					优势科室
 				</view>
 			</view>
-			<swiper :indicator-dots="false" style="height: 500rpx;" :autoplay="false" :current="tabId" @change='change' @transition="selectSwiper">
+			<swiper :indicator-dots="false" style="height: 600rpx;" :autoplay="false" :current="tabId" @change='change' @transition="selectSwiper">
 				<swiper-item >
 					<view class="box_690 padding_l font_size_text_l color_black_333">
 						节点号介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍
 					</view>
 				</swiper-item>
 				<swiper-item >
-					<scroll-view scroll-y="true" style="height: 500rpx;">
+					<scroll-view scroll-y="true" style="height: 600rpx;">
 						<view v-for="(item,index) in docList" :key="index">
 								<view class="box_690 padding_l flex_row" :key="index">
 									<image src="/static/image/docImg.png" mode="aspectFill" class="doc_img flex_shrink"></image>

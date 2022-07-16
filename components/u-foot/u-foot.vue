@@ -58,23 +58,26 @@
 		},
 		data() {
 			return {
-				toTabbar(status){
-					if(status == 1){
-						uni.reLaunch({
-							url:'/accompanyPages/acceptOrder/acceptOrder'
-						})
-					}else if(status == 2){
-						uni.reLaunch({
-							url:'/accompanyPages/orderList/orderList'
-						})
-					}else if(status == 3){//急速预约
-						uni.reLaunch({
-							url:'/accompanyPages/selfInfo/selfInfo'
-						})
-						
-					}
-				}
+				
 			};
+		},
+		methods:{
+			toTabbar(status){
+				if(status == 1){
+					uni.reLaunch({
+						url:'/accompanyPages/acceptOrder/acceptOrder'
+					})
+				}else if(status == 2){
+					uni.reLaunch({
+						url:'/accompanyPages/orderList/orderList'
+					})
+				}else if(status == 3){//急速预约
+					uni.reLaunch({
+						url:'/accompanyPages/selfInfo/selfInfo'
+					})
+					
+				}
+			}
 		}
 	}
 </script>

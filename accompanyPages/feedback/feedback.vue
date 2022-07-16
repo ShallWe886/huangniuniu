@@ -22,12 +22,12 @@
 			<view class="flex_row">
 				<view class="top_label">
 				</view>
-				<view class="font_size_title_s color_black_333 font_weight padding_l_0 border_bottom" style="margin-left: 16rpx;">
+				<view class="font_size_title_s color_black_333 font_weight padding_top_l padding_bottom_l border_bottom width_all margin_right_l" style="margin-left: 16rpx;">
 					上传图片(最多6张)
 				</view>
 			</view>
 			<view class="flex_row padding_l">
-				<view style="position: relative; margin-right: 45rpx;" >
+				<view style="position: relative; margin-right: 45rpx;width: 180rpx;height: 130rpx;" >
 					<image src="" mode="aspectFill" class="add_item_img"></image>
 					<view class="delet_box">
 						×

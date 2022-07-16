@@ -26,7 +26,7 @@
 				
 			</view>
 		</view>
-		<view class="sure_buttton margin_top_xxl">
+		<view class="sure_buttton_letter margin_top_xxl">
 			提交
 		</view>
 	</view>

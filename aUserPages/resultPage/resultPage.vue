@@ -52,10 +52,20 @@
 		},
 		onLoad(options) {
 			this.type = options.type
-
-			uni.setNavigationBarTitle({
-				title: this.type == 0 ? '接单成功' : '支付失败'
-			})
+			if(this.type == 0){
+				uni.setNavigationBarTitle({
+					title: "接单成功"
+				})
+			}else if(this.type == 1){
+				uni.setNavigationBarTitle({
+					title: "支付失败"
+				})
+			}else if(this.type == 3){
+				uni.setNavigationBarTitle({
+					title: "支付成功"
+				})
+			}
+			
 		},
 		methods: {
 

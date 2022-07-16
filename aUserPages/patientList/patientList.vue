@@ -9,13 +9,13 @@
 							李无敌
 						</view>
 					</view>
-					<view class="flex_row margin_top_m">
+					<view class="flex_row margin_top_l">
 						<image src="/static/image/patientList02.png" class="patient_icon_img flex_shrink"></image>
 						<view class="font_size_text_l color_black_888  margin_left_s">
 							女
 						</view>
 					</view>
-					<view class="flex_row margin_top_m">
+					<view class="flex_row margin_top_l">
 						<image src="/static/image/patientList03.png" class="patient_icon_img flex_shrink"></image>
 						<view class="font_size_text_l color_black_888  margin_left_s">
 							111111111111111
@@ -26,7 +26,7 @@
 					<view class="update_patient" @click="addPatient">
 						修改
 					</view>
-					<view class="update_patient margin_top_m">
+					<view class="update_patient margin_top_l">
 						删除
 					</view>
 				</view>
@@ -40,7 +40,7 @@
 			<view class="font_size_text_l color_black_999 margin_top_xl">
 				请点击下方按钮添加就诊人～
 			</view>
-			<view class="sure_buttton margin_top_xxl" @click="addPatient">
+			<view class="sure_buttton " style="position: fixed;bottom: 120rpx;left: 70rpx;" @click="addPatient">
 				添加就诊人信息
 			</view>
 		</view>
@@ -51,7 +51,7 @@
 	export default {
 		data() {
 			return {
-				patientList:[{},{},{},{},{}]
+				patientList:[]
 			}
 		},
 		methods: {
@@ -96,6 +96,7 @@
 	.no_patient_img{
 		width: 300rpx;
 		height: 220rpx;
+		margin-top: 200rpx;
 	}
 	
 </style>

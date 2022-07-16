@@ -3,13 +3,21 @@
 		<view class="flex_row" v-for="(item,index) in timeList" :key="index">
 			<view class="flex_column line_box ">
 				<block v-if="index != 3">
-					<view class="order_step_line_gray"  :class="{'order_step_line_orange':value-1>index }"></view>
+					<view class="order_step_line_gray"  :class="{'order_step_line_orange':value > index }"></view>
 				</block>
-				<image :src="value > index ? '/static/image/orderDetail01.png':'/static/image/orderDetail02.png'"
-					mode="aspectFill" class="order_step_img"></image>
-				<view v-if="value > index" style="height: 90rpx; " class="flex_column">
+			
+				<block v-if="value == 3 && index == 3 ">
+					<image src="/static/image/orderDetail03.png"
+						mode="aspectFill" class="order_step_img"></image>
+				</block>
+				<block v-else>
+					<image :src="value > index-1 ? '/static/image/orderDetail01.png':'/static/image/orderDetail02.png'"
+						mode="aspectFill" class="order_step_img"></image>
+				</block>
+				<view v-if="value > index-1" style="height: 90rpx; " class="flex_column">
 					<view class="font_size_text_l color_orange">
-						{{item.title}}
+						<block v-if="value == 3 && index == 3">服务中</block>
+						<block v-else>{{item.title}}</block>
 					</view>
 					<view class="font_size_text_xxs color_black_888 flex_column">
 						<view>2022-05-12</view>
@@ -72,7 +80,8 @@
 
 	.order_step_line_gray {
 		width: 144rpx;
-		border: 2rpx solid #999999;
+		height: 2rpx;
+		background: #999999;
 		position: absolute;
 		top:22rpx;
 		right:-89rpx;
@@ -80,7 +89,8 @@
 
 	.order_step_line_orange {
 		width: 144rpx;
-		border: 2rpx solid #FF6F3D;
+		height: 2rpx;
+		background: #FF6F3D;
 		position: absolute;
 		top:22rpx;
 		right:-89rpx;

@@ -17,13 +17,13 @@
 					<view class="font_size_text_xl color_black_333 font_weight">
 						真实姓名
 					</view>
-					<input type="text" placeholder="请输入真实姓名" class="margin_left text_align_end" placeholder-style="font-size:28rpx;color:#BEBEBE;">
+					<input type="text" placeholder="请输入真实姓名" class="margin_left text_align_right" placeholder-style="font-size:28rpx;color:#BEBEBE;">
 				</view>
 				<view class="flex_row padding_l_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
 						手机号码
 					</view>
-					<input type="text" placeholder="请输入手机号码" class="margin_left text_align_end" placeholder-style="font-size:28rpx;color:#BEBEBE;">
+					<input type="text" placeholder="请输入手机号码" class="margin_left text_align_right" placeholder-style="font-size:28rpx;color:#BEBEBE;">
 				</view>
 				<view class="flex_row padding_l_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
@@ -35,7 +35,7 @@
 				</view>
 				<view class="flex_row padding_l_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
-						性别
+						性 别
 					</view>
 					<view class="color_black_888 font_size_text_l margin_left">
 						女
@@ -44,7 +44,7 @@
 				<view class=" padding_l_0 border_bottom">
 					<view class="flex_row">
 						<view class="font_size_text_xl color_black_333 font_weight">
-							资质
+							资质证明
 						</view>
 						<view class="color_black_888 font_size_text_xs margin_left">
 							*如有此项更容易通过审核
@@ -69,7 +69,7 @@
 				</view>
 				<view class=" padding_l_0 ">
 					<view class="font_size_text_xl color_black_333 font_weight">
-						个人情况 <text class="color_orange">*</text>
+						个人介绍 <text class="color_orange">*</text>
 					</view>
 					<textarea cols="30" rows="8" class="area_box margin_top_m"></textarea>
 
@@ -92,7 +92,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="sure_buttton margin_top_xxl" style="margin-left: 70rpx;">
+		<view class="sure_buttton_letter margin_top_xxl" style="margin-left: 70rpx;">
 			注册
 		</view>
 	</view>

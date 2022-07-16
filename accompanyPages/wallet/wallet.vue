@@ -27,7 +27,7 @@
 			<view class="flex_row justify_around border_bottom">
 				<view class="flex_column">
 					<view class="select_box padding_m_0" :class="{'active':selectId == 0}" @click="select(0)">
-						充值记录
+						收入明细
 					</view>
 					<view class="border_box" :class="{'active':selectId == 0}">
 					</view>

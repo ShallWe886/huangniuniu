@@ -225,9 +225,18 @@ page{background-color:#fafafa;}
 		background: linear-gradient(to right, #FF6437, #FF9B51);
 		font-size: 32rpx;
 		color: #ffffff;
-		
 	}
-	
+.sure_buttton_letter {
+		width: 610rpx;
+		height: 90rpx;
+		line-height: 90rpx;
+		text-align: center;
+		border-radius:40rpx;
+		background: linear-gradient(to right, #FF6437, #FF9B51);
+		font-size: 32rpx;
+		color: #ffffff;
+		letter-spacing:10rpx;
+	}
 .close_icon{
 	width: 40rpx;
 	height: 40rpx;

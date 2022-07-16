@@ -20,12 +20,12 @@
 				<view class="font_size_title_l color_black_333 font_weight margin_top_m">
 					¥25.00
 				</view>
-				<view class="flex_row">
+				<view class="flex_row margin_top_m">
 					<view class="con_label">
 						专业陪诊
 					</view>
 					<view class="font_size_text_l color_black_888 margin_left_m">
-						2022-12-12  3:00-5:00
+						2022-12-12     3:00-5:00
 					</view>
 				</view>
 			</view>

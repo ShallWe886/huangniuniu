@@ -3,7 +3,7 @@
 		<view class="flex_row">
 			<view class="add_bg"></view>
 			<view class="font_size_title_l color_black_333 font_weight margin_left_s">
-				个人信息
+				患者信息
 			</view>
 		</view>
 		<view class="box_690 padding_left_l padding_right_l">
@@ -13,7 +13,7 @@
 						{{value.label}}
 					</view>
 					<view class="margin_left flex_row">
-						<input type="text" class="text_align_end margin_right_s" v-model="value.content"
+						<input type="text" class="text_align_right margin_right_s width_all" v-model="value.content"
 							:placeholder="value.placeholderText" placeholder-class="font_size_text_l">
 					</view>
 
@@ -23,14 +23,14 @@
 						性别
 					</view>
 					<view class="margin_left flex_row">
-						<view class="flex_row font_size_text_l color_black_333">
+						<view class="flex_row font_size_text_l color_black_333 margin_right_l">
 							<image src="/static/image/select01.png" class="icon_img" v-if="sexValue == '男'"></image>
 							<image src="/static/image/select02.png" class="icon_img" v-else></image>
 							<view class="margin_left_s">
 								男
 							</view>
 						</view>
-						<view class="flex_row font_size_text_l color_black_333 margin_left_m">
+						<view class="flex_row font_size_text_l color_black_333 margin_left_xl">
 							<image src="/static/image/select01.png" class="icon_img" v-if="sexValue == '女'"></image>
 							<image src="/static/image/select02.png" class="icon_img" v-else></image>
 							<view class="margin_left_s">
@@ -39,17 +39,48 @@
 						</view>
 					</view>
 				</view>
-				<view class=" padding_l_0 " v-if="key == 'idCard'">
+				<view class="flex_row padding_l_0 border_bottom" v-if="key == 'phone'">
 					<view class="font_size_text_xl color_black_333 font_weight">
-						个人情况
+						与就诊人关系
 					</view>
-					<textarea v-model="personInfo" cols="30" rows="8" class="area_box margin_top_m"></textarea>
-
+					<view class="margin_left flex_row font_size_text_l " style="color: #BEBEBE;">
+						本人
+						<u-icon name="arrow-right" color="#BEBEBE" size="30"></u-icon>
+					</view>
+				
 				</view>
+				<block v-if="key == 'idCard'">
+					<view class=" padding_l_0 " >
+						<view class="font_size_text_xl color_black_333 font_weight">
+							个人情况
+						</view>
+						<textarea v-model="personInfo" cols="30" rows="8" class="area_box margin_top_m"></textarea>
+					
+					</view>
+					<view class=" padding_l_0 border_bottom">
+						<view class="flex_row">
+							<view class="font_size_text_xl color_black_333 font_weight">
+								图片
+							</view>
+							<view class="color_black_888 font_size_text_xs margin_left">
+								<text class="color_red">*</text>病例，体检报告，检查报告之类
+							</view>
+						</view>
+						<view class="justify_center flex_row ">
+							<view class="flex_column justify_center update_img_box">
+								<image src="/static/image/update_img.png" mode="aspectFill" class="update_img"></image>
+								<view class="font_size_text_m color_black_888 margin_top_s">
+									上传照片
+								</view>
+							</view>
+						</view>
+					</view>
+				</block>
+				
 			</block>
 			<view class="flex_row padding_l_0 ">
 				<view class="font_size_text_xl color_black_333 font_weight">
-					医院治疗卡
+					医院诊疗卡号
 				</view>
 				<view class="margin_left font_size_text_xl color_orange" @click="toRelation">
 					关联
@@ -58,7 +89,7 @@
 			</view>
 
 		</view>
-		<view class="sure_buttton margin_top_xl ">
+		<view class="sure_buttton_letter margin_top_xl ">
 			确定
 		</view>
 		<u-popup :show="relationPopShow" :closeable="true" mode="center" :round="20" @close="closeRelationPop">
@@ -122,7 +153,7 @@
 					<radio value="1" color='#FF6437' :checked="cardInfo.default == 1" style="transform:scale(0.7)" />
 					默认
 				</view>
-				<view class=" addCard_box font_size_title_s color_white margin_top_l" @click="sureAdd">
+				<view class=" addCard_box font_size_title_s color_white margin_top_l" @click="sureAdd" style="letter-spacing:10rpx;">
 					提交
 				</view>
 			</view>
@@ -140,6 +171,11 @@
 						placeholderText: '请输入姓名',
 						content: ''
 					},
+					idCard:{
+						label: '身份证号码',
+						placeholderText: '请输入身份证号码',
+						content: ''
+					},
 					age:{
 						label: '年龄',
 						placeholderText: '请输入年龄',
@@ -150,14 +186,14 @@
 						placeholderText: '请输入联系方式',
 						content: ''
 					},
-					idCard:{
-						label: '身份证号码',
-						placeholderText: '请输入身份证号码',
-						content: ''
-					},
 					emerge:{
 						label: '紧急联系人',
 						placeholderText: '请输入紧急联系人',
+						content: ''
+					},
+					emergePhone:{
+						label: '联系电话',
+						placeholderText: '请输入紧急联系人电话号码',
 						content: ''
 					}
 				},
@@ -269,5 +305,18 @@
 		border-radius: 70rpx;
 		background: linear-gradient(to right, #FF6437, #FF9B51);
 		margin-left: 45rpx;
+	}
+	
+	.update_img_box {
+		width: 322rpx;
+		height: 192rpx;
+		border-radius: 16rpx;
+		border: 2rpx dashed #FFB644;
+		margin-top: 20rpx;
+	}
+	
+	.update_img {
+		width: 90rpx;
+		height: 90rpx;
 	}
 </style>

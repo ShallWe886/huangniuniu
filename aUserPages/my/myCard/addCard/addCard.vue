@@ -13,19 +13,19 @@
 				<view class="font_size_text_xl color_black_333">
 					真实姓名
 				</view>
-				<input type="text" placeholder="请输入真实姓名" placeholder-style="font-size:28rpx;color:#BEBEBE;" class="margin_left text_align_end">
+				<input type="text" placeholder="请输入真实姓名" placeholder-style="font-size:28rpx;color:#BEBEBE;" class="margin_left text_align_right">
 			</view>
 			<view class="flex_row padding_l border_bottom ">
 				<view class="font_size_text_xl color_black_333">
 					身份证
 				</view>
-				<input type="text" placeholder="请输入身份证" placeholder-style="font-size:28rpx;color:#BEBEBE;" class="margin_left text_align_end">
+				<input type="text" placeholder="请输入身份证" placeholder-style="font-size:28rpx;color:#BEBEBE;" class="margin_left text_align_right">
 			</view>
 			<view class="flex_row padding_l border_bottom ">
 				<view class="font_size_text_xl color_black_333">
 					手机号码
 				</view>
-				<input type="text" placeholder="请输入手机号码" placeholder-style="font-size:28rpx;color:#BEBEBE;" class="margin_left text_align_end">
+				<input type="text" placeholder="请输入手机号码" placeholder-style="font-size:28rpx;color:#BEBEBE;" class="margin_left text_align_right">
 			</view>
 		</view>
 		
@@ -42,7 +42,7 @@
 				<view class="font_size_text_xl color_black_333">
 					银行卡号
 				</view>
-				<input type="text" placeholder="请输入银行卡号" placeholder-style="font-size:28rpx;color:#BEBEBE;" class="margin_left text_align_end">
+				<input type="text" placeholder="请输入银行卡号" placeholder-style="font-size:28rpx;color:#BEBEBE;" class="margin_left text_align_right">
 			</view>
 			<view class="flex_row padding_l border_bottom ">
 				<view class="font_size_text_xl color_black_333">
@@ -60,7 +60,7 @@
 					验证码
 				</view>
 				<view class="  margin_left flex_row">
-					<input type="text" placeholder="请输入验证码" placeholder-style="font-size:28rpx;color:#BEBEBE;" class=" text_align_end">
+					<input type="text" placeholder="请输入验证码" placeholder-style="font-size:28rpx;color:#BEBEBE;" class=" text_align_right">
 					<view class="code_btn margin_left_s">
 						发送验证码
 					</view>

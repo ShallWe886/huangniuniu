@@ -1,6 +1,6 @@
 <template>
 	<view class="padding_left_l padding_right_l">
-		<view class="flex_row padding_l_0">
+		<view class="flex_row padding_top_l margin_top_m">
 			<image src="/static/image/recharge02.png" mode="aspectFill" class="recharge_icon"></image>
 			<view class="font_size_title_l color_black_333 font_weight margin_left_s">
 				充值金额
@@ -9,7 +9,7 @@
 				1积分为1元人民币
 			</view>
 		</view>
-		<view class="box_690   padding_l">
+		<view class="box_690 padding_l">
 			<view class="flex_row flex_wrap ">
 				<block v-for="(item,index) in moneyList" :key="index">
 					<view class="money_box margin_right_l margin_bottom_l" :class="{'active':monetIndex == index}">
@@ -42,11 +42,15 @@
 				<radio value="2"  color='#FF6437' style="transform:scale(0.6)" class="margin_left"/>
 			</view>
 		</view>
-		<view class="sure_buttton margin_left_l margin_top_xxl" @click="submit">
+		<view class="sure_buttton_letter margin_left_l margin_top_xxl" @click="submit">
 			确 定
 		</view>
-		<u-popup :show="rechargePop" mode="bottom" :round="30" closeable='true' @close="closePop">
+		<u-popup :show="rechargePop" mode="bottom" :round="30"  @close="closePop">
+			<view class="flex_row padding_l">
+				<image src="/static/image/health_close.png" mode="aspectFill" class="close_icon margin_left"></image>
+			</view>
 			<view  class="padding_l">
+				
 				<view class="text_align_center color_black_333 font_weight" style="font-size: 72rpx;">
 					<text style="font-size: 52rpx;"></text>￥2000.00
 				</view>

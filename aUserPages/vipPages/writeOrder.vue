@@ -7,7 +7,7 @@
 						{{item.title}} <text class="color_orange margin_left_s" v-if="item.isSure">*</text>
 					</view>
 					<view class="margin_left flex_row" @click="selectInfo(item,index)">
-						<input type="text" class="text_align_end margin_right_s" v-model="item.content"
+						<input type="text" class="text_align_right margin_right_s" v-model="item.content"
 							:placeholder="item.placeholderText" placeholder-class="font_size_text_l"
 							disabled="item.isSure">
 
@@ -20,7 +20,7 @@
 					随行人员
 				</view>
 				<view class="margin_left flex_row">
-					<input type="text" class="text_align_end margin_right_s" v-model="orderInfo.accompanyName"
+					<input type="text" class="text_align_right margin_right_s" v-model="orderInfo.accompanyName"
 						placeholder="请填写随行人员姓名" placeholder-class="font_size_text_l">
 				</view>
 			</view>
@@ -29,7 +29,7 @@
 					随行人员手机号
 				</view>
 				<view class="margin_left flex_row">
-					<input type="text" class="text_align_end margin_right_s" v-model="orderInfo.accompanyPhone"
+					<input type="text" class="text_align_right margin_right_s" v-model="orderInfo.accompanyPhone"
 						placeholder="请填写随行人员手机号" placeholder-class="font_size_text_l">
 				</view>
 			</view>
@@ -38,7 +38,7 @@
 					备注
 				</view>
 				<view class="margin_left flex_row">
-					<input type="text" class="text_align_end margin_right_s" v-model="orderInfo.remarks"
+					<input type="text" class="text_align_right margin_right_s" v-model="orderInfo.remarks"
 						placeholder="请填写备注" placeholder-class="font_size_text_l">
 				</view>
 			</view>
@@ -63,10 +63,10 @@
 			立即支付
 		</view>
 		<u-picker :show="show" :columns="hospitalList" keyName="name" :title="selecttitle" @confirm="sureSelect"
-			@close="cancelSelect" visibleItemCount="12"  itemHeight="48">
+			@close="cancelSelect" visibleItemCount="12"  itemHeight="48" confirmColor="#FF6437">
 		</u-picker>
 		<u-datetime-picker :show="timeShow" v-model="orderInfo.time" mode="datetime" :formatter="formatter"
-			@confirm="sureSelectTime" @close="cancelSelectTime" visibleItemCount="12"  itemHeight="48"></u-datetime-picker>
+			@confirm="sureSelectTime" @close="cancelSelectTime" visibleItemCount="12"  itemHeight="48" confirmColor="#FF6437"></u-datetime-picker>
 		<!-- <u-popup :show="show" mode="bottom" :round="15" :closeable="true"  @close="close" @open="open">
 		    <view>
 		        <text>人生若只如初见，何事秋风悲画扇</text>

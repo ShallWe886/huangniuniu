@@ -34,20 +34,20 @@
 				</view>
 				<view class="flex_row margin_left">
 					<view class="font_size_text_l color_black_333">
-						<radio value="1" :checked="invoiceInfo.topType == 0" color='#FF6437' style="transform:scale(0.5)" />个人或事业单位
+						<radio value="1" :checked="invoiceInfo.topType == 0" color='#FF6437' style="transform:scale(0.5)" @click="selectInvoice(0)"/>个人或事业单位
 					</view>
 					<view class="font_size_text_l color_black_333">
-						<radio value="2" :checked="invoiceInfo.topType == 1" color='#FF6437' style="transform:scale(0.5)" />企业
+						<radio value="2" :checked="invoiceInfo.topType == 1" color='#FF6437' style="transform:scale(0.5)"  @click="selectInvoice(1)"/>企业
 					</view>
 				</view>
 			</view>
-			<view class="flex_row border_bottom padding_l_0" v-if="invoiceInfo.topType == 1">
+			<view class="flex_row border_bottom padding_l_0" >
 				<view class="font_size_text_xl color_black_333 font_weight">
 					发票抬头 <text class="color_orange"> *</text>
 				</view>
 				<view class="flex_row margin_left font_size_text_l color_black_888">
 					调用微信发票抬头
-					<u-icon name="arrow-right" size="30"></u-icon>
+					<u-icon name="arrow-right" size="30" color="#888888"></u-icon>
 				</view>
 			</view>
 			<view class="flex_row border_bottom padding_l_0" v-for="(item,index) in invoiceList" :key="index" v-if="invoiceInfo.topType == 1">
@@ -60,14 +60,14 @@
 			</view>
 			<view class="flex_row  padding_l_0" >
 				<view class="font_size_text_xl color_black_333 font_weight">
-					邮箱
+					邮  箱
 				</view>
 				<view class="margin_left color_black_333 font_size_text_l">
 					<input type="text" style="text-align: end;" placeholder="请填写邮箱" v-model="invoiceInfo.email">
 				</view>
 			</view>
 		</view>
-		<view class="sure_buttton margin_top_xxl">
+		<view class="sure_buttton_letter margin_top_xxl">
 			提交
 		</view>
 	</view>
@@ -94,7 +94,9 @@
 			}
 		},
 		methods: {
-
+			selectInvoice(type){
+				this.invoiceInfo.topType = type
+			}
 		}
 	}
 </script>

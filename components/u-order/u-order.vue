@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<block v-for="(item,index) in list" :key="index">
-			<view class="box_690 padding_l">
+			<view class="box_690 padding_l margin_left_l">
 				<view class="flex_row">
 					<image src="" mode="aspectFill" class="accept_item_img flex_shrink"></image>
 					<view class="margin_left_m">
@@ -19,31 +19,37 @@
 								专业陪诊
 							</view>
 						</view>
-						<view class="font_weight color_black_333 font_size_text_m margin_top_m"
-							style="line-height: 26rpx;">
+						<view class="font_weight color_black_333 font_size_title_l margin_top_m"
+							style="line-height: 36rpx;">
 							¥25.00
 						</view>
 						<view class=" color_black_333 font_size_text_m margin_top_m" style="line-height: 26rpx;">
 							李先生<text class="margin_left_l">185****9393</text>
 						</view>
-						<view class="color_black_333 font_size_text_s margin_top_m" style="line-height: 24rpx;">
-							<text v-if="type!=5">用户期望就诊时间：</text>2022-12-12 3:00
+						<view class="color_black_333 font_size_text_s margin_top_m" style="line-height: 24rpx;" v-if="type!=5">
+							<text >用户期望就诊时间：</text>2022-12-12 3:00
 						</view>
-						<view class="font_size_text_m color_orange margin_top_m" style="line-height: 26rpx;" v-if="type!=5">
+						<view class="font_size_text_m color_orange margin_top_m" style="line-height: 26rpx;"
+							v-if="type!=5">
 							2022-12-12 3:00-5:00
 						</view>
-						<view class="font_size_text_l color_black_333 margin_top_m" style="line-height: 26rpx;" v-if="type==5">
-							收入：￥23
+						<view class="font_size_text_m color_black_888 margin_top_m" style="line-height: 26rpx;"
+							v-if="type==5">
+							2022-12-12 3:00-5:00
+						</view>
+						<view class="font_size_text_l color_black_333 margin_top_m" style="line-height: 26rpx;"
+							v-if="type==5">
+							收入：￥23.00
 						</view>
 					</view>
 				</view>
 				<view class="flex_row justify_end margin_top_m" v-if="type != 5">
 					<block v-if="type == 1">
-						<view class="accept_item_btn_border" @click="operate(0)">
-							接受
-						</view>
-						<view class="accept_item_btn_orange margin_left_xl" @click="operate(1)">
+						<view class="accept_item_btn_border" @click="operate(1)">
 							拒绝
+						</view>
+						<view class="accept_item_btn_orange margin_left_xl" @click="operate(0)">
+							 接受
 						</view>
 					</block>
 					<block v-if="type == 2">
@@ -74,7 +80,8 @@
 						拒绝原因
 					</view>
 					<view class="color_black_333 font_size_text_xl" v-if="type == 3">
-						取消原因
+						<text v-if="isCancel == 0">取消原因</text>
+						<text v-if="isCancel == 1">转单原因</text>
 					</view>
 					<view class="input_box flex_row color_black_888 font_size_text_l margin_left_m">
 						请选择
@@ -90,7 +97,7 @@
 					提交
 				</view>
 			</view>
-			<view class="result_box flex_column">
+			<view class="result_box flex_column" v-if="type == 2 || type == 4">
 				<block v-if="type == 2 && result">
 					<image src="/static/image/order_result01.png" mode="aspectFill" class="result_img"></image>
 					<view class="" style="font-size: 40rpx;color: #17CD44;font-weight: bold;margin-top: 24rpx;">
@@ -109,7 +116,7 @@
 				<block v-if="type == 4">
 					<image src="/static/image/order_result01.png" mode="aspectFill" class="result_img"></image>
 					<view class="" style="font-size: 40rpx;color: #17CD44;font-weight: bold;margin-top: 24rpx;">
-						恭喜您完成顶顶那
+						恭喜您完成订单
 					</view>
 					<view class=" margin_top_l">
 						<text class="font_size_title_s color_black_999">获取收益：</text>
@@ -137,28 +144,31 @@
 		data() {
 			return {
 				popshow: false,
-				result: false // 抢单结果
+				result: false ,// 抢单结果
+				isCancel:0 // 0：取消  1：转单
 			};
 		},
 		methods: {
 			operate(status) { //0:接受 1：拒绝 2：抢单 3：转单 4：取消 5：完成订单
-				
+
 				if (status == 0) {
 					uni.showToast({
 						title: "该订单陪诊时间与您xxx陪诊时间冲突（3s）",
 						duration: 3000,
-						icon:"none"
+						icon: "none"
 					})
 				} else if (status == 1) {
 					this.popshow = true
 				} else if (status == 2) {
 					this.popshow = true
 				} else if (status == 3) {
+					this.isCancel = 1
 					this.popshow = true
 				} else if (status == 4) {
+					this.isCancel = 0
 					this.popshow = true
 				} else if (status == 5) {
-
+					this.popshow = true
 				}
 
 			},
@@ -219,9 +229,9 @@
 
 	.pop_box {
 		width: 690rpx;
-		height: 440rpx;
 		background: #FFFFFF;
 		border-radius: 20rpx;
+		padding-bottom: 60rpx;
 
 		.input_box {
 			width: 470rpx;

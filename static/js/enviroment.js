@@ -1,11 +1,9 @@
 
 
 export default{
-	v:'test1',
+	v:'prd',
 	envs:{
-		'prd':"https://xcx.yaabey.com",
-		'test':'https://ybjk.qifudaren.net',
-		'test1':"https://ay.jikeyun.net",
+		'prd':"http://pzcs.qifudaren.net/",
 		'imgUrl':"http://pzcs.qifudaren.net/uploads/qianduan"
 		
 	},

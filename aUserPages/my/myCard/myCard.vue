@@ -16,7 +16,7 @@
 			<view class="card_box margin_top_l" v-for="(item,index) in cardList" :key="index">
 				<image :src="item.img" mode="aspectFill" class="card_img"></image>
 				<view class="card_con_box">
-					<view class="font_size_text_xl color_white text_align_end">
+					<view class="font_size_text_xl color_white text_align_right">
 						张*斌
 					</view>
 					<view class="flex_row margin_top_xl ">

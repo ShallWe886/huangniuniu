@@ -6,3 +6,34 @@ https://lanhuapp.com/web/#/item/project/product?tid=f441365d-68d5-4a49-9ea4-ae12
 原始ID：gh_36012b473413
 AppID(小程序ID)： wx677aab0524031e5c 
 AppSecret(小程序密钥)：f3222b0509e1c395d22d47b7b20e9722
+
+
+
+
+群公告陪诊app管理后台链接：http://pzcs.qifudaren.net/admin/Login/index.html
+账号：admin  
+密码： 6yhn7ujm
+
+
+
+接口：
+https://www.apifox.cn/web/project/1241444
+
+
+
+代办挂号-普通号
+代办挂号-专家号
+代办挂号-特约号
+代办问诊
+代办取药
+代办送取报告
+全程陪诊
+专业陪诊-门诊服务
+专业陪诊-住院服务
+专业陪诊-VIP服务
+名家有约 --- 这个需要控制预约的数量的
+
+
+
+ 1.VIP陪诊-门诊服务 2.VIP陪诊-住院服务 3.VIP陪诊-VIP服务 4.全程陪诊 5.名家有约，
+     6.代办挂号-普通号  7代办挂号-专家号 8代办挂号-特约号 9代办-问诊 10代办取药 11代办送取报告

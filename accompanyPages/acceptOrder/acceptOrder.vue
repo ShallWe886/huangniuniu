@@ -17,25 +17,23 @@
 			</view>
 		</view>
 		<swiper :indicator-dots="false" :autoplay="false" :current="selectIndex"  class="accept_height " @change='change' @transition="selectSwiper">
-			<swiper-item>
-				<scroll-view scroll-y="true" class="accept_height padding_left_l">
-					<view class="color_black_999 font_size_text_l margin_top_l">
+			<swiper-item >
+				<scroll-view scroll-y="true" class="accept_height ">
+					<view class="color_black_999 font_size_text_l margin_top_l margin_left_l ">
 						派单中   2022-12-12  11:00-23:00
 					</view>
 					<acceptItem :list="orderList" :type="1"></acceptItem>
 				</scroll-view>
 			</swiper-item>
-			<swiper-item>
-				<scroll-view scroll-y="true" class="accept_height padding_left_l">
+			<swiper-item >
+				<scroll-view scroll-y="true" class="accept_height ">
 					<acceptItem :list="orderList" :type="2"></acceptItem>
 				</scroll-view>
 			</swiper-item>
 		</swiper>
 		
 		<!-- 底部导航栏 -->
-		<keep-alive>
-			<uFoot :type='1'></uFoot>
-		</keep-alive>
+		<uFoot :type='1'></uFoot>
 	</view>
 	
 </template>

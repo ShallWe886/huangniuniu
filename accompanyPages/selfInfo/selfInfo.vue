@@ -45,7 +45,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="box_690 padding_0_l margin_left_l" >
+		<view class="box_690 padding_0_l margin_left_l">
 			<view class="flex_row  padding_l_0" @click="lookMyMessage">
 				<image src="/static/image/self06.png" mode="aspectFill" class="self_img"></image>
 				<view class="color_black_333 font_size_text_l margin_left_m">
@@ -69,7 +69,7 @@
 				</view>
 			</view>
 		</view>
-		<u-popup :show="timePop" :round="30" mode="bottom" @close="closeTimePop" >
+		<u-popup :show="timePop" :round="30" mode="bottom" @close="closeTimePop">
 			<view>
 				<view class="flex_row justify_between padding_l">
 					<view @click="closeTimePop">
@@ -118,7 +118,8 @@
 								</view>
 							</view>
 						</view>
-						<view class="flex_row flex_wrap justify_between margin_top_xl" style="padding: 0 35rpx;">
+						<view class="flex_row flex_wrap  margin_top_xl time_item"
+							style="padding: 0 35rpx;">
 							<block v-for="(item,index) in timeList" :key="index">
 								<view class="time_box_third" v-if="item.status == 0">{{item.time}}</view>
 								<view class="time_box_second" v-if="item.status == 1">{{item.time}}</view>
@@ -127,7 +128,7 @@
 
 						</view>
 					</scroll-view>
-					
+
 				</view>
 				<view class="flex_row justify_around work_box">
 					<view class="font_size_title_s color_orange font_weight">
@@ -139,9 +140,7 @@
 				</view>
 			</view>
 		</u-popup>
-		<keep-alive>
-			<uFoot :type='3'></uFoot>
-		</keep-alive>
+		<uFoot :type='3'></uFoot>
 	</view>
 </template>
 
@@ -154,79 +153,79 @@
 				dateList: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
 				timeList: [{
 					status: 0,
-					time:'00.00'
+					time: '00.00'
 				}, {
 					status: 0,
-					time:'01.00'
+					time: '01.00'
 				}, {
 					status: 0,
-					time:'02.00'
+					time: '02.00'
 				}, {
 					status: 0,
-					time:'03.00'
+					time: '03.00'
 				}, {
 					status: 0,
-					time:'04.00'
+					time: '04.00'
 				}, {
 					status: 0,
-					time:'05.00'
+					time: '05.00'
+				}, {
+					status: 2,
+					time: '06.00'
+				}, {
+					status: 2,
+					time: '07.00'
+				}, {
+					status: 2,
+					time: '08.00'
 				}, {
 					status: 0,
-					time:'06.00'
+					time: '09.00'
 				}, {
 					status: 0,
-					time:'07.00'
-				}, {
-					status: 0,
-					time:'08.00'
-				}, {
-					status: 0,
-					time:'09.00'
-				}, {
-					status: 0,
-					time:'10.00'
+					time: '10.00'
 				}, {
 					status: 1,
-					time:'11.00'
+					time: '11.00'
 				}, {
 					status: 1,
-					time:'00.00'
+					time: '00.00'
 				}, {
 					status: 1,
-					time:'12.00'
+					time: '12.00'
 				}, {
 					status: 1,
-					time:'13.00'
+					time: '13.00'
 				}, {
 					status: 1,
-					time:'14.00'
+					time: '14.00'
 				}, {
 					status: 1,
-					time:'15.00'
+					time: '15.00'
 				}, {
 					status: 1,
-					time:'16.00'
+					time: '16.00'
 				}, {
 					status: 1,
-					time:'17.00'
+					time: '17.00'
 				}, {
 					status: 1,
-					time:'18.00'
+					time: '18.00'
 				}, {
 					status: 0,
-					time:'19.00'
+					time: '19.00'
 				}, {
 					status: 0,
-					time:'20.00'
+					time: '20.00'
 				}, {
 					status: 0,
-					time:'21.00'
+					time: '21.00'
 				}, {
 					status: 0,
-					time:'22.00'
+					time: '22.00'
 				}, {
 					status: 0,
-					time:'23.00'
+					time: '23.00'
 				}],
 				selfList: [{
 						img: '/static/image/self01.png',
@@ -246,7 +245,7 @@
 						img: '/static/image/self03.png',
 						title: '常见问题',
 						url: '/aUserPages/question/question',
-						con: '1000',
+						con: '1000条',
 						isShow: true
 					},
 					{
@@ -285,10 +284,10 @@
 					url: "/accompanyPages/inform/inform"
 				})
 			},
-			closeTimePop(e){
+			closeTimePop(e) {
 				this.timePop = false
 			},
-			toSet(e){//设置
+			toSet(e) { //设置
 				this.timePop = true
 			}
 		}
@@ -425,17 +424,28 @@
 		border-radius: 10rpx;
 		color: #333333;
 		font-size: 30rpx;
-		box-sizing: border-box;
 		margin-bottom: 20rpx;
 		line-height: 80rpx;
 		text-align: center;
-
 		border: 1rpx solid #BEBEBE;
+		box-sizing: border-box;
 	}
-	.work_box{
+
+	.work_box {
 		width: 750rpx;
 		height: 90rpx;
 		line-height: 90rpx;
 		background: #ffffff;
+	}
+
+	.time_item {
+		view {
+			margin-right: 20rpx;
+
+			&:nth-child(3n) {
+				margin-right: 0;
+			}
+		}
+
 	}
 </style>

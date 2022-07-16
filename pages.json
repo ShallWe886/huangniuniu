@@ -42,13 +42,13 @@
 			}, {
 				"path": "patientList/addPatient",
 				"style": {
-					"navigationBarTitleText": "添加诊人",
+					"navigationBarTitleText": "添加患者信息",
 					"enablePullDownRefresh": false,
 					"backgroundColor": "#ffffff"
 				}
 
 			}, {
-				"path": "vipPages/wholeProcess ",
+				"path": "vipPages/wholeProcess",
 				"style": {
 					"navigationBarTitleText": "全程陪诊",
 					"enablePullDownRefresh": false
@@ -261,6 +261,15 @@
                 }
                 
                 }
+                ,{
+                    "path" : "shopCar/shopCar",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "购物车",
+                    "enablePullDownRefresh": true
+                }
+                
+                }
             ]
 	}, {
 		"root": "accompanyPages",
@@ -338,7 +347,7 @@
                     "path" : "feedback/feedback",
                     "style" :                                                                                    
                 {
-                    "navigationBarTitleText": "常见问题",
+                    "navigationBarTitleText": "意见反馈",
                     "enablePullDownRefresh": false
                 }
                 

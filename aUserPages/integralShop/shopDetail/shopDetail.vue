@@ -69,7 +69,10 @@
 
 			</view>
 		</view>
-		<u-popup :show="popShow" mode="bottom" :round="30" closeable="true" @close="closeSure">
+		<u-popup :show="popShow" mode="bottom" :round="30"  @close="closeSure">
+			<view class="flex_row padding_right_l padding_top_l padding_bottom_m">
+				<image src="/static/image/health_close.png" mode="aspectFill" class="close_icon margin_left"></image>
+			</view>
 			<view class="padding_xl">
 				<view class="flex_row">
 					<image src="/static/image/shop_little_img.png" mode="aspectFill" class="shop_little_img"></image>
@@ -94,17 +97,16 @@
 							</view>
 						</view>
 					</view>
-					
 				</view>
 				<view class="flex_row margin_top_xl">
 					<view class="font_size_title_s color_black_333">
 						数量
 					</view>
 					<view class="margin_left_xl">
-						<u-number-box v-model="shopNum" @change="valChange" button-size="36"  disabledInput="true" inputWidth="70"></u-number-box>
+						<u-number-box v-model="shopNum" @change="valChange" button-size="40"  disabledInput="true" inputWidth="70" iconStyle="font-size:30rpx;"></u-number-box>
 					</view>
 				</view>
-				<view class="sure_buttton margin_top_xxl margin_left_l" @click="toPay">
+				<view class="sure_buttton_letter margin_top_xxl margin_left_l" @click="toPay">
 					确认
 				</view>
 			</view>

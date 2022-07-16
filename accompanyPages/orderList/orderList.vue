@@ -26,26 +26,24 @@
 		</view>
 		<swiper :indicator-dots="false" :autoplay="false" :current="selectIndex"  class="accept_height " @change='change' @transition="selectSwiper">
 			<swiper-item>
-				<scroll-view scroll-y="true" class="accept_height padding_left_l">
+				<scroll-view scroll-y="true" class="accept_height ">
 					<acceptItem :list="orderList" :type="3"></acceptItem>
 				</scroll-view>
 			</swiper-item>
 			<swiper-item>
-				<scroll-view scroll-y="true" class="accept_height padding_left_l">
+				<scroll-view scroll-y="true" class="accept_height ">
 					<acceptItem :list="orderList" :type="4"></acceptItem>
 				</scroll-view>
 			</swiper-item>
 			<swiper-item>
-				<scroll-view scroll-y="true" class="accept_height padding_left_l">
+				<scroll-view scroll-y="true" class="accept_height ">
 					<acceptItem :list="orderList" :type="5"></acceptItem>
 				</scroll-view>
 			</swiper-item>
 		</swiper>
 		
 		<!-- 底部导航栏 -->
-		<keep-alive>
-			<uFoot :type='2'></uFoot>
-		</keep-alive>
+		<uFoot :type='2'></uFoot>
 	</view>
 </template>
 

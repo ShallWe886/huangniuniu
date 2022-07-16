@@ -1,29 +1,10 @@
 <template>
 	<view class="fixed_padding_bottom_xxxl">
 		<search></search>
-
-		<view class="flex_row justify_around order_top_box">
-			<view class="order_top_item padding_bottom_s" :class="{'active':orderIndex == index}"
-				v-for="(item,index) in orderTitleList" :key="index" @click="selectOrderStatus(index)">
-				{{item.title}}
-			</view>
-		</view>
-		<view class="margin_left_l" v-for="(item,index) in orderList">
+		<view class="margin_left_l" v-for="(item,index) in orderList" :key="index">
 			<view class="box_690 order_item_box padding_l" @click="toDetail(item)">
-				<view class="tip_yellow  " v-if="item.status == 1">
+				<view class="tip_yellow  " >
 					待支付
-				</view>
-				<view class="tip_yellow  " v-if="item.status == 2">
-					待接单
-				</view>
-				<view class="tip_blue  " v-if="item.status == 3">
-					服务中
-				</view>
-				<view class="tip_blue  " v-if="item.status == 4">
-					已完成
-				</view>
-				<view class="tip_orange  " v-if="item.status == 5">
-					退款中
 				</view>
 				<view class="font_size_text_m color_black_999">
 					下单时间：2022-05-12 11:30
@@ -52,16 +33,7 @@
 					<view class="btn_orange_m margin_left_xl margin_top_l" v-if=" item.status == 1">
 						去支付
 					</view>
-
-					<view class="btn_orange_m margin_top_l" v-if=" item.status == 2" @click.stop="refund(item,index)">
-						申请退款
-					</view>
-					<view class="btn_white_m margin_top_l" v-if=" item.status == 4">
-						已评价
-					</view>
-					<view class="btn_orange_m margin_left_xl margin_top_l" v-if=" item.status == 4" @click.stop="toInvoice">
-						申请开票
-					</view>
+					
 				</view>
 			</view>
 		</view>
@@ -145,12 +117,6 @@
 		methods: {
 			change(e) {
 				console.log('change', e);
-			},
-			selectOrderStatus(status) {
-				this.orderIndex = status
-				this.orderList.map(res=>{
-					res.status = status
-				})
 			},
 			toDetail(item) { //查看详情
 				uni.navigateTo({

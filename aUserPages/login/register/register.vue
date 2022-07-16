@@ -12,7 +12,7 @@
 					姓名
 				</view>
 				<view class="margin_left flex_row">
-					<input type="text" class="text_align_end margin_right_s" v-model="registerInfo.name" placeholder="请输入姓名"
+					<input type="text" class="text_align_right margin_right_s" v-model="registerInfo.name" placeholder="请输入姓名"
 						placeholder-class="font_size_text_l">
 				</view>
 
@@ -29,7 +29,7 @@
 							男
 						</view>
 					</view>
-					<view class="flex_row font_size_text_l color_black_333 margin_left_m">
+					<view class="flex_row font_size_text_l color_black_333 margin_left_xl">
 						<image src="/static/image/select01.png" class="icon_img" v-if="registerInfo.sex == 1"></image>
 						<image src="/static/image/select02.png" class="icon_img" v-else></image>
 						<view class="margin_left_s">
@@ -43,7 +43,7 @@
 					年龄
 				</view>
 				<view class="margin_left flex_row">
-					<input type="text" class="text_align_end margin_right_s" v-model="registerInfo.age"
+					<input type="text" class="text_align_right margin_right_s" v-model="registerInfo.age"
 						placeholder="请输入年龄" placeholder-class="font_size_text_l">
 				</view>
 			</view>
@@ -52,7 +52,7 @@
 					联系方式
 				</view>
 				<view class="margin_left flex_row">
-					<input type="text" class="text_align_end margin_right_s" v-model="registerInfo.phone"
+					<input type="text" class="text_align_right margin_right_s" v-model="registerInfo.phone"
 						placeholder="请输入联系方式" placeholder-class="font_size_text_l">
 				</view>
 			</view>
@@ -72,12 +72,12 @@
 				</view>
 			</view>
 		</view>
-		<view class="sure_buttton " style="margin-top: 200rpx; margin-left: 70rpx;" @click="submitRegister">
+		<view class="sure_buttton_letter " style="margin-top: 200rpx; margin-left: 70rpx;" @click="submitRegister">
 			注册
 		</view>
 		<u-popup :show="tipPop" :closeable="true" mode="center" :round="20" @close="closePop">
 			<view class="flex_column "
-				style="width: 600rpx; height: 340rpx;box-sizing: border-box;padding: 108rpx 30rpx 30rpx 30rpx">
+				style="width: 600rpx; box-sizing: border-box;padding: 100rpx 30rpx 80rpx 30rpx">
 				<view class="font_size_title_xxl color_black_333 font_weight">
 					已提交审核
 				</view>
@@ -136,6 +136,7 @@
 		border-radius: 10rpx;
 		height: 190rpx;
 		width: 630rpx;
+		box-sizing: border-box;
 	}
 	
 	.register_label{

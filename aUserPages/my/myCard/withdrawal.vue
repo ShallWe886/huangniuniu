@@ -30,7 +30,7 @@
 				</view>
 				<view class="flex_row padding_l_0">
 					<view class="font_size_text_l color_black_999">
-						可提现金额<text class="color_orange font_weight">500</text>元
+						可提现金额<text class="color_orange font_weight">500.00</text>元
 					</view>
 					<view class="margin_left font_weight color_orange font_size_text_l">
 						全部提现
@@ -69,7 +69,7 @@
 					<view class="card_box margin_top_m">
 						<image :src="item.img" mode="aspectFill" class="card_img"></image>
 						<view class="card_con_box">
-							<view class="font_size_text_xl color_white text_align_end">
+							<view class="font_size_text_xl color_white text_align_right">
 								张*斌
 							</view>
 							<view class="flex_row margin_top_xl ">

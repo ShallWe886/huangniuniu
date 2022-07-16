@@ -3,7 +3,7 @@
 		<!-- 底部导航栏 -->
 		<view class="flex_row justify_around tabbar_box bg_white">
 			<view class="flex_column " @click="toTabbar(1)">
-				<block v-if="type == 1">
+				<block v-if="tabbarIndex == 1">
 					<image src="/static/image/tabbar02.png" class="tabbar_img"></image>
 					<view class="font_size_text_xxs margin_top_s color_orange">
 						首页
@@ -18,16 +18,16 @@
 
 			</view>
 			<view class="flex_column " @click="toTabbar(2)">
-				<block v-if="type == 2">
+				<block v-if="tabbarIndex == 2">
 					<image src="/static/image/tabbar04.png" class="tabbar_img"></image>
 					<view class="font_size_text_xxs margin_top_s color_orange">
-						订单
+						购物车
 					</view>
 				</block>
 				<block v-else>
 					<image src="/static/image/tabbar03.png" class="tabbar_img"></image>
 					<view class="font_size_text_xxs margin_top_s color_black_888">
-						订单
+						购物车
 					</view>
 				</block>
 
@@ -44,7 +44,7 @@
 				</view>
 
 				<view class="font_size_text_xxs margin_top_xl color_black_888">
-					急速预约
+					人工预约
 				</view>
 				<!-- <block>
 					<image src="/static/image/tabbar01.png" class="tabbar_img"></image>
@@ -54,7 +54,7 @@
 				</block> -->
 			</view>
 			<view class="flex_column " @click="toTabbar(4)">
-				<block v-if="type == 4">
+				<block v-if="tabbarIndex == 4">
 					<image src="/static/image/tabbar06.png" class="tabbar_img"></image>
 					<view class="font_size_text_xxs margin_top_s color_orange">
 						健康百科
@@ -69,7 +69,7 @@
 
 			</view>
 			<view class="flex_column " @click="toTabbar(5)">
-				<block v-if="type == 5">
+				<block v-if="tabbarIndex == 5">
 					<image src="/static/image/tabbar08.png" class="tabbar_img"></image>
 					<view class="font_size_text_xxs margin_top_s color_orange">
 						我的
@@ -84,11 +84,8 @@
 
 			</view>
 		</view>
-		<u-popup :show="quickAppointShow" closeable="true"  mode="center" :round="20" @close="closeQuick">
-			
-			<view class="flex_column "
-				style="width: 600rpx; box-sizing: border-box;padding: 50rpx 30rpx 60rpx 30rpx ;">
-				<!-- <image src="/static/image/close_icon.png" mode="aspectFill" class="close_icon margin_left" @click="closeQuick"></image> -->
+		<u-popup :show="quickAppointShow" :closeable="true" mode="center" :round="20" @close="closeQuick">
+			<view class="flex_column " style="width: 600rpx; box-sizing: border-box;padding: 50rpx 30rpx 60rpx 30rpx ;">
 				<view class="font_size_title_xxl color_black_333 font_weight " style="margin-top: 30rpx;">
 					咨询热线
 				</view>
@@ -112,26 +109,25 @@
 	export default {
 		name: "tabbar",
 		props: {
-			type: { //type 代表进入的页面 1:首页，2：订单，3：快速预约 4：健康百科 5：我的
+			tabbarIndex: { //tabbarIndex 代表进入的页面 1:首页，2：订单，3：快速预约 4：健康百科 5：我的
 				type: Number,
-				default: 0
+				default: 1
 			}
 		},
 		data() {
 			return {
 				quickAppointShow: false
-			};
+			}
 		},
 		methods: {
 			toTabbar(status) {
-
 				if (status == 1) {
 					uni.reLaunch({
 						url: '/pages/index/index'
 					})
-				} else if (status == 2) {
+				} else if (status == 2) {//购物车
 					uni.reLaunch({
-						url: '/aUserPages/my/myOrder'
+						url: '/aUserPages/shopCar/shopCar'
 					})
 				} else if (status == 3) { //急速预约
 					this.quickAppointShow = true

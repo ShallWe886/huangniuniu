@@ -10,15 +10,18 @@
 			</view>
 		</view>
 
-		<view class="sure_buttton margin_top_xxl margin_left_l" @click="toShare" >
+		<view class="sure_buttton_letter margin_top_xxl margin_left_l" @click="toShare" >
 			分享
 		</view>
-		<u-popup :show="sharePop" mode="bottom" :round="30" closeable='true' @close="closePop">
+		<u-popup :show="sharePop" mode="bottom" :round="30"  @close="closePop">
 			<view class="padding_l">
-				<view class="font_weight color_black_333 font_size_text_xl">
-					请选择分享方式
+				<view class="flex_row">
+					<view class="font_weight color_black_333 font_size_text_xl">
+						请选择分享方式
+					</view>
+					<image src="/static/image/health_close.png" mode="aspectFill" class="invite_close margin_left"></image>
 				</view>
-				<view class="flex_row justify_between margin_bottom_l padding_xs margin_top_l">
+				<view class="flex_row justify_between margin_bottom_l  margin_top_l" style="padding: 10rpx 50rpx;">
 					<view class="flex_column" v-for="(item,index) in shareList" :key="index">
 						<image :src="item.img" mode="aspectFill" class="share_img"></image>
 						<view class="margin_top_s font_size_text_l color_black_888">
@@ -67,5 +70,9 @@
 	.share_img{
 		width: 110rpx;
 		height: 110rpx;
+	}
+	.invite_close{
+		width: 36rpx;
+		height: 36rpx;
 	}
 </style>

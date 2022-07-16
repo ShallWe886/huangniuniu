@@ -15,16 +15,16 @@
 				<view class="color_white font_weight margin_top_m" style="font-size: 68rpx;">
 					1222
 				</view>
-				<view class="dong_top_man flex_row color_white font_weight font_size_text_xl ">
+				<view class="dong_top_man flex_row  font_weight  ">
 					<view class="man_box " @click="toRecharge">
 						<image src="/static/image/dong01.png" mode="aspectFill" class="dong_la"></image>
-						<view class="margin_left_m">
+						<view class="margin_left_m font_size_text_xxl color_white">
 							充值
 						</view>
 					</view>
 					<view class="man_box" @click="toWithdrawal">
 						<image src="/static/image/dong02.png" mode="aspectFill" class="dong_la"></image>
-						<view class="margin_left_m">
+						<view class="margin_left_m font_size_text_xxl color_white">
 							提现
 						</view>
 					</view>
