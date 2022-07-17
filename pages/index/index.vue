@@ -159,7 +159,7 @@
 					})
 				} else if (type == 4) {
 					uni.navigateTo({
-						url: '/aUserPages/vipPages/writeOrder'
+						url: '/aUserPages/runOrder/runOrder'
 					})
 				}
 
