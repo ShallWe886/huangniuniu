@@ -34,14 +34,16 @@
 						<view class="font_size_title_s color_black_333 font_weight" style="line-height: 70rpx;">
 							李先生
 						</view>
-						<view class="font_size_text_m color_black_888 order_label">
-							专业陪诊
-						</view>
-						<view class="font_size_text_s color_black_888 text_overflow_1" style="line-height: 50rpx;">
-							就诊医院和科室：华夏第一医院，消化科
-						</view>
-						<view class="font_size_text_m color_black_888 text_overflow_1" style="line-height: 30rpx;">
-							陪诊时间：2022-05-12 3:00-5:00
+						<view v-for="(items,indexs) in item.list" class="margin_bottom_m" :key="indexs">
+							<view class="font_size_text_m color_black_888 order_label">
+								专业陪诊
+							</view>
+							<view class="font_size_text_s color_black_888 text_overflow_1" style="line-height: 50rpx;">
+								就诊医院和科室：华夏第一医院，消化科
+							</view>
+							<view class="font_size_text_m color_black_888 text_overflow_1" style="line-height: 30rpx;">
+								陪诊时间：2022-05-12 3:00-5:00
+							</view>
 						</view>
 					</view>
 				</view>
@@ -119,21 +121,29 @@
 				keyWord: '',
 				orderIndex: 0,
 				orderList: [{
-					status: 1
+					status: 1,
+					list:[{},{},{}]
 				}, {
-					status: 1
+					status: 1,
+					list:[{},{},{},{}]
 				}, {
-					status: 2
+					status: 2,
+					list:[{}]
 				}, {
-					status: 3
+					status: 3,
+					list:[{}]
 				}, {
-					status: 4
+					status: 4,
+					list:[{}]
 				}, {
-					status: 5
+					status: 5,
+					list:[{}]
 				}, {
-					status: 1
+					status: 1,
+					list:[{}]
 				}, {
-					status: 1
+					status: 1,
+					list:[{}]
 				}],
 				cancelStatus: false,
 				cancelSucess: false

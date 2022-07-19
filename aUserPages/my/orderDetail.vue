@@ -1,15 +1,17 @@
 <template>
 	<view class="flex_column padding_bottom_m">
 		<view class="box_690 padding_0_l ">
-			<view class="flex_row border_bottom padding_l_0" v-for="(value,key) in orderDetail" :key="key">
-				<view class="font_size_text_xl color_black_333 font_weight">
-					{{key}}
-				</view>
-				<view class="margin_left color_black_888 font_size_text_l flex_row">
-					{{value}}
-					<block v-if="key == '科室'">
-						<u-icon name="arrow-right" color="#888888" size="30"></u-icon>
-					</block>
+			<view v-for="(items,indexs) in orderList" :key="indexs" class="diff_bottom">
+				<view class="flex_row border_bottom padding_l_0" v-for="(value,key) in orderDetail" :key="key">
+					<view class="font_size_text_xl color_black_333 font_weight">
+						{{key}}
+					</view>
+					<view class="margin_left color_black_888 font_size_text_l flex_row">
+						{{value}}
+						<block v-if="key == '科室'">
+							<u-icon name="arrow-right" color="#888888" size="30"></u-icon>
+						</block>
+					</view>
 				</view>
 			</view>
 			<view class="font_size_text_xxl color_black_333 font_weight flex_row border_bottom padding_l_0">
@@ -104,6 +106,7 @@
 					'价格': '¥199.00'
 					
 				},
+				orderList:[{},{},{}],
 				status:4 //订单状态
 			}
 		},
@@ -150,5 +153,8 @@
 		background-color: #F8F8F8;
 		border-radius: 20rpx;
 		box-sizing: border-box;
+	}
+	.diff_bottom{
+		border-bottom: 3rpx solid #999999;
 	}
 </style>

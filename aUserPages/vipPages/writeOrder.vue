@@ -1,21 +1,140 @@
 <template>
-	<view>
+	<view class="padding_bottom_l">
 		<view class="box_690 padding_0_l margin_left_l ">
-			<block v-for="(item,index) in inputList">
+			<view class="font_weight font_size_text_xl padding_m_0 color_black ">
+				预约普通号：
+			</view>
+			<block v-for="(value,key) in ordinaryInfo" :key="key">
 				<view class="flex_row padding_m_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
-						{{item.title}} <text class="color_orange margin_left_s" v-if="item.isSure">*</text>
+						{{value.title}} <text class="color_orange margin_left_s" v-if="value.isSure">*</text>
 					</view>
-					<view class="margin_left flex_row" @click="selectInfo(item,index)">
-						<input type="text" class="text_align_right margin_right_s" v-model="item.content"
-							:placeholder="item.placeholderText" placeholder-class="font_size_text_l"
-							disabled="item.isSure">
-
-						<u-icon name="arrow-right" color="#B4B4B4" v-if="item.isSure"></u-icon>
+					<view class="margin_left flex_row" @click="selectInfo(value,key)" v-if="key == 'hospital'|| key == 'clinic' || key == 'patient' || key == 'time'">
+						<input type="text" class="text_align_right margin_right_s" v-model="value.content"
+							:placeholder="value.placeholderText" placeholder-class="font_size_text_l"
+							disabled="false">
+						<u-icon name="arrow-right" color="#B4B4B4" ></u-icon>
+					</view>
+					<view class="margin_left flex_row"  v-else>
+						<input type="text" class="text_align_right margin_right_s" v-model="value.content" :placeholder="value.placeholderText" placeholder-class="font_size_text_l">
 					</view>
 				</view>
 			</block>
-			<view class="flex_row padding_m_0 border_bottom">
+			<view class="font_weight font_size_text_xl padding_m_0 color_black ">
+				预约专家号：
+			</view>
+			<block v-for="(value,key) in expertInfo" :key="key">
+				<view class="flex_row padding_m_0 border_bottom">
+					<view class="font_size_text_xl color_black_333 font_weight">
+						{{value.title}} <text class="color_orange margin_left_s" v-if="value.isSure">*</text>
+					</view>
+					<view class="margin_left flex_row" @click="selectInfo(value,key)" v-if="key == 'hospital'|| key == 'clinic' || key == 'patient' || key == 'time'">
+						<input type="text" class="text_align_right margin_right_s" v-model="value.content"
+							:placeholder="value.placeholderText" placeholder-class="font_size_text_l"
+							disabled="false">
+						<u-icon name="arrow-right" color="#B4B4B4" ></u-icon>
+					</view>
+					<view class="margin_left flex_row"  v-else>
+						<input type="text" class="text_align_right margin_right_s" v-model="value.content" :placeholder="value.placeholderText" placeholder-class="font_size_text_l">
+					</view>
+				</view>
+			</block>
+			<view class="font_weight font_size_text_xl padding_m_0 color_black ">
+				预约特诊号：
+			</view>
+			<block v-for="(value,key) in specialInfo" :key="key">
+				<view class="flex_row padding_m_0 border_bottom">
+					<view class="font_size_text_xl color_black_333 font_weight">
+						{{value.title}} <text class="color_orange margin_left_s" v-if="value.isSure">*</text>
+					</view>
+					<view class="margin_left flex_row" @click="selectInfo(value,key)" v-if="key == 'hospital'|| key == 'clinic' || key == 'patient' || key == 'time'">
+						<input type="text" class="text_align_right margin_right_s" v-model="value.content"
+							:placeholder="value.placeholderText" placeholder-class="font_size_text_l"
+							disabled="false">
+						<u-icon name="arrow-right" color="#B4B4B4" ></u-icon>
+					</view>
+					<view class="margin_left flex_row"  v-else>
+						<input type="text" class="text_align_right margin_right_s" v-model="value.content" :placeholder="value.placeholderText" placeholder-class="font_size_text_l">
+					</view>
+				</view>
+			</block>
+			<view class="font_weight font_size_text_xl padding_m_0 color_black ">
+				开单及预约检查：
+			</view>
+			<block v-for="(value,key) in inspectInfo" :key="key">
+				<view class="flex_row padding_m_0 border_bottom">
+					<view class="font_size_text_xl color_black_333 font_weight">
+						{{value.title}} <text class="color_orange margin_left_s" v-if="value.isSure">*</text>
+					</view>
+					<view class="margin_left flex_row" @click="selectInfo(value,key)" v-if="key == 'hospital'|| key == 'clinic' || key == 'patient' || key == 'time'">
+						<input type="text" class="text_align_right margin_right_s" v-model="value.content"
+							:placeholder="value.placeholderText" placeholder-class="font_size_text_l"
+							disabled="false">
+						<u-icon name="arrow-right" color="#B4B4B4" ></u-icon>
+					</view>
+					<view class="margin_left flex_row"  v-else>
+						<input type="text" class="text_align_right margin_right_s" v-model="value.content" :placeholder="value.placeholderText" placeholder-class="font_size_text_l">
+					</view>
+				</view>
+			</block>
+			<view class="font_weight font_size_text_xl padding_m_0 color_black ">
+				问诊：
+			</view>
+			<block v-for="(value,key) in consultationInfo" :key="key">
+				<view class="flex_row padding_m_0 border_bottom">
+					<view class="font_size_text_xl color_black_333 font_weight">
+						{{value.title}} <text class="color_orange margin_left_s" v-if="value.isSure">*</text>
+					</view>
+					<view class="margin_left flex_row" @click="selectInfo(value,key)" v-if="key == 'hospital'|| key == 'clinic' || key == 'patient' || key == 'time'">
+						<input type="text" class="text_align_right margin_right_s" v-model="value.content"
+							:placeholder="value.placeholderText" placeholder-class="font_size_text_l"
+							disabled="false">
+						<u-icon name="arrow-right" color="#B4B4B4" ></u-icon>
+					</view>
+					<view class="margin_left flex_row"  v-else>
+						<input type="text" class="text_align_right margin_right_s" v-model="value.content" :placeholder="value.placeholderText" placeholder-class="font_size_text_l">
+					</view>
+				</view>
+			</block>
+			<view class="font_weight font_size_text_xl padding_m_0 color_black ">
+				取寄结果：
+			</view>
+			<block v-for="(value,key) in sendTakeInfo" :key="key">
+				<view class="flex_row padding_m_0 border_bottom">
+					<view class="font_size_text_xl color_black_333 font_weight">
+						{{value.title}} <text class="color_orange margin_left_s" v-if="value.isSure">*</text>
+					</view>
+					<view class="margin_left flex_row" @click="selectInfo(value,key)" v-if="key == 'hospital'|| key == 'clinic' || key == 'patient' || key == 'time'">
+						<input type="text" class="text_align_right margin_right_s" v-model="value.content"
+							:placeholder="value.placeholderText" placeholder-class="font_size_text_l"
+							disabled="false">
+						<u-icon name="arrow-right" color="#B4B4B4" ></u-icon>
+					</view>
+					<view class="margin_left flex_row"  v-else>
+						<input type="text" class="text_align_right margin_right_s" v-model="value.content" :placeholder="value.placeholderText" placeholder-class="font_size_text_l">
+					</view>
+				</view>
+			</block>
+			<view class="font_weight font_size_text_xl padding_m_0 color_black ">
+				买药：
+			</view>
+			<block v-for="(value,key) in buyMedicine" :key="key">
+				<view class="flex_row padding_m_0 border_bottom">
+					<view class="font_size_text_xl color_black_333 font_weight">
+						{{value.title}} <text class="color_orange margin_left_s" v-if="value.isSure">*</text>
+					</view>
+					<view class="margin_left flex_row" @click="selectInfo(value,key)" v-if="key == 'hospital'|| key == 'clinic' || key == 'patient' || key == 'time'">
+						<input type="text" class="text_align_right margin_right_s" v-model="value.content"
+							:placeholder="value.placeholderText" placeholder-class="font_size_text_l"
+							disabled="false">
+						<u-icon name="arrow-right" color="#B4B4B4" ></u-icon>
+					</view>
+					<view class="margin_left flex_row"  v-else>
+						<input type="text" class="text_align_right margin_right_s" v-model="value.content" :placeholder="value.placeholderText" placeholder-class="font_size_text_l">
+					</view>
+				</view>
+			</block>
+			<!-- <view class="flex_row padding_m_0 border_bottom">
 				<view class="font_size_text_xl color_black_333 font_weight">
 					随行人员
 				</view>
@@ -32,16 +151,8 @@
 					<input type="text" class="text_align_right margin_right_s" v-model="orderInfo.accompanyPhone"
 						placeholder="请填写随行人员手机号" placeholder-class="font_size_text_l">
 				</view>
-			</view>
-			<view class="flex_row padding_m_0 border_bottom">
-				<view class="font_size_text_xl color_black_333 font_weight">
-					备注
-				</view>
-				<view class="margin_left flex_row">
-					<input type="text" class="text_align_right margin_right_s" v-model="orderInfo.remarks"
-						placeholder="请填写备注" placeholder-class="font_size_text_l">
-				</view>
-			</view>
+			</view> -->
+			
 			<view class="margin_l_0 font_size_text_xl color_black_333 font_weight">
 				支付方式
 			</view>
@@ -79,31 +190,254 @@
 	export default {
 		data() {
 			return {
-				inputList: [{
+				ordinaryInfo:{ //普通号
+					hospital:{
 						title: '就诊医院',
 						isSure: true,
 						content: '',
 						placeholderText: "请选择就诊医院"
 					},
-					{
+					clinic:{
 						title: '就诊科室',
 						isSure: true,
 						content: '',
 						placeholderText: "请选择就诊科室"
 					},
-					{
+					time:{
 						title: '就诊时间',
 						isSure: true,
 						content: '',
 						placeholderText: "请选择就诊时间"
 					},
-					{
+					patient:{
 						title: '就诊患者',
 						isSure: true,
 						content: '',
 						placeholderText: "请选择就诊患者"
+					},
+					other:{
+						title:'特殊要求',
+						isSure:false,
+						content:'',
+						placeholderText: "请填写要求"
 					}
-				],
+				},
+				expertInfo:{ // 专家号
+					hospital:{
+						title: '就诊医院',
+						isSure: true,
+						content: '',
+						placeholderText: "请选择就诊医院"
+					},
+					clinic:{
+						title: '就诊科室',
+						isSure: true,
+						content: '',
+						placeholderText: "请选择就诊科室"
+					},
+					time:{
+						title: '就诊时间',
+						isSure: true,
+						content: '',
+						placeholderText: "请选择就诊时间"
+					},
+					patient:{
+						title: '就诊患者',
+						isSure: true,
+						content: '',
+						placeholderText: "请选择就诊患者"
+					},
+					other:{
+						title:'特殊要求',
+						isSure:false,
+						content:'',
+						placeholderText: "请填写要求"
+					}
+				},
+				specialInfo:{ // 特约号
+					hospital:{
+						title: '就诊医院',
+						isSure: true,
+						content: '',
+						placeholderText: "请选择就诊医院"
+					},
+					clinic:{
+						title: '就诊科室',
+						isSure: true,
+						content: '',
+						placeholderText: "请选择就诊科室"
+					},
+					time:{
+						title: '就诊时间',
+						isSure: true,
+						content: '',
+						placeholderText: "请选择就诊时间"
+					},
+					patient:{
+						title: '就诊患者',
+						isSure: true,
+						content: '',
+						placeholderText: "请选择就诊患者"
+					},
+					other:{
+						title:'特殊要求',
+						isSure:false,
+						content:'',
+						placeholderText: "请填写要求"
+					}
+				},
+				inspectInfo:{ // 预约检查
+					hospital:{
+						title: '就诊医院',
+						isSure: true,
+						content: '',
+						placeholderText: "请选择就诊医院"
+					},
+					clinic:{
+						title: '就诊科室',
+						isSure: true,
+						content: '',
+						placeholderText: "请选择就诊科室"
+					},
+					time:{
+						title: '就诊时间',
+						isSure: true,
+						content: '',
+						placeholderText: "请选择就诊时间"
+					},
+					patient:{
+						title: '就诊患者',
+						isSure: true,
+						content: '',
+						placeholderText: "请选择就诊患者"
+					},
+					other:{
+						title:'特殊要求',
+						isSure:false,
+						content:'',
+						placeholderText: "请填写要求"
+					}
+				},
+				consultationInfo:{ // 问诊
+					hospital:{
+						title: '就诊医院',
+						isSure: true,
+						content: '',
+						placeholderText: "请选择就诊医院"
+					},
+					clinic:{
+						title: '就诊科室',
+						isSure: true,
+						content: '',
+						placeholderText: "请选择就诊科室"
+					},
+					time:{
+						title: '就诊时间',
+						isSure: true,
+						content: '',
+						placeholderText: "请选择就诊时间"
+					},
+					patient:{
+						title: '就诊患者',
+						isSure: true,
+						content: '',
+						placeholderText: "请选择就诊患者"
+					},
+					other:{
+						title:'特殊要求',
+						isSure:false,
+						content:'',
+						placeholderText: "请填写要求"
+					}
+				},
+				sendTakeInfo:{ // 送取
+					hospital:{
+						title: '就诊医院',
+						isSure: true,
+						content: '',
+						placeholderText: "请选择就诊医院"
+					},
+					clinic:{
+						title: '就诊科室',
+						isSure: true,
+						content: '',
+						placeholderText: "请选择就诊科室"
+					},
+					time:{
+						title: '就诊时间',
+						isSure: true,
+						content: '',
+						placeholderText: "请选择就诊时间"
+					},
+					patient:{
+						title: '就诊患者',
+						isSure: true,
+						content: '',
+						placeholderText: "请选择就诊患者"
+					},
+					other:{
+						title:'特殊要求',
+						isSure:false,
+						content:'',
+						placeholderText: "请填写要求"
+					},
+					receiving:{ //收件信息
+						title:'收件信息',
+						isSure:false,
+						content:'',
+						placeholderText: "请填写收件信息"
+					},
+					reportInfo:{//报告信息
+						title:'报告信息',
+						isSure:false,
+						content:'',
+						placeholderText: "请填写报告信息"
+					},
+					orderRemarks:{ // 订单备注
+						title:'订单备注',
+						isSure:false,
+						content:'',
+						placeholderText: "请填写订单备注"
+					}
+				},
+				buyMedicine:{ //买药
+					patient:{
+						title: '就诊患者',
+						isSure: true,
+						content: '',
+						placeholderText: "请选择就诊患者"
+					},
+					time:{
+						title: '就诊时间',
+						isSure: true,
+						content: '',
+						placeholderText: "请选择就诊时间"
+					},
+					other:{
+						title:'特殊要求',
+						isSure:false,
+						content:'',
+						placeholderText: "请填写要求"
+					},
+					buyAddress:{ //购买地址
+						title:'购买地址',
+						isSure:false,
+						content:'',
+						placeholderText: "请填写购买地址"
+					},
+					receivingInfo:{//收件信息
+						title:'收件信息',
+						isSure:false,
+						content:'',
+						placeholderText: "请填写收件信息"
+					},
+					drugName:{ // 药品名称
+						title:'订单备注',
+						isSure:false,
+						content:'',
+						placeholderText: "请填写订单备注"
+					}
+				},
 				payStyle: [{
 						name: '微信支付',
 						img: '/static/image/pay01.png'
@@ -182,14 +516,14 @@
 				}
 				return value
 			},
-			selectInfo(item, index) { // 点击选择
-				if (index != 2) {
+			selectInfo(vlaue, key) { // 点击选择
+				if (key != 'time') {
 					this.show = !this.show
-					if (index == 0) {
+					if (key == 'hospital') {
 						this.selecttitle = '选择医院'
-					} else if (index == 1) {
+					} else if (key == 'clinic') {
 						this.selecttitle = '选择科室'
-					} else if (index == 3) {
+					} else if (key == 'patient') {
 						this.selecttitle = '选择患者'
 					}
 				} else {

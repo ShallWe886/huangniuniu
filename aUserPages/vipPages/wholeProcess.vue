@@ -94,7 +94,7 @@
 			submitOrder(e) {
 				//提交订单
 				uni.navigateTo({
-					url: '/aUserPages/vipPages/writeOrder'
+					url: '/aUserPages/vipPages/wholeWriteOrder'
 				})
 			}
 		}
