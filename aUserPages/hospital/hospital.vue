@@ -1,24 +1,24 @@
 <template>
-	<view class="padding_bottom_xl">
+	<view class="padding_bottom_xl" v-if="hospitalDetail">
 		<view class="vip_box">
-			<image :src="imageUrl+'/hospitalImg.png'" class="vip_topImg"></image>
+			<image :src="hospitalDetail.picture" class="vip_topImg"></image>
 			<view class="box_690 padding_top_l padding_bottom_xl padding_left_xl padding_right_xl vip_tip_box">
 				<view class="font_weight color_black_333 font_size_title_l">
-					华夏第一军区医院
+					{{hospitalDetail.name}}
 				</view>
 				<view class="flex_row margin_top_m">
 					<view class="lable_box">
-						三甲医院
+						{{levelMap[hospitalDetail.level].name}}
 					</view>
 					<view class="lable_box margin_left_s">
-						综合医院
+						{{typeMap[hospitalDetail.type].name}}
 					</view>
 				</view>
 				<view class="font_size_text_xl color_black_999 margin_top_m">
-					咨询电话：010-86906688
+					咨询电话：{{hospitalDetail.telephone}}
 				</view>
 				<view class="font_size_text_xl color_black_999 margin_top_s">
-					医院位置：深圳市龙岗区布澜路29号
+					医院位置：{{hospitalDetail.address}}
 				</view>
 			</view>
 		</view>
@@ -34,7 +34,7 @@
 			<swiper :indicator-dots="false" style="height: 600rpx;" :autoplay="false" :current="tabId" @change='change' @transition="selectSwiper">
 				<swiper-item >
 					<view class="box_690 padding_l font_size_text_l color_black_333">
-						节点号介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍
+						<rich-text :nodes="hospitalDetail.description"></rich-text>
 					</view>
 				</swiper-item>
 				<swiper-item >
@@ -69,19 +69,29 @@
 </template>
 
 <script>
+	import {levelMap,typeMap} from "@/static/js/dictionaries.js"
 	export default {
 		data() {
 			return {
+				levelMap,
+				typeMap,
 				tabId: 0,
-				docList:[{},{},{}]
+				docList:[{},{},{}],
+				hospitalDetail:null
 			}
 		},
 		onLoad(options) {
+			// this.hospitalDetail = uni.getStorageSync('hospitalDetail')
 			uni.setNavigationBarTitle({
-				title: "华夏第一军区医院"
+				title: this.hospitalDetail.name
 			})
 		},
 		methods: {
+			getDepartment(e){
+				this.$api.getDepartment({}).then(res=>{
+					
+				})
+			},
 			selectTab(type){
 				console.log(type)
 				this.tabId = type

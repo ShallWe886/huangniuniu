@@ -6,7 +6,7 @@
 					<view class="flex_row">
 						<image src="/static/image/patientList01.png" class="patient_icon_img flex_shrink"></image>
 						<view class="font_size_title_s color_black_333 font_weight margin_left_s text_overflow_1">
-							李无敌
+							{{item.patient_name}}
 						</view>
 					</view>
 					<view class="flex_row margin_top_l">
@@ -18,7 +18,7 @@
 					<view class="flex_row margin_top_l">
 						<image src="/static/image/patientList03.png" class="patient_icon_img flex_shrink"></image>
 						<view class="font_size_text_l color_black_888  margin_left_s">
-							111111111111111
+							{{item.id_card}}
 						</view>
 					</view>
 				</view>
@@ -51,10 +51,40 @@
 	export default {
 		data() {
 			return {
-				patientList:[]
+				patientList:[],
+				loading:true,
+				pageNo:1
+			}
+		},
+		onLoad() {
+			this.getData()
+		},
+		onPullDownRefresh() {
+			this.getData();
+		},
+		onReachBottom() {
+			if (this.loading) {
+				this.getData();
 			}
 		},
 		methods: {
+			fresh(e) {
+				this.getfresh()
+			},
+			getfresh(e) {
+				this.patientList = []
+				this.page = 1
+				this.loading = true;
+				this.getData();
+			},
+			getData(e){
+				this.$api.getPatientList({page:this.pageNo,pageSize:10}).then(res=>{
+					this.loading = res.list.length == 10
+					this.patientList = this.patientList.concat(res.list)
+					this.pageNo += 1
+					
+				})
+			},
 			addPatient(e){
 				//添加就诊人信息
 				uni.navigateTo({

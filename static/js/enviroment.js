@@ -3,7 +3,7 @@
 export default{
 	v:'prd',
 	envs:{
-		'prd':"http://pzcs.qifudaren.net/",
+		'prd':"http://pzcs.qifudaren.net",
 		'imgUrl':"http://pzcs.qifudaren.net/uploads/qianduan"
 		
 	},

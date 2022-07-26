@@ -24,16 +24,22 @@
 			</block>
 			<block v-if="type == 1">
 				<view class="login_input_box" style="margin-top: 100rpx;">
-					<input type="text" placeholder="请输入您的手机号">
+					<input type="text" v-model="login.mobile" placeholder="请输入您的手机号">
 				</view>
 				<view class="flex_row login_input_box margin_top_xl">
-					<input type="text" placeholder="请输入验证码">
-					<view class="margin_left color_orange font_size_text_xl">
+					<input type="text" v-model="login.code" placeholder="请输入验证码">
+					<view class="margin_left color_orange font_size_text_xl" @click="getCode" v-if="!isCode">
 						获取验证码
+					</view>
+					<view class="margin_left color_orange font_size_text_l font_weight"  v-if="isCode">
+						重新发送（{{seconds}}秒）
 					</view>
 				</view>
 			</block>
-			<view class="login_button_self" style="margin-top: 60rpx;" @click="register">
+			<view class="login_button_self" style="margin-top: 60rpx;" @click="toLogin">
+				登录
+			</view>
+			<view class="login_button_self" style="margin-top: 20rpx;" @click="register">
 				本机号码一键登录
 			</view>
 			<view class="login_button_other" style="margin-top: 50rpx;" v-if="type == 0">
@@ -71,7 +77,14 @@
 		data() {
 			return {
 				type: 1,
-				seconds:60
+				seconds:60,
+				isCode:false,
+				login:{
+					mobile:'',//手机号
+					code:'',//验证码
+					key:''
+					
+				}
 			}
 		},
 		methods: {
@@ -79,27 +92,44 @@
 				this.tips = text;
 			},
 			getCode() {
-				if(this.$refs.uCode.canGetCode) {
-					// 模拟向后端请求验证码
+				var phoneReg = /^1[3|4|5|7|8][0-9]{9}$/;
+				// console.log("验证手机号",phoneReg.test(this.phone))
+				if(phoneReg.test(this.login.mobile)){
 					uni.showLoading({
 						title: '正在获取验证码'
 					})
-					setTimeout(() => {
-						uni.hideLoading();
-						// 这里此提示会被this.start()方法中的提示覆盖
-						uni.$u.toast('验证码已发送');
-						// 通知验证码组件内部开始倒计时
-						this.$refs.uCode.start();
-					}, 2000);
-				} else {
-					uni.$u.toast('倒计时结束后再发送');
+					this.$api.smsSend({mobile:this.login.mobile}).then(res=>{
+						console.log("结果",res)
+						this.login.key = res.key
+						this.isCode = true
+						setInterval(()=>{
+							if(this.seconds == 0){
+								this.isCode = false
+								clearInterval()
+							}else{
+								this.seconds --
+							}
+							
+						},1000)
+						
+						
+					})
+				}else{
+					uni.showToast({
+						title:"请输入正确的手机号码",
+						icon:"none"
+					})
 				}
+				
+			
 			},
-			end() {
-				uni.$u.toast('倒计时结束');
-			},
-			start() {
-				uni.$u.toast('倒计时开始');
+			toLogin(e){//登录
+				this.$api.smsLogin({mobile:this.login.mobile,verify_id:this.login.key,verify:this.login.code}).then(res=>{
+					console.log('登录',res)
+					uni.setStorageSync("userInfo",res)
+					uni.navigateBack({}) //返回上一页
+				})
+				
 			},
 			register(e){
 				if(this.type == 1){

@@ -37,3 +37,11 @@ https://www.apifox.cn/web/project/1241444
 
  1.VIP陪诊-门诊服务 2.VIP陪诊-住院服务 3.VIP陪诊-VIP服务 4.全程陪诊 5.名家有约，
      6.代办挂号-普通号  7代办挂号-专家号 8代办挂号-特约号 9代办-问诊 10代办取药 11代办送取报告
+
+
+腾讯地图
+链接：https://lbs.qq.com
+账号：13434161197
+密码：验证码登录
+Key名称：麦咚陪诊
+Key：TJNBZ-JMTLI-CGWGZ-5QDAQ-BBP3K-4KFIE

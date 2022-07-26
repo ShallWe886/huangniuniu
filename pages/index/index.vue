@@ -12,7 +12,7 @@
 			  </template>
 		</zq-navbar>
 		<view class="  ">
-			<u-swiper :list="swiperList" @click="lookSwiper" indicator indicatorMode="dot" circular height="280">
+			<u-swiper :list="swiperList" @click="lookSwiper" indicator indicatorMode="dot" circular height="280" keyName="picture">
 			</u-swiper>
 		</view>
 		<view class="flex_row justify_between margin_top_xl margin_left_l margin_right_l">
@@ -81,19 +81,19 @@
 		<view class="margin_top_xl color_black_333 font_weight font_size_title_l padding_bottom_m margin_left_l margin_right_l">
 			医院列表
 		</view>
-		<block v-for="(item,index) in clinicList" :key="index">
+		<block v-for="(item,index) in hospitalList" :key="index">
 			<view class="box_690 flex_row padding_s_m margin_left_l margin_right_l" @click="lookDetail(item,index)">
-				<image src="" class="clinic_img flex_shrink"></image>
+				<image :src="item.picture" class="clinic_img flex_shrink"></image>
 				<view class=" padding_left_m">
 					<view class="font_weight font_size_title_s color_black_333 text_overflow_1">
-						{{item.title}}
+						{{item.name}}
 					</view>
 					<view class="font_size_text_m margin_top_s">
-						<text class="color_red">三甲</text>
-						<text class="margin_left_s color_black_888">综合医院</text>
+						<text class="color_red">{{levelMap[item.level].name}}</text>
+						<text class="margin_left_s color_black_888">{{typeMap[item.type].name}}</text>
 					</view>
 					<view class="margin_top_s text_overflow_1 font_size_text_s color_black_888 ">
-						第三军区医院是国家重点，专业科室…第三军区医院是国家重点，专业科室…第三军区医院是国家重点，专业科室…第三军区医院是国家重点，专业科室…
+						{{item.description}}
 					</view>
 				</view>
 			</view>
@@ -105,39 +105,113 @@
 </template>
 
 <script>
+	import {levelMap,typeMap} from "@/static/js/dictionaries.js"
 	export default {
 		data() {
 			return {
+				levelMap,
+				typeMap,
 				title: 'Hello',
-				swiperList: [
-					'https://cdn.uviewui.com/uview/swiper/swiper1.png',
-					'https://cdn.uviewui.com/uview/swiper/swiper2.png',
-					'https://cdn.uviewui.com/uview/swiper/swiper3.png',
-				],
-				clinicList: [{
-						img: '',
-						title: '华夏第一军区医院'
-					},
-					{
-						img: '',
-						title: '华夏第一军区医院'
-					},
-					{
-						img: '',
-						title: '华夏第一军区医院'
-					},
-				],
-				quickAppointShow: false
+				swiperList: [],
+				hospitalList: [],
+				quickAppointShow: false,
+				addressInfo:{//定位信息
+					longitude:'',
+					latitude:'',
+					city:'上海市'
+				},
+				isCanAddress:true ,//是否可以进入定位页面
+				pageNo:1,
+				loading:true
 			}
 		},
 		onLoad() {
-
+			this.getData()
+			// this.getHospital()
+		},
+		onPullDownRefresh() {
+			this.getData();
+		},
+		onReachBottom() {
+			// if (this.loading) {
+			// 	this.getHospital();
+			// }
 		},
 		methods: {
-			goAddress(e){//定位
-				uni.navigateTo({
-					url:"/aUserPages/address/address"
+			fresh(e) {
+				this.getfresh()
+			},
+			getfresh(e) {
+				this.doctorList = []
+				this.page = 1
+				this.loading = true;
+				this.getHospital();
+			},
+			getData(e){
+				this.$api.banner({}).then(res=>{
+					this.swiperList = res.list
 				})
+				this.$api.getHospitalList({}).then(res=>{
+					this.hospitalList = res.hospital
+				})
+			},
+			getHospital(){ //获取医院列表
+				
+				
+			},
+			getLocation(e){//定位
+				uni.getLocation({
+				    type: 'wgs84',
+				    success: (res) =>{
+						this.addressInfo.longitude = res.longitude
+						this.addressInfo.latitude = res.latitude
+						// this.qqmapsdk.reverseGeocoder({
+						// 	location: {
+						// 		latitude: res.latitude,
+						// 		longitude: res.longitude
+						//     }, 
+						// 	success:(obj)=> {
+						// 		this.addressInfo.id = obj.result.ad_info.adcode
+						// 		this.addressInfo.city = obj.result.address_component.city
+						// 		uni.setStorage({
+						// 		    key: 'addressInfo',
+						// 			data:this.addressInfo,
+						// 		    success: function (res) {    
+						// 		    }
+						// 		});
+						// 		this.getdata()
+						// 	},
+						// 	fail:function(obj){
+						// 		console.error(123,obj)
+						// 	}
+						// })
+				    },
+					fail:(res)=> {
+						uni.showModal({
+							title:"温馨提示",
+							content:"获取定位是为了提供更好的服务~请手动打开定位，然后重启小程序！",
+							success: () => {
+								this.isCanAddress = false
+								this.getdata()
+							}
+						})
+						
+				    	
+				    }
+				});
+			},
+			goAddress(e){//定位
+				if(this.isCanAddress){
+					uni.navigateTo({
+						url:"/aUserPages/address/address"
+					})
+				}else{
+					uni.showToast({
+						icon:"none",
+						title:"请手动打开定位服务",
+						duration:5000
+					})
+				}
 			},
 			lookSwiper(e) {
 				//查看轮播图
@@ -165,6 +239,7 @@
 
 			},
 			lookDetail(item, index) {
+				// uni.setStorageSync("hospitalDetail",item)
 				uni.navigateTo({
 					url: '/aUserPages/hospital/hospital'
 				})
