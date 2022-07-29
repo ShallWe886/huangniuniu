@@ -45,7 +45,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="sure_buttton " style="margin-top: 120rpx;">
+		<view class="sure_buttton " style="margin-top: 120rpx;" @click="submit">
 			确认添加
 		</view>
 	</view>
@@ -60,12 +60,50 @@
 					phone: '',
 					area: '',
 					detail: '',
-					default:true
-				}
+					default:true,
+					province_id:'',
+					city_id:'',
+					district_id:'',
+					
+				},
+				type:0 ,// 0新增 1：修改
+				addressId:''
+			}
+		},
+		onLoad(options) {
+			this.type = options.type
+			uni.setNavigationBarTitle({
+				title:options.type == 0 ? '添加地址' : '修改地址'
+			})
+			if(this.type == 1){
+				this.addressId = options.addressId
+				this.getData()
 			}
 		},
 		methods: {
-
+			getData(e){ //获取地址详情
+				this.$api.getAddressDetail({id:this.addressId}).then(res=>{
+					this.addressInfo.name = res.user_name
+					this.addressInfo.phone = res.user_phone
+					this.addressInfo.detail = res.detail
+					this.addressInfo.country_id = res.country_id
+					this.addressInfo.province_id = res.province_id
+					this.addressInfo.city_id = res.city_id
+					this.addressInfo.district_id = res.district_id
+					this.addressInfo.default = res.is_default
+				})
+			},
+			submit(e){
+				if(type == 0){//新增
+					this.$api.addAddress({user_name:this.addressInfo.name,user_phone:this.addressInfo.phone,province_id:this.addressInfo.province_id,city_id:this.addressInfo.city_id,district_id:this.addressInfo.district_id,detail:this.addressInfo.detail}).then(res=>{
+						
+					})
+				}else{//修改
+					this.$api.addAddress({user_name:this.addressInfo.name,user_phone:this.addressInfo.phone,province_id:this.addressInfo.province_id,city_id:this.addressInfo.city_id,district_id:this.addressInfo.district_id,detail:this.addressInfo.detail,id:this.addressId}).then(res=>{
+						
+					})
+				}
+			}
 		}
 	}
 </script>

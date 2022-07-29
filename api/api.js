@@ -1,8 +1,8 @@
 import Request from '../static/js/request.js';
 let request = new Request().http;
 
-// import UploadFile from '../static/js/upload.js';
-// let uploadFile = new UploadFile().http;
+import UploadFile from '../static/js/upload.js';
+let uploadFile = new UploadFile().http;
 
 export default{
 	smsSend:function(upJson){//短信发送接口
@@ -27,6 +27,46 @@ export default{
 		return request({url:"/api/patient/list",param:upJson,methods:"GET",type:0})
 	},
 	addPatient:function(upJson){//新增患者
-		return request({url:"/api/patient/add",param:upJson,methods:"GET",type:2,emsg:'添加成功'})
+		return request({url:"/api/patient/add",param:upJson,methods:"GET",type:2,eMsg:'添加成功'})
 	},
+	getPatientDetail:function(upJson){//患者详情
+		return request({url:"/api/patient/detail",param:upJson,methods:"GET",type:0})
+	},
+	delPatient:function(upJson){//患者删除
+		return request({url:"/api/patient/del",param:upJson,methods:"GET",type:2,eMsg:'删除成功'})
+	},
+	editPatient:function(upJson){//患者修改
+		return request({url:"/api/patient/edit",param:upJson,methods:"GET",type:2,eMsg:'修改成功'})
+	},
+	// upLoad:function(upJson){//文件上传
+	// 	return request({url:"",data:upJson,methods:"POST",type:0})
+	// },
+	upLoad:function(upJson){//文件上传
+	  return uploadFile({url:"/api/base/upload",data:upJson,methods:"POST"})
+	 },
+	getCardList:function(upJson){//就诊卡列表
+		return request({url:"/api/card/list",param:upJson,methods:"GET",type:0})
+	},
+	addCard:function(upJson){//新增就诊卡
+		return request({url:"/api/card/add",param:upJson,methods:"GET",type:2,eMsg:"添加成功"})
+	},
+	editCard:function(upJson){//修改就诊卡
+		return request({url:"/api/card/edit",param:upJson,methods:"GET",type:2,eMsg:'修改成功'})
+	},
+	delCard:function(upJson){//删除成功
+		return request({url:"/api/card/del",param:upJson,methods:"GET",type:2,eMsg:"删除成功"})
+	},
+	getAddressList:function(upJson){//收货地址
+		return request({url:"/api/address/getList",param:upJson,methods:"GET",type:0})
+	},
+	addAddress:function(upJson){//新增收货地址
+		return request({url:"/api/address/add",data:upJson,methods:"POST",type:0})
+	},
+	editAddress:function(upJson){//更新or删除地址
+		return request({url:"/api/address/edit",data:upJson,methods:"GET",type:0})
+	},
+	getAddressDetail:function(upJson){//地址详情
+		return request({url:"/api/address/detail",data:upJson,methods:"GET",type:0})
+	},
+	
 }

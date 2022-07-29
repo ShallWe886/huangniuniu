@@ -83,6 +83,14 @@
 					"enablePullDownRefresh": true
 				}
 
+			},
+			{
+				"path": "address/managerAddress/managerAddress",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+
 			}, {
 				"path": "my/my",
 				"style": {
@@ -281,6 +289,7 @@
 				}
 
 			}
+
 
 		]
 	}, {

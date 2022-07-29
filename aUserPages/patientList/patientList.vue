@@ -23,10 +23,10 @@
 					</view>
 				</view>
 				<view class="flex_column margin_left margin_top_l patient_info">
-					<view class="update_patient" @click="addPatient">
+					<view class="update_patient" @click="updatePatient(1,item)">
 						修改
 					</view>
-					<view class="update_patient margin_top_l">
+					<view class="update_patient margin_top_l" @click="deletePatient(item,index)">
 						删除
 					</view>
 				</view>
@@ -40,7 +40,7 @@
 			<view class="font_size_text_l color_black_999 margin_top_xl">
 				请点击下方按钮添加就诊人～
 			</view>
-			<view class="sure_buttton " style="position: fixed;bottom: 120rpx;left: 70rpx;" @click="addPatient">
+			<view class="sure_buttton " style="position: fixed;bottom: 120rpx;left: 70rpx;" @click="addPatient(0)">
 				添加就诊人信息
 			</view>
 		</view>
@@ -59,8 +59,14 @@
 		onLoad() {
 			this.getData()
 		},
+		onShow() {
+			if(getApp().globalData.upDate.isUpdatePtient){
+				this.getfresh()
+				getApp().globalData.upDate.isUpdatePtient = false
+			}
+		},
 		onPullDownRefresh() {
-			this.getData();
+			this.getfresh()
 		},
 		onReachBottom() {
 			if (this.loading) {
@@ -73,7 +79,7 @@
 			},
 			getfresh(e) {
 				this.patientList = []
-				this.page = 1
+				this.pageNo = 1
 				this.loading = true;
 				this.getData();
 			},
@@ -88,10 +94,19 @@
 			addPatient(e){
 				//添加就诊人信息
 				uni.navigateTo({
-					url:'/aUserPages/patientList/addPatient'
+					url:'/aUserPages/patientList/addPatient?type='+e
 				})
 			},
-			
+			updatePatient(e,item){//修改
+				uni.navigateTo({
+					url:'/aUserPages/patientList/addPatient?type='+e+"&patientId="+item.id
+				})
+			},
+			deletePatient(item,index){//删除患者
+				this.$api.delPatient({id:item.id}).then(res=>{
+					this.patientList.splice(index,1)
+				})
+			}
 		}
 	}
 </script>
