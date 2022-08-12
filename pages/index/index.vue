@@ -106,6 +106,7 @@
 
 <script>
 	import {levelMap,typeMap} from "@/static/js/dictionaries.js"
+	import QQMapWX from "@/static/js/qqmap-wx-jssdk.js"
 	export default {
 		data() {
 			return {
@@ -128,6 +129,8 @@
 		onLoad() {
 			this.getData()
 			// this.getHospital()
+			this.qqmapsdk = new QQMapWX({key:'TJNBZ-JMTLI-CGWGZ-5QDAQ-BBP3K-4KFIE'});
+			this.getLocation()
 		},
 		onPullDownRefresh() {
 			this.getData();
@@ -165,26 +168,27 @@
 				    success: (res) =>{
 						this.addressInfo.longitude = res.longitude
 						this.addressInfo.latitude = res.latitude
-						// this.qqmapsdk.reverseGeocoder({
-						// 	location: {
-						// 		latitude: res.latitude,
-						// 		longitude: res.longitude
-						//     }, 
-						// 	success:(obj)=> {
-						// 		this.addressInfo.id = obj.result.ad_info.adcode
-						// 		this.addressInfo.city = obj.result.address_component.city
-						// 		uni.setStorage({
-						// 		    key: 'addressInfo',
-						// 			data:this.addressInfo,
-						// 		    success: function (res) {    
-						// 		    }
-						// 		});
-						// 		this.getdata()
-						// 	},
-						// 	fail:function(obj){
-						// 		console.error(123,obj)
-						// 	}
-						// })
+						uni.setStorageSync('addressInfo',this.addressInfo)
+						this.qqmapsdk.reverseGeocoder({
+							location: {
+								latitude: res.latitude,
+								longitude: res.longitude
+						    }, 
+							success:(obj)=> {
+								this.addressInfo.id = obj.result.ad_info.adcode
+								this.addressInfo.city = obj.result.address_component.city
+								uni.setStorage({
+								    key: 'addressInfo',
+									data:this.addressInfo,
+								    success: function (res) {    
+								    }
+								});
+								// this.getdata()
+							},
+							fail:function(obj){
+								console.error(123,obj)
+							}
+						})
 				    },
 					fail:(res)=> {
 						uni.showModal({
@@ -241,7 +245,7 @@
 			lookDetail(item, index) {
 				// uni.setStorageSync("hospitalDetail",item)
 				uni.navigateTo({
-					url: '/aUserPages/hospital/hospital'
+					url: '/aUserPages/hospital/hospital?hospitalId='+item.id
 				})
 			},
 		}

@@ -4,11 +4,12 @@
 			<image :src="imageUrl+'/my_bg.png'" mode="aspectFill" class="my_bg"></image>
 			<view class="avator_box">
 				<view class="flex_row ">
-					<image src="/static/image/avator.png" mode="aspectFill" class="avator_img flex_shrink"></image>
+					<image src="/static/image/avator.png" mode="aspectFill" class="avator_img flex_shrink" v-if="!userInfo.headimgurl"></image>
+					<image :src="userInfo.headimgurl" mode="aspectFill" class="avator_img flex_shrink" v-else></image>
 					<view class="width_all margin_left_m">
 						<view class="flex_row">
 							<view class="font_size_title_l color_black_333 font_weight">
-								钢铁**超甜
+								{{userInfo.nickname}}
 							</view>
 							<view class="patient_man color_white font_size_text_s margin_left" @click="toManPatient">
 								患者管理
@@ -20,7 +21,7 @@
 								</image>
 								<view class="font_size_text_s color_orange flex_row">
 									<view class="margin_right_xs">
-										我的积分 96
+										我的积分 {{userInfo.user_integral}}
 									</view>
 									<u-icon name="arrow-right" color="#FF6437" size="25"></u-icon>
 								</view>
@@ -30,7 +31,7 @@
 								</image>
 								<view class="font_size_text_s color_orange flex_row" >
 									<view class="margin_right_xs">
-										咚咚币 96
+										咚咚币 {{userInfo.balance}}
 									</view>
 									<u-icon name="arrow-right" color="#FF6437" size="25"></u-icon>
 								</view>
@@ -186,12 +187,35 @@
 						isShow: 'true',
 						src:'/aUserPages/contract/contract'
 					},
-				]
+				],
+				// userInfo:{ //用户信息
+				// 	user_id:2,
+				// 	username:"17621792920",
+				// 	nickname:"17621792920",
+				// 	headimgurl:NULL,
+				// 	user_integral:"7000",
+				// 	balance:"97030.00"
+				// },
+				userInfo:null
 			}
 		},
 		onLoad() {
 		},
+		onShow() {
+			this.getUserInfo()
+		},
 		methods: {
+			getUserInfo(e){
+				this.$api.getMyInfo({}).then(res=>{
+					// this.userInfo.user_id = res.user_id
+					// this.userInfo.balance = res.balance
+					// this.userInfo.nickname = res.nickname
+					// this.userInfo.user_integral = res.user_integral
+					// this.userInfo.headimgurl = res.headimgurl
+					// this.userInfo.username = res.username
+					this.userInfo = res
+				})
+			},
 			//查看订单
 			toMyOrder(status) {
 				uni.navigateTo({

@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view  style="background-color: #ffffff;padding: 15rpx 0;">
+		<view  style="background-color: #ffffff;padding: 15rpx 0;height: 90rpx;box-sizing: border-box;">
 			<view class="flex_row width_all order_input_box margin_left_l   ">
 				<u-icon name="search" size="40" color="#999999"></u-icon>
 				<input type="text" style="width: 600rpx;" placeholder="请输入搜索内容" v-model="keyWord"

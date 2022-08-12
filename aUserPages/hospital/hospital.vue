@@ -1,105 +1,116 @@
 <template>
-	<view class="padding_bottom_xl" v-if="hospitalDetail">
-		<view class="vip_box">
-			<image :src="hospitalDetail.picture" class="vip_topImg"></image>
-			<view class="box_690 padding_top_l padding_bottom_xl padding_left_xl padding_right_xl vip_tip_box">
-				<view class="font_weight color_black_333 font_size_title_l">
-					{{hospitalDetail.name}}
-				</view>
-				<view class="flex_row margin_top_m">
-					<view class="lable_box">
-						{{levelMap[hospitalDetail.level].name}}
+	<view class="padding_bottom_xl" >
+		<zq-load v-model="info.load">
+			<view class="vip_box" v-if="info.form">
+				<image :src="info.form.picture" class="vip_topImg"></image>
+				<view class="box_690 padding_top_l padding_bottom_xl padding_left_xl padding_right_xl vip_tip_box">
+					<view class="font_weight color_black_333 font_size_title_l">
+						{{info.form.name}}
 					</view>
-					<view class="lable_box margin_left_s">
-						{{typeMap[hospitalDetail.type].name}}
+					<view class="flex_row margin_top_m">
+						<view class="lable_box">
+							{{levelMap[info.form.level].name}}
+						</view>
+						<view class="lable_box margin_left_s">
+							{{typeMap[info.form.type].name}}
+						</view>
 					</view>
-				</view>
-				<view class="font_size_text_xl color_black_999 margin_top_m">
-					咨询电话：{{hospitalDetail.telephone}}
-				</view>
-				<view class="font_size_text_xl color_black_999 margin_top_s">
-					医院位置：{{hospitalDetail.address}}
+					<view class="font_size_text_xl color_black_999 margin_top_m">
+						咨询电话：{{info.form.telephone}}
+					</view>
+					<view class="font_size_text_xl color_black_999 margin_top_s">
+						医院位置：{{info.form.address}}
+					</view>
 				</view>
 			</view>
-		</view>
-		<view class="padding_0_l " style="margin-top: 120px;">
-			<view class="flex_row justify_around border_bottom">
-				<view class="tab_box" :class="{'active':tabId == 0}" @click="selectTab(0)">
-					医院介绍
-				</view>
-				<view class="tab_box" :class="{'active':tabId == 1}" @click="selectTab(1)">
-					优势科室
-				</view>
-			</view>
-			<swiper :indicator-dots="false" style="height: 600rpx;" :autoplay="false" :current="tabId" @change='change' @transition="selectSwiper">
-				<swiper-item >
-					<view class="box_690 padding_l font_size_text_l color_black_333">
-						<rich-text :nodes="hospitalDetail.description"></rich-text>
+			<view class="padding_0_l " style="margin-top: 120px;">
+				<view class="flex_row justify_around border_bottom">
+					<view class="tab_box" :class="{'active':tabId == 0}" @click="selectTab(0)">
+						医院介绍
 					</view>
-				</swiper-item>
-				<swiper-item >
-					<scroll-view scroll-y="true" style="height: 600rpx;">
-						<view v-for="(item,index) in docList" :key="index">
-								<view class="box_690 padding_l flex_row" :key="index">
-									<image src="/static/image/docImg.png" mode="aspectFill" class="doc_img flex_shrink"></image>
-									<view class=" margin_left_l">
-										<view class="font_size_title_m color_black_333">
-											欧阳华夏
-										</view>
-										<view class="font_size_text_m color_black_999_light flex_row flex_wrap margin_top_s">
-											<view class="remark_box">
-												主任医师
-											</view>
-											<view class="remark_box">
-												主任医师
-											</view>
-										</view>
-										<view class="font_size_text_l color_black_999 margin_top_s text_overflow_2">
-											简介：简介简介简介简介简介简介简介简介简介简介简介简介简介…
-										</view>
-									</view>
+					<view class="tab_box" :class="{'active':tabId == 1}" @click="selectTab(1)">
+						优势科室
+					</view>
+				</view>
+				<swiper :indicator-dots="false" style="height: 600rpx;" :autoplay="false" :current="tabId"
+					@change='change' @transition="selectSwiper">
+					<swiper-item>
+						<view class="box_690 padding_l font_size_text_l color_black_333">
+							<rich-text :nodes="info.form.description"></rich-text>
+						</view>
+					</swiper-item>
+					<swiper-item>
+						<scroll-view scroll-y="true" style="height: 600rpx;" >
+							<view class="font_size_text_l color_black_999 text_align_center margin_top_l" v-if="info.form.department.length == 0">
+								暂无数据
+							</view>
+							<view v-for="(item,index) in info.form.department" :key="index">
+								<view class="box_690 padding_l font_size_title_m color_black_333">
+									{{item.department_name}}
 								</view>
 							</view>
-					</scroll-view>
-				</swiper-item>
-			</swiper>
-		</view>
-		
+						</scroll-view>
+					</swiper-item>
+				</swiper>
+			</view>
+		</zq-load>
+
+
 	</view>
 </template>
 
 <script>
-	import {levelMap,typeMap} from "@/static/js/dictionaries.js"
+	import {
+		levelMap,
+		typeMap
+	} from "@/static/js/dictionaries.js"
+	import Load from "@/static/utils/load.js"
 	export default {
 		data() {
 			return {
 				levelMap,
 				typeMap,
 				tabId: 0,
-				docList:[{},{},{}],
-				hospitalDetail:null
+				docList: [{}, {}, {}],
+				info: '',
+				hospitalId: ''
 			}
 		},
 		onLoad(options) {
-			// this.hospitalDetail = uni.getStorageSync('hospitalDetail')
-			uni.setNavigationBarTitle({
-				title: this.hospitalDetail.name
-			})
+			this.hospitalId = options.hospitalId
+			this.getData()
+			
 		},
 		methods: {
-			getDepartment(e){
-				this.$api.getDepartment({}).then(res=>{
-					
+			getData(e) {
+				this.info = new Load({
+					api: this.$api.getHospitalDetail,
+					queryParams: {
+						hospital_id: this.hospitalId
+					},
+					load: {
+						mode: "info"
+					}
+				})
+				this.info.getInfo().then(obj=>{
+					uni.setNavigationBarTitle({
+						title: this.info.form.name
+					})
 				})
 			},
-			selectTab(type){
+			getDepartment(e) {
+				this.$api.getDepartment({}).then(res => {
+
+				})
+			},
+			selectTab(type) {
 				console.log(type)
 				this.tabId = type
 			},
-			change(e){
+			change(e) {
 				this.tabId = e.detail.current
 			},
-			selectSwiper(e){
+			selectSwiper(e) {
 				// console.log(1,e)
 			}
 		}
@@ -151,17 +162,19 @@
 			border-bottom: 6rpx #FF6437 solid;
 		}
 	}
-	.doc_img{
+
+	.doc_img {
 		width: 180rpx;
 		height: 200rpx;
 		background-color: #999999;
 		border-radius: 10rpx;
 	}
-	.remark_box{
+
+	.remark_box {
 		padding: 10rpx 20rpx;
 		border-radius: 10px;
 		background-color: #F5F5F5;
 		margin-right: 10rpx;
-		
+
 	}
 </style>

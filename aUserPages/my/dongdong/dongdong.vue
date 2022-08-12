@@ -13,7 +13,7 @@
 					</view>
 				</view>
 				<view class="color_white font_weight margin_top_m" style="font-size: 68rpx;">
-					1222
+					{{accountInfo.balance}}
 				</view>
 				<view class="dong_top_man flex_row  font_weight  ">
 					<view class="man_box " @click="toRecharge">
@@ -49,21 +49,24 @@
 				</view>
 				
 			</view>
+			<view class="margin_top_l text_align_center font_size_text_l color_black_999 margin_bottom_l" v-if="list.length == 0">
+				暂无交易记录
+			</view>
 			<view class="flex_row border_bottom padding_l_0" v-for="(item,index) in list" :key="index">
 				<view class="">
 					<view class="font_size_title_s color_black_333 font_weight">
 						冬冬币
 					</view>
 					<view class="font_size_text_m color_black_999 margin_top_s">
-						2022-06-03 12:23
+						{{item.pay_time}} 
 					</view>
 				</view>
-				<view class="margin_left color_orange font_weight font_size_title_l" v-if="selectId == 0">
-					+2222
+				<view class="margin_left color_orange font_weight font_size_title_l" >
+					{{item.amount}}
 				</view>
-				<view class="margin_left color_orange font_weight font_size_title_l" v-if="selectId == 1">
+				<!-- <view class="margin_left color_orange font_weight font_size_title_l" v-if="selectId == 1">
 					-2222
-				</view>
+				</view> -->
 			</view>
 		</view>
 	</view>
@@ -74,12 +77,54 @@
 		data() {
 			return {
 				selectId: 0,
-				list: [{}, {}, {}, {}, {}]
+				list: [],
+				accountInfo:null ,// 账户余额
+				page:1,
+				loading:true
+			}
+		},
+		onLoad() {
+			this.getData()
+		},
+		onShow() {
+			this.getfresh();
+		},
+		onPullDownRefresh: function() {
+			this.fresh();
+		},
+		onReachBottom() {
+			if (this.loading) {
+				this.getRecordList()
 			}
 		},
 		methods: {
+			fresh(e) {
+				uni.showNavigationBarLoading();
+				this.getfresh()
+				uni.hideNavigationBarLoading();
+				uni.stopPullDownRefresh();
+			},
+			getfresh(e) {
+				this.orderList = []
+				this.page = 1
+				this.loading = true;
+				this.getRecordList()
+			},
+			getRecordList(e){
+				this.$api.getMywallet({pageSize: 8,page: this.page,trade_type:this.selectId+1}).then(res=>{
+					this.list = this.list.concat(res.data)
+					this.loading = res.data.length == 8
+					this.page += 1
+				})
+			},
+			getData(e){
+				this.$api.getMyAccount({}).then(res=>{
+					this.accountInfo = res
+				})
+			},
 			select(type) {
 				this.selectId = type
+				this.getfresh()
 			},
 			lookMycard(e) {
 				//查看我的卡包

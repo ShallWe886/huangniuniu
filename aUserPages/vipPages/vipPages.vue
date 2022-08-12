@@ -125,7 +125,16 @@
 				appointShow:false
 			}
 		},
+		onLoad() {
+			this.getData()
+		},
 		methods: {
+			getData(e){//获取数据
+				this.$api.getbusiness({type:1}).then(res=>{
+					this.serviceList[0].list[0].money = res[0].money
+					this.serviceList[1].list[0].money = res[1].money
+				})
+			},
 			appoint(e) {
 				this.appointShow = true
 			},

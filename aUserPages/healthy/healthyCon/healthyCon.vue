@@ -1,49 +1,57 @@
 <template>
 	<view>
-		<view class="box_690 padding_l margin_left_l">
-			<view class="" style="width: 630rpx;height: 750rpx;border:1rpx solid #E6E6E6;	border-radius: 10rpx;padding: 30rpx;box-sizing: border-box;">
-				<rich-text :nodes="con" ></rich-text>
-			</view>
-
-		</view>
-		<view class="flex_column operate_box">
-			<view class="flex_column">
-				<image src="/static/image/health_icon0.png" mode="aspectFill" class="health_icon"
-					v-if="health.nice == 0" @click="operate(0,1)"></image>
-				<image src="/static/image/health_icon01.png" mode="aspectFill" class="health_icon"
-					v-if="health.nice == 1" @click="operate(0,0)"></image>
-				<view class="margin_top_s color_black_888 font_size_text_m">
-					282
+		<zq-load class="" v-model="info.load">
+			<block v-if="info.form">
+				<scroll-view scroll-y="true" style="height: 900rpx;">
+					<view class="box_690 padding_l margin_left_l">
+						<view class="" style="width: 630rpx;height: 750rpx;border:1rpx solid #E6E6E6;	border-radius: 10rpx;padding: 30rpx;box-sizing: border-box;">
+							<rich-text :nodes="info.form.content" ></rich-text>
+						</view>
+					
+					</view>
+				</scroll-view>
+				
+				<view class="flex_column operate_box" v-if="false">
+					<view class="flex_column">
+						<image src="/static/image/health_icon0.png" mode="aspectFill" class="health_icon"
+							v-if="health.nice == 0" @click="operate(0,1)"></image>
+						<image src="/static/image/health_icon01.png" mode="aspectFill" class="health_icon"
+							v-if="health.nice == 1" @click="operate(0,0)"></image>
+						<view class="margin_top_s color_black_888 font_size_text_m">
+							282
+						</view>
+					</view>
+					<view class="flex_column margin_top_m">
+						<image src="/static/image/health_icon1.png" mode="aspectFill" class="health_icon"
+							v-if="health.collect == 0" @click="operate(1,1)"></image>
+						<image src="/static/image/health_icon11.png" mode="aspectFill" class="health_icon"
+							v-if="health.collect == 1" @click="operate(1,0)"></image>
+						<view class="margin_top_s color_black_888 font_size_text_m">
+							282
+						</view>
+					</view>
+				<!-- 	<view class="flex_column margin_top_m">
+						<image src="/static/image/health_icon2.png" mode="aspectFill" class="health_icon"
+							v-if="health.comment == 0" @click="operate(2,1)"></image>
+						<image src="/static/image/health_icon21.png" mode="aspectFill" class="health_icon"
+							v-if="health.comment == 1" @click="operate(2,0)"></image>
+						<view class="margin_top_s color_black_888 font_size_text_m">
+							282
+						</view>
+					</view> -->
+					<view class="flex_column margin_top_m">
+						<image src="/static/image/health_icon3.png" mode="aspectFill" class="health_icon"
+							v-if="health.share == 0" @click="operate(3,1)"></image>
+						<image src="/static/image/health_icon31.png" mode="aspectFill" class="health_icon"
+							v-if="health.share == 1" @click="operate(3,0)"></image>
+						<view class="margin_top_s color_black_888 font_size_text_m">
+							282
+						</view>
+					</view>
 				</view>
-			</view>
-			<view class="flex_column margin_top_m">
-				<image src="/static/image/health_icon1.png" mode="aspectFill" class="health_icon"
-					v-if="health.collect == 0" @click="operate(1,1)"></image>
-				<image src="/static/image/health_icon11.png" mode="aspectFill" class="health_icon"
-					v-if="health.collect == 1" @click="operate(1,0)"></image>
-				<view class="margin_top_s color_black_888 font_size_text_m">
-					282
-				</view>
-			</view>
-			<view class="flex_column margin_top_m">
-				<image src="/static/image/health_icon2.png" mode="aspectFill" class="health_icon"
-					v-if="health.comment == 0" @click="operate(2,1)"></image>
-				<image src="/static/image/health_icon21.png" mode="aspectFill" class="health_icon"
-					v-if="health.comment == 1" @click="operate(2,0)"></image>
-				<view class="margin_top_s color_black_888 font_size_text_m">
-					282
-				</view>
-			</view>
-			<view class="flex_column margin_top_m">
-				<image src="/static/image/health_icon3.png" mode="aspectFill" class="health_icon"
-					v-if="health.share == 0" @click="operate(3,1)"></image>
-				<image src="/static/image/health_icon31.png" mode="aspectFill" class="health_icon"
-					v-if="health.share == 1" @click="operate(3,0)"></image>
-				<view class="margin_top_s color_black_888 font_size_text_m">
-					282
-				</view>
-			</view>
-		</view>
+			</block>
+		</zq-load>
+		
 		<u-popup :show="sharePop " mode="bottom" :round="30"  @close="closePop">
 			<view class="padding_xl">
 				<view class="flex_row">
@@ -68,6 +76,7 @@
 </template>
 
 <script>
+	import Load from "@/static/utils/load.js"
 	export default {
 		data() {
 			return {
@@ -92,8 +101,22 @@
 				}, {
 					img: '/static/image/friend04.png',
 					title: '微博'
-				}]
+				}],
+				info:'',
+				healthId:''
 			}
+		},
+		onLoad(options) {
+			this.healthId = options.healthId
+			this.info = new Load({
+				api:this.$api.getarticleDetail,
+				queryParams:{article_id:this.healthId},
+				load:{mode:"info"}
+			})
+			this.info.getInfo()
+		},
+		onPageScroll(event) {
+			this.info.scrollLazy(event.scrollTop)
 		},
 		methods: {
 			operate(type, status) { //操作  type-- 0：电赞 1收藏 2评论 3分享

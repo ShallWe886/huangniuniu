@@ -15,7 +15,7 @@
 		<view class="  margin_top_m padding_0_l">
 			<u-swiper :list="swiperList" @click="lookSwiper" indicator indicatorMode="dot" circular height="280" :radius="20">
 			</u-swiper>
-			<scroll-view scroll-x="true" style="width: 690rpx;margin-top: 20rpx;padding-left: 20rpx;box-sizing: border-box;" >
+			<scroll-view scroll-x="true" style="width: 690rpx;margin-top: 20rpx;padding-left: 20rpx;box-sizing: border-box;height: 60rpx;" >
 				<view class="flex_row">
 					<view class="flex_column margin_right_l flex_shrink" v-for="(item,index) in selectList" :key="index">
 						<view class="health_label" :class="{'active':selectIndex == index}">
@@ -26,20 +26,23 @@
 					</view>
 				</view>
 			</scroll-view>
-			<view class="box_690 health_box" v-for="(item,index) in healthList" :key="index" @click="lookDetail(item)">
-				<image :src="imageUrl+'/health_item.png'" mode="aspectFill" class="health_img"></image>
-				<view class="margin_top_m padding_left_l padding_right_l padding_bottom_m">
-					<view class="font_size_title_s color_black font_weight text_overflow_1">
-						早餐决定着每个人健康
+			<zq-load class="" v-model="info.load">
+				<view class="box_690 health_box" v-for="(item,index) in info.lazyList" :key="index" @click="lookDetail(item)">
+					<image :src="item.news_face" mode="aspectFill" class="health_img"></image>
+					<view class="margin_top_m padding_left_l padding_right_l padding_bottom_m">
+						<view class="font_size_title_s color_black font_weight text_overflow_1">
+							{{item.title}}
+						</view>
+						<view class="font_size_text_l color_black_999 text_overflow_1 margin_top_s">
+							{{item.channel_name}}
+						</view>
 					</view>
-					<view class="font_size_text_l color_black_999 text_overflow_1	margin_top_s">
-						看看营养师建议这6种自制及到餐厅吃选择
+					<view class="health_con_label">
+						标签
 					</view>
 				</view>
-				<view class="health_con_label">
-					标签
-				</view>
-			</view>
+			</zq-load>
+			
 		</view>
 		<!-- 底部导航栏 -->
 		<tabbar :tabbarIndex="4"></tabbar>
@@ -48,6 +51,7 @@
 
 <script>
 	import search from '@/components/search.vue'
+	import Load from '@/static/utils/load.js'
 	export default {
 		components:{
 			search
@@ -61,11 +65,29 @@
 				],
 				selectIndex:0,
 				selectList:[{title:'推荐'},{title:'我的关注'},{title:'百科分类'},{title:'百科分类'},{title:'百科分类'},{title:'百科分类'},{title:'百科分类'},{title:'百科分类'}],
-				healthList:[{},{},{},{},{}]
+				healthList:[{},{},{},{},{}],
+				info:''
 
 			}
 		},
+		onLoad() {
+			this.getData()
+		},
+		onPageScroll(event) {
+			this.info.scrollLazy(event.scrollTop)
+		},
 		methods: {
+			getData(e){
+				this.info = new Load({
+					api:this.$api.getarticleList,
+					lazy:{subtractHeight:470,itemHeight:400},
+					queryParams:{}
+				})
+				this.info.getList()
+				this.$api.getChannel({page:1,pageSize:15}).then(res=>{
+					
+				})
+			},
 			goAddress(e){//定位
 				uni.navigateTo({
 					url:"/aUserPages/address/address"
@@ -73,7 +95,7 @@
 			},
 			lookDetail(item){
 				uni.navigateTo({
-					url:'/aUserPages/healthy/healthyCon/healthyCon'
+					url:'/aUserPages/healthy/healthyCon/healthyCon?healthId='+item.id
 				})
 			}
 		}
@@ -105,6 +127,7 @@
 }
 .health_box{
 	position: relative;
+	height: 380rpx;
 	.health_img{
 		width: 690rpx;
 		height: 250rpx;

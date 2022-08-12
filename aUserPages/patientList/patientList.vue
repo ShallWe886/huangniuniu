@@ -75,7 +75,10 @@
 		},
 		methods: {
 			fresh(e) {
+				uni.showNavigationBarLoading();
 				this.getfresh()
+				uni.hideNavigationBarLoading();
+				uni.stopPullDownRefresh();
 			},
 			getfresh(e) {
 				this.patientList = []

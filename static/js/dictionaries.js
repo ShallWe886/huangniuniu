@@ -36,5 +36,6 @@ const typeMap = {
 	'23':{name:'其他'},
 }
 export{
-	levelMap
+	levelMap,
+	typeMap
 }

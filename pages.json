@@ -291,7 +291,25 @@
 			}
 
 
-		]
+		    ,{
+                    "path" : "expertList/expertList",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "名家有约",
+                    "enablePullDownRefresh": true
+                }
+                
+                }
+                ,{
+                    "path" : "hospitalList/hospitalList",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+            ]
 	}, {
 		"root": "accompanyPages",
 		"pages": [{

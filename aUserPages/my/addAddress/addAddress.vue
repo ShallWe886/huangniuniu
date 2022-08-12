@@ -19,8 +19,8 @@
 						placeholder="请输入手机号码" placeholder-class="font_size_text_l">
 				</view>
 			</view>
-			<view class="flex_row padding_l_0 border_bottom">
-				<view class="font_size_text_xl color_black_333 font_weight">
+			<view class="flex_row padding_l_0 border_bottom" @click="chooseAddress">
+				<view class="font_size_text_xl color_black_333 font_weight" >
 					所在地区
 				</view>
 				<view class="margin_left flex_row font_size_text_l color_black_888">
@@ -95,14 +95,29 @@
 			},
 			submit(e){
 				if(type == 0){//新增
-					this.$api.addAddress({user_name:this.addressInfo.name,user_phone:this.addressInfo.phone,province_id:this.addressInfo.province_id,city_id:this.addressInfo.city_id,district_id:this.addressInfo.district_id,detail:this.addressInfo.detail}).then(res=>{
-						
+					this.$api.addAddress({user_name:this.addressInfo.name,user_phone:this.addressInfo.phone,province_id:this.addressInfo.province_id,detail:this.addressInfo.detail}).then(res=>{
+						uni.navigateBack()
+						getApp().globalData.upDate.isUpdateAddress = true
 					})
 				}else{//修改
-					this.$api.addAddress({user_name:this.addressInfo.name,user_phone:this.addressInfo.phone,province_id:this.addressInfo.province_id,city_id:this.addressInfo.city_id,district_id:this.addressInfo.district_id,detail:this.addressInfo.detail,id:this.addressId}).then(res=>{
-						
+					this.$api.editAddress({user_name:this.addressInfo.name,user_phone:this.addressInfo.phone,province_id:this.addressInfo.province_id,detail:this.addressInfo.detail,id:this.addressId}).then(res=>{
+						uni.navigateBack()
+						getApp().globalData.upDate.isUpdateAddress = true
 					})
 				}
+			},
+			chooseAddress(e){//在地图选择地址
+				console.log(11)
+				uni.chooseLocation({
+					success:(res) =>{
+						console.log(res)
+						
+					},
+					fail(err) {
+						console.error(err)
+					}
+				})
+				
 			}
 		}
 	}

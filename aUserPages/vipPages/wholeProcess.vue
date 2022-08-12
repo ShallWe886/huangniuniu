@@ -49,8 +49,8 @@
 				</view>
 				<view class="service_item margin_top_m">
 					<text class="font_size_text_xl color_black_888">收费标准 </text>
-					<text class="font_size_text_xl color_orange margin_left_xl"> ¥999</text>
-					<text class="font_size_text_m color_orange">.00/次</text>
+					<text class="font_size_text_xl color_orange margin_left_xl"> ¥{{money}}</text>
+					<text class="font_size_text_m color_orange">/次</text>
 				</view>
 				<!-- <block v-for="(items,indexs) in item.list">
 					<view class="service_item margin_top_m">
@@ -71,26 +71,18 @@
 	export default {
 		data() {
 			return {
-				serviceList: [{
-						name: "",
-						list: [{}, {}, {}, {}]
-					},
-					{
-						name: "",
-						list: [{}, {}, {}, {}]
-					},
-					{
-						name: "",
-						list: [{}, {}, {}, {}]
-					},
-					{
-						name: "",
-						list: [{}, {}, {}, {}]
-					}
-				]
+				money:0
 			}
 		},
+		onLoad(e) {
+			this.getData()
+		},
 		methods: {
+			getData(e){
+				this.$api.getbusiness({type:2}).then(res=>{
+					this.money = Number(res[0].money).toFixed(2)
+				})
+			},
 			submitOrder(e) {
 				//提交订单
 				uni.navigateTo({

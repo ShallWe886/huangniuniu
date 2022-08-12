@@ -75,15 +75,16 @@
 					this.page += 1
 				})
 			},
-			addAddress(e){
+			addAddress(e){//添加地址
+				console.log(e)
 				uni.navigateTo({
-					url:"/my/addAddress/addAddress?tyep="+e
+					url:"/aUserPages/my/addAddress/addAddress?type="+e
 				})
 			},
 			updateAddress(type,item){
 				// this.addressInfo = JSON.stringify(item)
 				uni.navigateTo({
-					url:"/my/addAddress/addAddress?tyep="+e
+					url:"/aUserPages/my/addAddress/addAddress?tyep="+e
 				})
 			},
 			sureAddress(item){

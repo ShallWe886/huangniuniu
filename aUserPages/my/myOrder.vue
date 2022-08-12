@@ -34,15 +34,15 @@
 						<view class="font_size_title_s color_black_333 font_weight" style="line-height: 70rpx;">
 							李先生
 						</view>
-						<view v-for="(items,indexs) in item.list" class="margin_bottom_m" :key="indexs">
+						<view v-for="(items,indexs) in item.record_info" class="margin_bottom_m" :key="indexs">
 							<view class="font_size_text_m color_black_888 order_label">
 								专业陪诊
 							</view>
 							<view class="font_size_text_s color_black_888 text_overflow_1" style="line-height: 50rpx;">
-								就诊医院和科室：华夏第一医院，消化科
+								就诊医院和科室：{{item.hospital_name}}，{{item.department_name}}
 							</view>
 							<view class="font_size_text_m color_black_888 text_overflow_1" style="line-height: 30rpx;">
-								陪诊时间：2022-05-12 3:00-5:00
+								陪诊时间：{{item.service_time}}
 							</view>
 						</view>
 					</view>
@@ -146,21 +146,56 @@
 					list:[{}]
 				}],
 				cancelStatus: false,
-				cancelSucess: false
+				cancelSucess: false,
+				page:1,
+				loading:true
 			}
 		},
 		onLoad(options) {
 			this.orderIndex = options.status
 		},
+		onShow() {
+			this.getfresh();
+		},
+		onPullDownRefresh: function() {
+			this.fresh();
+		},
+		onReachBottom() {
+			if (this.loading) {
+				this.getOrder()
+			}
+		},
 		methods: {
+			fresh(e) {
+				uni.showNavigationBarLoading();
+				this.getfresh()
+				uni.hideNavigationBarLoading();
+				uni.stopPullDownRefresh();
+			},
+			getfresh(e) {
+				this.orderList = []
+				this.page = 1
+				this.loading = true;
+				this.getOrder()
+			},
+			getOrder(e) {
+				let api = {0:"getOrderAll",1:"getOrderToPay",2:"getOrderList",3:"getOrderList",4:"getOrderList",5:"getOrderRefund"}
+				this.$api[api[this.orderIndex]]({
+					pageSize: 4,
+					page: this.page,
+					service_status:this.orderIndex >1 && this.orderIndex < 5?this.orderIndex-1 : 0
+				}).then(res => {
+					this.loading = res.list.length == 4
+					this.orderList = this.orderList.concat(res.list)
+					this.page += 1
+				})
+			},
 			change(e) {
 				console.log('change', e);
 			},
 			selectOrderStatus(status) {
 				this.orderIndex = status
-				this.orderList.map(res=>{
-					res.status = status
-				})
+				this.getfresh()
 			},
 			toDetail(item) { //查看详情
 				uni.navigateTo({

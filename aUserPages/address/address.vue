@@ -15,10 +15,10 @@
 			</view>
 		</view>
 		<view class="flex_row padding_m_l">
-			<view class="font_size_title_l color_black_333">
-				深圳市
+			<view class="font_size_title_l color_black_333" @click="updateAddresss(0,0)">
+				{{LoactionInfo.city}}
 			</view>
-			<view class="margin_left flex_row">
+			<view class="margin_left flex_row" @click="reLocation">
 				<image src="/static/image/addr.png" mode="aspectFill" class="addr_img"></image>
 				<view class="color_orange font_size_title_s margin_left_m">
 					重新定位
@@ -27,14 +27,14 @@
 		</view>
 		<view class="flex_row scroll_height">
 			<scroll-view scroll-y="true" class="scroll_height city_w">
-				<view v-for="(item,index) in cityList">
+				<view v-for="(item,index) in areaDate" :key="index" @click="selectCity(item,index)">
 					<view class="font_size_title_s color_black_333 city_item" :class="{'active':cityId == index}"
-						:key="index">{{item.name}}</view>
+						:key="index">{{item.region_name}}</view>
 				</view>
 			</scroll-view>
 			<scroll-view scroll-y="true" class="scroll_height city_w">
-				<view v-for="(item,index) in countryList">
-					<view class="font_size_title_s color_black_333 country_item" :key="index">{{item.name}}</view>
+				<view v-for="(item,index) in countryList" :key="index" @click="updateAddresss(1,item)">
+					<view class="font_size_title_s color_black_333 country_item" :key="index">{{item.region_name}}</view>
 				</view>
 			</scroll-view>
 		</view>
@@ -42,141 +42,105 @@
 </template>
 
 <script>
+	import QQMapWX from "@/static/js/qqmap-wx-jssdk.js"
 	export default {
 		data() {
 			return {
 				keyword: '',
-				cityList: [{
-						"name": "城市"
-					},
-					{
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					},
-				],
-				countryList: [{
-						"name": "城市"
-					},
-					{
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					}, {
-						"name": "城市"
-					},
-				],
-				cityId: 0
+				areaDate:[],
+				cityList: [],
+				countryList:[],
+				cityId: 0,
+				LoactionInfo:{//定位信息
+					longitude:'',
+					latitude:'',
+					city:''
+				},
+				addressInfo:{//位置信息
+					longitude:'',
+					latitude:'',
+					city:'上海市'
+				},
 			}
 		},
+		onLoad() {
+			this.qqmapsdk = new QQMapWX({key:'TJNBZ-JMTLI-CGWGZ-5QDAQ-BBP3K-4KFIE'});
+			this.getAddressData()
+			this.reLocation()
+		},
 		methods: {
-
+			getAddressData(e){
+				uni.showLoading({})
+				this.$api.getArea({}).then(res=>{
+					this.areaDate = res.list
+					this.countryList = this.areaDate[this.cityId].second
+					uni.hideLoading()
+				})
+			},
+			selectCity(item,index){
+				this.countryList = item.second
+				this.cityId = index
+			},
+			reLocation(e){//重新定位
+				uni.getLocation({
+				    type: 'wgs84',
+				    success: (res) =>{
+						this.LoactionInfo.longitude = res.longitude
+						this.LoactionInfo.latitude = res.latitude
+						this.qqmapsdk.reverseGeocoder({
+							location: {
+								latitude: res.latitude,
+								longitude: res.longitude
+						    }, 
+							success:(obj)=> {
+								this.LoactionInfo.city = obj.result.address_component.city
+							},
+							fail:function(obj){
+								console.error(123,obj)
+							}
+						})
+				    },
+					fail:(res)=> {
+						uni.showModal({
+							title:"温馨提示",
+							content:"获取定位是为了提供更好的服务~请手动打开定位，然后重启小程序！",
+							success: () => {
+							}
+						})
+				    	
+				    }
+				});
+			},
+			updateAddresss(type,item){//选择位置信息
+				if(type == 0){
+					this.addressInfo = this.LoactionInfo
+				}else{
+					this.qqmapsdk.geocoder({
+						address: '', //地址参数，例：固定地址，address: '北京市海淀区彩和坊路海淀西大街74号'
+						success: (res) =>{
+							this.addressInfo.id = res.result.ad_info.adcode
+							this.addressInfo.city = item.district_name
+							this.addressInfo.longitude = res.result.location.lng
+							this.addressInfo.latitude = res.result.location.lat
+							uni.setStorage({
+							    key: 'addressInfo',
+								data:this.addressInfo,
+							    success: function (res) {
+							        
+							    }
+							});
+							getApp().globalData.upDate.isChangeAddress = true
+							uni.navigateBack({
+								delta:1
+							})
+						},
+						fail:function(res){
+							console.error(res)
+						}
+					})
+				}
+				
+			}
 		}
 	}
 </script>

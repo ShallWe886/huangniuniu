@@ -24,7 +24,7 @@ export default class{
 		pxToRpx:0,//px转rpx系数
 		windowHeight:0,//视图高度/宽度rpx
 		subtractHeight:0,//视图高度减去的高度rpx
-		distance:300,//距离底部多少rpx
+		distance:200,//距离底部多少rpx
 		
 		lazyTop:0,//懒加载高度rpx
 		boxTop:0,//盒子当前高度
@@ -37,7 +37,7 @@ export default class{
 	};
 	queryParams = {
 		pageNum:1,//页码
-		pageSize:10//页数
+		pageSize:10,//页数
 	};
 	list = [];
 	form = null;//表单数据
@@ -55,13 +55,19 @@ export default class{
 				}else{
 					this.api(this.queryParams).then(response =>{
 						uni.stopPullDownRefresh();
-						if(this.changeResponse){response = this.changeResponse(response)}
-						this.delayLoadEnd().then(()=>{
-							this.loadEnd(response.rows,response.total).then(()=>{
-								this.loadLazyInit();
-								resolve(response);
-							});
-						})
+						if(this.changeResponse){response = this.changeResponse(response)}//处理接口数据
+						// if(!response.rows || !response.total){
+						// 	this.loadError("数据格式错误");
+						// 	reject(response);
+						// }else{
+							console.log('shuju',response)
+							this.delayLoadEnd().then(()=>{
+								this.loadEnd(response.list,response.count).then(()=>{
+									this.loadLazyInit();
+									resolve(response);
+								});
+							})
+						// }
 					}).catch(error =>{
 						this.delayLoadEnd().then(()=>{
 							this.loadError();
@@ -174,9 +180,7 @@ export default class{
 		return new Promise((resolve, reject)=> {
 			let time = this.load.loadEndDelay - new Date().getTime() + this.load.startTime;
 			time = time < 10 ? 10 : time
-			console.log(time)
 			setTimeout(() =>{
-				console.log("加载结束")
 				resolve();
 			},time)
 		})

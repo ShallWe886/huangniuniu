@@ -13,13 +13,13 @@
 		</view>
 		<view class="flex_row flex_wrap padding_left_l padding_top_l ">
 			<view class="shop_box flex_column " v-for="(item,index) in shopList" :key="index" @click="lookDetail(item,index)">
-				<image src="" mode="aspectFill" class="shop_img"></image>
+				<image :src="item.thumbnail_img" mode="aspectFill" class="shop_img"></image>
 				<view class="">
 					<view class="font_size_text_m color_black_333 text_overflow_1 font_weight margin_top_s">
-						纯藕粉
+						{{item.goods_name}}
 					</view>
 					<view class="font_size_text_s color_orange margin_top_xs">
-						333积分+25元
+						{{item.pay_integral}}积分+{{item.deduct_price}}元
 					</view>
 				</view>
 			</view>
@@ -31,15 +31,48 @@
 	export default {
 		data() {
 			return {
-				shopList:[{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},
-				{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},
-				{},{}]
+				shopList:[],
+				pageNo:1,
+				loading:true
+			}
+		},
+		onLoad() {
+			this.getfresh()
+		},
+		onShow() {
+		},
+		onPullDownRefresh() {
+			this.getfresh()
+		},
+		onReachBottom() {
+			if (this.loading) {
+				this.getData();
 			}
 		},
 		methods: {
+			fresh(e) {
+				uni.showNavigationBarLoading();
+				this.getfresh()
+				uni.hideNavigationBarLoading();
+				uni.stopPullDownRefresh();
+			},
+			getfresh(e) {
+				this.shopList = []
+				this.pageNo = 1
+				this.loading = true;
+				this.getData();
+			},
+			getData(e){
+				this.$api.getGoodList({page:this.pageNo,pageSize:20}).then(res=>{
+					this.loading = res.list.length == 10
+					this.shopList = this.shopList.concat(res.list)
+					this.pageNo += 1
+					
+				})
+			},
 			lookDetail(item,index){
 				uni.navigateTo({
-					url:"/aUserPages/integralShop/shopDetail/shopDetail"
+					url:"/aUserPages/integralShop/shopDetail/shopDetail?id="+item.id
 				})
 			}
 		}

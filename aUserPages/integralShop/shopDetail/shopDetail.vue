@@ -1,74 +1,77 @@
 <template>
 	<view>
-		<sswiper :swiperList="shopInfo.slider" :height="210"></sswiper>
-		<view class="shop_detail_box padding_xl">
-			<view class="font_size_title_xl color_orange font_weight">
-				2000积分+45元
+		<zq-load v-model="info.load">
+			<sswiper :swiperList="shopInfo.slider" :height="210"></sswiper>
+			<view class="shop_detail_box padding_xl">
+				<view class="font_size_title_xl color_orange font_weight">
+					2000积分+45元
+				</view>
+				<view class="font_size_title_l color_black_333 font_weight margin_top_m">
+					商品*********标题
+				</view>
+				<view class="shop_item_box padding_l margin_top_xl">
+					<view class="flex_row">
+						<view class="font_size_text_l color_black_888">
+							数量
+						</view>
+						<view class="font_size_text_l color_black_888 margin_left">
+							22
+						</view>
+					</view>
+					<view class="flex_row margin_top_m">
+						<view class="font_size_text_l color_black_888">
+							规格
+						</view>
+						<view class="font_size_text_l color_black_888 margin_left">
+							23mm x 32mm
+						</view>
+					</view>
+					<view class="flex_row margin_top_m">
+						<view class="font_size_text_l color_black_888">
+							品牌
+						</view>
+						<view class="font_size_text_l color_black_888 margin_left">
+							西门子
+						</view>
+					</view>
+					<view class="flex_row margin_top_m">
+						<view class="font_size_text_l color_black_888">
+							颜色
+						</view>
+						<view class="font_size_text_l color_black_888 margin_left">
+							粉红
+						</view>
+					</view>
+					<view class="flex_row margin_top_m">
+						<view class="font_size_text_l color_black_888">
+							货号
+						</view>
+						<view class="font_size_text_l color_black_888 margin_left">
+							0000000
+						</view>
+					</view>
+				</view>
+				<view class="shop_item_box flex_column padding_bottom_l margin_top_l">
+					<image src="/static/image/detail.png" mode="aspectFill" class="detail_img"></image>
+					<view class="color_black_999 font_size_text_m margin_top_xs padding_0_l">
+						乐鱼高清智能网络可以远程支持WIFI视频监控，我的家里只有你没有他，我们对你的情意并不假， 智能化管理生活
+					</view>
+				</view>
+				<view class="sure_buttton margin_top_xxl margin_left_l" @click="toBuy">
+					立即兑换
+				</view>
+				<view class="label_box">
+					<view class="" style="position: relative;">
+						<image src="/static/image/shopLabel.png" mode="aspectFill" class="shop_label"></image>
+						<view class=" font_size_text_s color_white" style="position: absolute;top: -10rpx;left:46rpx">
+							标签
+						</view>
+					</view>
+			
+				</view>
 			</view>
-			<view class="font_size_title_l color_black_333 font_weight margin_top_m">
-				商品*********标题
-			</view>
-			<view class="shop_item_box padding_l margin_top_xl">
-				<view class="flex_row">
-					<view class="font_size_text_l color_black_888">
-						数量
-					</view>
-					<view class="font_size_text_l color_black_888 margin_left">
-						22
-					</view>
-				</view>
-				<view class="flex_row margin_top_m">
-					<view class="font_size_text_l color_black_888">
-						规格
-					</view>
-					<view class="font_size_text_l color_black_888 margin_left">
-						23mm x 32mm
-					</view>
-				</view>
-				<view class="flex_row margin_top_m">
-					<view class="font_size_text_l color_black_888">
-						品牌
-					</view>
-					<view class="font_size_text_l color_black_888 margin_left">
-						西门子
-					</view>
-				</view>
-				<view class="flex_row margin_top_m">
-					<view class="font_size_text_l color_black_888">
-						颜色
-					</view>
-					<view class="font_size_text_l color_black_888 margin_left">
-						粉红
-					</view>
-				</view>
-				<view class="flex_row margin_top_m">
-					<view class="font_size_text_l color_black_888">
-						货号
-					</view>
-					<view class="font_size_text_l color_black_888 margin_left">
-						0000000
-					</view>
-				</view>
-			</view>
-			<view class="shop_item_box flex_column padding_bottom_l margin_top_l">
-				<image src="/static/image/detail.png" mode="aspectFill" class="detail_img"></image>
-				<view class="color_black_999 font_size_text_m margin_top_xs padding_0_l">
-					乐鱼高清智能网络可以远程支持WIFI视频监控，我的家里只有你没有他，我们对你的情意并不假， 智能化管理生活
-				</view>
-			</view>
-			<view class="sure_buttton margin_top_xxl margin_left_l" @click="toBuy">
-				立即兑换
-			</view>
-			<view class="label_box">
-				<view class="" style="position: relative;">
-					<image src="/static/image/shopLabel.png" mode="aspectFill" class="shop_label"></image>
-					<view class=" font_size_text_s color_white" style="position: absolute;top: -10rpx;left:46rpx">
-						标签
-					</view>
-				</view>
-
-			</view>
-		</view>
+		</zq-load>
+		
 		<u-popup :show="popShow" mode="bottom" :round="30"  @close="closeSure">
 			<view class="flex_row padding_right_l padding_top_l padding_bottom_m">
 				<image src="/static/image/health_close.png" mode="aspectFill" class="close_icon margin_left"></image>
@@ -117,6 +120,7 @@
 
 <script>
 	import sswiper from "@/components/swiper.vue"
+	import Load from "@/static/utils/load.js"
 	export default {
 		components: {
 			sswiper
@@ -131,12 +135,29 @@
 						name: '红色'
 					}, {
 						name: '黑色'
-					}]
+					}],
+					info:null
 				},
 				popShow: false,
 				specId: 0, //规格id
-				shopNum: 0
+				shopNum: 0,
+				shopId:''//商品id
 			}
+		},
+		onLoad(options) {
+			this.shopId = options.id
+			this.$api.getGoodDetail({id:this.shopId})
+			// this.info = new Load({
+			// 	api:this.$api.getGoodDetail,
+			// 	queryParams:{id:this.shopId},
+			// 	load:{mode:"info"}
+			// })
+			// this.info.getInfo().then(res=>{
+			// 	console.log(this.info)
+			// })
+		},
+		onPageScroll(event) {
+			this.info.scrollLazy(event.scrollTop)
 		},
 		methods: {
 			toBuy(e){

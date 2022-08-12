@@ -3,11 +3,11 @@
 		<search></search>
 		<view class="margin_left_l" v-for="(item,index) in orderList" :key="index">
 			<view class="box_690 order_item_box padding_l" @click="toDetail(item)">
-				<view class="tip_yellow  " >
+				<view class="tip_yellow  ">
 					待支付
 				</view>
 				<view class="font_size_text_m color_black_999">
-					下单时间：2022-05-12 11:30
+					下单时间： {{item.create_time}}
 				</view>
 				<view class=" margin_top_l" style="display: flex;flex-direction: row;">
 					<image src="/static/image/docImg.png" mode="aspectFill" class="order_img"></image>
@@ -15,15 +15,15 @@
 						<view class="font_size_title_s color_black_333 font_weight" style="line-height: 70rpx;">
 							李先生
 						</view>
-						<view v-for="(items,indexs) in item.list" class="margin_bottom_m" :key="indexs">
+						<view v-for="(items,indexs) in item.record_info" class="margin_bottom_m" :key="indexs">
 							<view class="font_size_text_m color_black_888 order_label">
 								专业陪诊
 							</view>
 							<view class="font_size_text_s color_black_888 text_overflow_1" style="line-height: 50rpx;">
-								就诊医院和科室：华夏第一医院，消化科
+								就诊医院和科室：{{items.hospital_name}}，{{items.department_name}}
 							</view>
 							<view class="font_size_text_m color_black_888 text_overflow_1" style="line-height: 30rpx;">
-								陪诊时间：2022-05-12 3:00-5:00
+								陪诊时间：{{item.service_time}}
 							</view>
 						</view>
 					</view>
@@ -35,11 +35,12 @@
 					<view class="btn_orange_m margin_left_xl margin_top_l" v-if=" item.status == 1">
 						去支付
 					</view>
-					
+
 				</view>
 			</view>
 		</view>
-		<u-popup :show="cancelStatus" :closeable="true" mode="center" :round="20" @close="closeQuick" customStyle="width:600rpx;padding:60rpx;box-sizing: border-box;">
+		<u-popup :show="cancelStatus" :closeable="true" mode="center" :round="20" @close="closeQuick"
+			customStyle="width:600rpx;padding:60rpx;box-sizing: border-box;">
 			<view class="flex_column " style="margin-top: 60rpx;">
 
 				<view class="font_size_title_s color_black_666  margin_top_s" @click="setText">
@@ -65,7 +66,7 @@
 			</view>
 		</u-popup>
 		<!-- 底部导航栏 -->
-		<tabbar :tabbarIndex="2" ></tabbar>
+		<tabbar :tabbarIndex="2"></tabbar>
 	</view>
 </template>
 
@@ -92,39 +93,49 @@
 				}],
 				keyWord: '',
 				orderIndex: 0,
-				orderList: [{
-					status: 1,
-					list:[{},{},{}]
-				}, {
-					status: 1,
-					list:[{},{},{},{}]
-				}, {
-					status: 2,
-					list:[{}]
-				}, {
-					status: 3,
-					list:[{}]
-				}, {
-					status: 4,
-					list:[{}]
-				}, {
-					status: 5,
-					list:[{}]
-				}, {
-					status: 1,
-					list:[{}]
-				}, {
-					status: 1,
-					list:[{}]
-				}],
+				orderList: [],
 				cancelStatus: false,
-				cancelSucess: false
+				cancelSucess: false,
+				page: 1,
+				loading: true
 			}
 		},
 		onLoad(options) {
-			this.orderIndex = options.status
+		},
+		onShow() {
+			this.getfresh();
+		},
+		onPullDownRefresh: function() {
+			this.fresh();
+		},
+		onReachBottom() {
+			if (this.loading) {
+				this.getOrder()
+			}
 		},
 		methods: {
+			fresh(e) {
+				uni.showNavigationBarLoading();
+				this.getfresh()
+				uni.hideNavigationBarLoading();
+				uni.stopPullDownRefresh();
+			},
+			getfresh(e) {
+				this.orderList = []
+				this.page = 1
+				this.loading = true;
+				this.getOrder()
+			},
+			getOrder(e) {
+				this.$api.getOrderToPay({
+					pageSize: 4,
+					page: this.page
+				}).then(res => {
+					this.loading = res.list.length == 4
+					this.orderList = this.orderList.concat(res.list)
+					this.page += 1
+				})
+			},
 			change(e) {
 				console.log('change', e);
 			},
@@ -149,14 +160,14 @@
 			closeSucess(e) {
 				this.cancelSucess = !this.cancelSucess
 			},
-			refund(e){//申请退款
+			refund(e) { //申请退款
 				uni.navigateTo({
-					url:'/aUserPages/my/refund'
+					url: '/aUserPages/my/refund'
 				})
 			},
-			toInvoice(e){
+			toInvoice(e) {
 				uni.navigateTo({
-					url:"/aUserPages/my/invoice"
+					url: "/aUserPages/my/invoice"
 				})
 			}
 
