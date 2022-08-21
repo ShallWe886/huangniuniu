@@ -69,7 +69,7 @@ export default{
 		return request({url:"/api/address/getList",param:upJson,methods:"GET",type:0})
 	},
 	addAddress:function(upJson){//新增收货地址
-		return request({url:"/api/address/add",param:upJson,methods:"POST",type:0})
+		return request({url:"/api/address/add",data:upJson,methods:"POST",type:0})
 	},
 	editAddress:function(upJson){//更新or删除地址
 		return request({url:"/api/address/edit",param:upJson,methods:"GET",type:0})
@@ -120,12 +120,29 @@ export default{
 	getOrderRefund:function(upJson){//订单列表
 		return request({url:"/api/order/refundList",param:upJson,methods:"GET",type:0})
 	},
-	
+	getOrderDetail:function(upJson){//订单详情
+		return request({url:"/api/order/detail",param:upJson,methods:"GET",type:0})
+	},
+	getOrderView:function(upJson){//订单详情
+		return request({url:"/api/order/view",param:upJson,methods:"GET",type:0})
+	},
+	cancelOrder:function(upJson){//取消订单
+		return request({url:"/api/order/cancel",param:upJson,methods:"GET",type:0})
+	},
+	refundApply:function(upJson){//申请退款
+		return request({url:"/api/order/refundApply",param:upJson,methods:"GET",type:2,eMsg:"申请成功",back:true})
+	},
+	addAnswer:function(upJson){//提交评价
+		return request({url:"/api/answer/add",param:upJson,methods:"GET",type:2,eMsg:"评价成功",back:true})
+	},
 	// 商城
 	getGoodList:function(upJson){//商城列表
 		return request({url:"/api/goods/index",param:upJson,methods:"GET",type:0})
 	},
 	getGoodDetail:function(upJson){//商品详情
-		return request({url:"/api/goods/detail",param:upJson,methods:"GET",type:0})
+		return request({url:"/api/goods/view",param:upJson,methods:"GET",type:0})
+	},
+	getGoodOrder:function(upJson){//商品下单
+		return request({url:"/api/goods/order",param:upJson,methods:"GET",type:0})
 	},
 }

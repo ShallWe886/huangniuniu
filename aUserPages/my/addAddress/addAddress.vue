@@ -23,8 +23,12 @@
 				<view class="font_size_text_xl color_black_333 font_weight" >
 					所在地区
 				</view>
-				<view class="margin_left flex_row font_size_text_l color_black_888">
+				<view class="margin_left flex_row font_size_text_l color_black_888" v-if="!addressInfo.address">
 					请选择
+					<u-icon name="arrow-right"></u-icon>
+				</view>
+				<view class="margin_left flex_row font_size_text_l color_black_888" v-if="addressInfo.address">
+					{{addressInfo.address}}
 					<u-icon name="arrow-right"></u-icon>
 				</view>
 			</view>
@@ -58,7 +62,7 @@
 				addressInfo: {
 					name: '',
 					phone: '',
-					area: '',
+					address: '',
 					detail: '',
 					default:true,
 					province_id:'',
@@ -67,7 +71,8 @@
 					
 				},
 				type:0 ,// 0新增 1：修改
-				addressId:''
+				addressId:'',
+				locationInfo:uni.getStorageSync('addressInfo')
 			}
 		},
 		onLoad(options) {
@@ -94,13 +99,13 @@
 				})
 			},
 			submit(e){
-				if(type == 0){//新增
-					this.$api.addAddress({user_name:this.addressInfo.name,user_phone:this.addressInfo.phone,province_id:this.addressInfo.province_id,detail:this.addressInfo.detail}).then(res=>{
+				if(this.type == 0){//新增
+					this.$api.addAddress({user_name:this.addressInfo.name,user_phone:this.addressInfo.phone,province_id:this.addressInfo.address,detail:this.addressInfo.detail}).then(res=>{
 						uni.navigateBack()
 						getApp().globalData.upDate.isUpdateAddress = true
 					})
 				}else{//修改
-					this.$api.editAddress({user_name:this.addressInfo.name,user_phone:this.addressInfo.phone,province_id:this.addressInfo.province_id,detail:this.addressInfo.detail,id:this.addressId}).then(res=>{
+					this.$api.editAddress({user_name:this.addressInfo.name,user_phone:this.addressInfo.phone,province_id:this.addressInfo.address,detail:this.addressInfo.detail,id:this.addressId}).then(res=>{
 						uni.navigateBack()
 						getApp().globalData.upDate.isUpdateAddress = true
 					})
@@ -109,8 +114,11 @@
 			chooseAddress(e){//在地图选择地址
 				console.log(11)
 				uni.chooseLocation({
+					latitude:this.locationInfo.latitude,
+					longitude:this.locationInfo.longitude,
 					success:(res) =>{
 						console.log(res)
+						this.addressInfo.address = res.address
 						
 					},
 					fail(err) {

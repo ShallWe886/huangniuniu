@@ -3,14 +3,12 @@
 		<view v-for="(item,index) in addressList" class="bg_white" :key="index">
 			<view class="item_box padding_l_m" @click="sureAddress(item)">
 				<view class="font_size_text_l color_black font_weight">
-					<text class="font_size_text_m color_orange margin_right_s tip_box" v-if="item.is_default == 0">默认</text><text>{{item.name}}</text><text class="margin_left_m">{{item.phone}}</text>
+					<text class="font_size_text_m color_orange margin_right_s tip_box" v-if="item.is_default == 0">默认</text><text>{{item.user_name}}</text><text class="margin_left_m">{{item.user_phone}}</text>
 				</view>
 				<view class="margin_top_m flex_row">
 					<view class="font_size_text_m color_black_999 text_overflow_1">
-						<block v-if="item.province">{{item.province}}</block>
-						<block v-if="item.city ">{{item.city}}</block>
-						<block v-if="item.area">{{item.area}}</block>
-						<block v-if="item.address">{{item.address}}</block>
+						<block >{{item.province_id+item.detail}}</block>
+						
 					</view>
 				
 				</view>
@@ -43,9 +41,12 @@
 			uni.setNavigationBarTitle({
 				title:this.status == 0 ? '选择地址' : '地址管理'
 			})
+			this.getfresh()
 		},
 		onShow() {
-			this.getfresh()
+			if(getApp().globalData.upDate.isUpdateAddress){
+				this.getfresh()
+			}
 		},
 		onPullDownRefresh:function(){
 		 this.fresh();

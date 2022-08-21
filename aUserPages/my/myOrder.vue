@@ -8,25 +8,28 @@
 				{{item.title}}
 			</view>
 		</view>
+		<view class="prompt" v-if="orderList.length == 0">
+			暂无订单数据
+		</view>
 		<view class="margin_left_l" v-for="(item,index) in orderList">
-			<view class="box_690 order_item_box padding_l" @click="toDetail(item)">
-				<view class="tip_yellow  " v-if="item.status == 1">
+			<view class="box_690 order_item_box padding_l" @click="toDetail(item,orderIndex)">
+				<view class="tip_yellow  " v-if="orderIndex == 0">
 					待支付
 				</view>
-				<view class="tip_yellow  " v-if="item.status == 2">
+				<view class="tip_yellow  " v-if="orderIndex== 1">
 					待接单
 				</view>
-				<view class="tip_blue  " v-if="item.status == 3">
+				<view class="tip_blue  " v-if="orderIndex == 2">
 					服务中
 				</view>
-				<view class="tip_blue  " v-if="item.status == 4">
+				<view class="tip_blue  " v-if="orderIndex == 3">
 					已完成
 				</view>
-				<view class="tip_orange  " v-if="item.status == 5">
+				<view class="tip_orange  " v-if="orderIndex == 4">
 					退款中
 				</view>
 				<view class="font_size_text_m color_black_999">
-					下单时间：2022-05-12 11:30
+					下单时间：{{item.create_time}}
 				</view>
 				<view class="flex_row margin_top_l">
 					<image src="/static/image/docImg.png" mode="aspectFill" class="order_img"></image>
@@ -39,16 +42,16 @@
 								专业陪诊
 							</view>
 							<view class="font_size_text_s color_black_888 text_overflow_1" style="line-height: 50rpx;">
-								就诊医院和科室：{{item.hospital_name}}，{{item.department_name}}
+								就诊医院和科室：{{items.hospital_name}}，{{items.department_name}}
 							</view>
 							<view class="font_size_text_m color_black_888 text_overflow_1" style="line-height: 30rpx;">
-								陪诊时间：{{item.service_time}}
+								陪诊时间：{{items.service_time}}
 							</view>
 						</view>
 					</view>
 				</view>
 				<view class="flex_row justify_end ">
-					<view class="btn_white_m margin_top_l" v-if=" item.status == 1" @click.stop="cancelOrder">
+					<view class="btn_white_m margin_top_l" v-if=" item.status == 1" @click.stop="cancelOrder(index)">
 						取消订单
 					</view>
 					<view class="btn_orange_m margin_left_xl margin_top_l" v-if=" item.status == 1">
@@ -93,7 +96,7 @@
 			</view>
 		</u-popup>
 		<!-- 底部导航栏 -->
-		<tabbar :tabbarIndex="2" ></tabbar>
+		<!-- <tabbar :tabbarIndex="2" ></tabbar> -->
 	</view>
 </template>
 
@@ -106,8 +109,6 @@
 		data() {
 			return {
 				orderTitleList: [{
-					"title": "全部"
-				}, {
 					"title": "待付款"
 				}, {
 					"title": "待接单"
@@ -119,43 +120,25 @@
 					"title": "退款"
 				}],
 				keyWord: '',
-				orderIndex: 0,
-				orderList: [{
-					status: 1,
-					list:[{},{},{}]
-				}, {
-					status: 1,
-					list:[{},{},{},{}]
-				}, {
-					status: 2,
-					list:[{}]
-				}, {
-					status: 3,
-					list:[{}]
-				}, {
-					status: 4,
-					list:[{}]
-				}, {
-					status: 5,
-					list:[{}]
-				}, {
-					status: 1,
-					list:[{}]
-				}, {
-					status: 1,
-					list:[{}]
-				}],
+				orderIndex: 0,//选中的状态 //0：待付款 1：待接单 2：服务中 3：已完成 4：退款
+				orderList: [],
 				cancelStatus: false,
 				cancelSucess: false,
 				page:1,
-				loading:true
+				loading:true,
+				cancelIndex:'',//取消订单的下标
+				
 			}
 		},
 		onLoad(options) {
 			this.orderIndex = options.status
 		},
 		onShow() {
-			this.getfresh();
+			if(getApp().globalData.upDate.isUpdateOrder){
+				this.getfresh();
+				getApp().globalData.upDate.isUpdateOrder = false
+			}
+			
 		},
 		onPullDownRefresh: function() {
 			this.fresh();
@@ -179,11 +162,11 @@
 				this.getOrder()
 			},
 			getOrder(e) {
-				let api = {0:"getOrderAll",1:"getOrderToPay",2:"getOrderList",3:"getOrderList",4:"getOrderList",5:"getOrderRefund"}
+				let api = {0:"getOrderToPay",1:"getOrderList",2:"getOrderList",3:"getOrderList",4:"getOrderRefund"}
 				this.$api[api[this.orderIndex]]({
 					pageSize: 4,
 					page: this.page,
-					service_status:this.orderIndex >1 && this.orderIndex < 5?this.orderIndex-1 : 0
+					service_status:this.orderIndex >0 && this.orderIndex < 4?this.orderIndex : 0
 				}).then(res => {
 					this.loading = res.list.length == 4
 					this.orderList = this.orderList.concat(res.list)
@@ -199,16 +182,29 @@
 			},
 			toDetail(item) { //查看详情
 				uni.navigateTo({
-					url: '/aUserPages/my/orderDetail?status=' + item.status
+					url: '/aUserPages/my/orderDetail?orderId=' + item.order_id+"&type="+this.orderIndex+"&serviceId="+item.record_info[0].id
 				})
 			},
-			cancelOrder(e) {
+			cancelOrder(index) {
 				this.cancelStatus = !this.cancelStatus
+				this.cancelIndex = index
 			},
 			closeQuickPop(type) {
 				this.cancelStatus = !this.cancelStatus
-				if (type == 1) {
-					this.cancelSucess = true
+				if (type == 1) {//取消订单
+					this.$api.cancelOrder({order_id:this.orderList[this.cancelIndex].order_id}).then(res=>{
+						this.orderList.splice(this.cancelIndex,1)
+						this.cancelSucess = true
+						let time= setTimeout(x=>{
+							this.cancelSucess = false
+							clearTimeout(time)
+						},3000)
+						if(this.orderList.length < 4){
+							this.getOrder()
+						}
+					})
+					
+					
 				}
 			},
 			closeQuick(e) {
@@ -218,7 +214,7 @@
 			closeSucess(e) {
 				this.cancelSucess = !this.cancelSucess
 			},
-			refund(e){//申请退款
+			refund(item,index){//申请退款
 				uni.navigateTo({
 					url:'/aUserPages/my/refund'
 				})

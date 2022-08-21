@@ -725,21 +725,7 @@
 				}
 				return value
 			},
-			selectInfo(vlaue, key) { // 点击选择
-				if (key != 'time') {
-					this.show = !this.show
-					if (key == 'hospital') {
-						this.selecttitle = '选择医院'
-					} else if (key == 'clinic') {
-						this.selecttitle = '选择科室'
-					} else if (key == 'patient') {
-						this.selecttitle = '选择患者'
-					}
-				} else {
-					this.timeShow = !this.timeShow
-				}
-			},
-			sureSelect(e) { // 确定选定诊所
+			sureSelect(e) { // 确定选定科室
 				if (this.operateType == 6) {
 					this.ordinaryInfo.clinicName = e.value[0].name
 					this.ordinaryInfo.department_id = e.value[0].id
@@ -959,7 +945,7 @@
 			},
 			toPay(e){//提交订单
 				console.log(this.getInfo())
-				this.$api.addRecord({pay_channel:this.pay_channel,record_json:this.getInfo()}).then(res=>{
+				this.$api.addRecord({pay_channel:1,record_json:this.getInfo()}).then(res=>{
 					
 				})
 				

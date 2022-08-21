@@ -12,7 +12,9 @@
 		globalData:{
 			upDate:{//是否更新
 				isUpdatePtient:false ,//是否更新患者列表
-				isUpdateAddress:false
+				isUpdateAddress:false,
+				address:false,//选择地址后更新
+				isUpdateOrder:false
 			},
 		}
 	}

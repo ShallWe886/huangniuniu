@@ -50,7 +50,7 @@
 						</view>
 					</view>
 					<view class="flex_row justify_between margin_top_l">
-						<view class="flex_column" v-for="(item,index) in orderList" @click="toMyOrder(index+1)" :key="index">
+						<view class="flex_column" v-for="(item,index) in orderList" @click="toMyOrder(index)" :key="index">
 							<image :src="item.img" mode="aspectFill" class="my_order_img"></image>
 							<view class="font_size_text_l color_black_333 margin_top_m">
 								{{item.title}}
@@ -97,11 +97,11 @@
 			<view class="font_size_text_l color_black_333 margin_left_l">
 				{{item.title}}
 			</view>
-			<view class="margin_left font_size_text_l color_black_999" v-if="index == 0 ">
-				v1.2
+			<view class="margin_left font_size_text_l color_black_999" v-if="item.title == '版本号' ">
+				v{{verson}}
 			</view>
-			<view class="margin_left font_size_text_l color_black_999" v-else-if="index == 2 ">
-				44M
+			<view class="margin_left font_size_text_l color_black_999" v-else-if="item.title == '清除缓存' ">
+				{{cacheSize}}
 			</view>
 			<view class="margin_left font_size_text_l color_black_999" v-else>
 				<u-icon name="arrow-right"></u-icon>
@@ -196,10 +196,17 @@
 				// 	user_integral:"7000",
 				// 	balance:"97030.00"
 				// },
-				userInfo:null
+				userInfo:null,
+				cacheSize:0,
+				verson:1
+				
 			}
 		},
 		onLoad() {
+			// #ifdef MP-WEIXIN
+				this.myList.splice(2,1)
+			// #endif
+			this.checkCache()
 		},
 		onShow() {
 			this.getUserInfo()
@@ -233,19 +240,17 @@
 				})
 			},
 			lookItem(item,index){
-				if(index == 0){
-					
-				}else if(index == 1){
+				 if(item.title == '消息推送设置'){
 					uni.navigateTo({
 						url:item.src
 					})
-				}else if(index == 2){
+				}else if(item.title == '清除缓存'){
 					this.clearShow = true
-				}else if(index == 3){
+				}else if(item.title == '用户协议'){
 					uni.navigateTo({
 						url:item.src+"?type="+0
 					})
-				}else if(index == 4){
+				}else if(item.title == '隐私条款'){
 					uni.navigateTo({
 						url:item.src+"?type="+1
 					})
@@ -275,6 +280,41 @@
 				uni.navigateTo({
 					url:'/aUserPages/login/login'
 				})
+			},
+			checkCache() { // 计算应用缓存、版本号
+				// 使用plus.cache.calculate 获取应用的缓存大小
+				var self = this;
+				// #ifdef APP-PLUS
+				plus.cache.calculate(function(size) { //size是多少个字节单位是b
+					if (size < 1024) {
+						self.cacheSize = size + 'B';
+					} else if (size / 1024 >= 1 && size / 1024 / 1024 < 1) {
+						self.cacheSize = Math.floor(size / 1024 * 100) / 100 + 'KB';
+					} else if (size / 1024 / 1024 >= 1) {
+						self.cacheSize = Math.floor(size / 1024 / 1024 * 100) / 100 + 'M';
+					}
+				});
+				// plus.runtime.getProperty(plus.runtime.appid, (wgtinfo) => {
+				// 　　console.log(wgtinfo)
+				// 	self.verson = wgtinfo
+				// })
+				// #endif
+					uni.getSystemInfo({
+				　　　　success:  (res) =>{
+				           this.verson = res.appVersion  
+				　　　　}
+				　　});
+				// // #ifdef MP-WEIXIN
+				// 　
+				// 　　const accountInfo = wx.getAccountInfoSync();
+				// 　　this.verson = accountInfo.miniProgram.version 
+				// // #endif
+			},
+			closeQuickPop(type){
+				this.clearShow = false
+				if(type == 1){//清除缓存
+					
+				}
 			}
 		}
 	}

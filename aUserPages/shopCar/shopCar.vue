@@ -1,7 +1,10 @@
 <template>
 	<view class="fixed_padding_bottom_xxxl">
 		<search></search>
-		<view class="margin_left_l" v-for="(item,index) in orderList" :key="index">
+		<view class="prompt" v-if="orderList.length == 0">
+			暂无订单数据
+		</view>
+		<view class="margin_left_l" v-for="(item,index) in orderList" :key="index" @click="toDetail(item)">
 			<view class="box_690 order_item_box padding_l" @click="toDetail(item)">
 				<view class="tip_yellow  ">
 					待支付
@@ -29,7 +32,7 @@
 					</view>
 				</view>
 				<view class="flex_row justify_end ">
-					<view class="btn_white_m margin_top_l" v-if=" item.status == 1" @click.stop="cancelOrder">
+					<view class="btn_white_m margin_top_l" v-if=" item.status == 1" @click.stop="cancelOrder(index)">
 						取消订单
 					</view>
 					<view class="btn_orange_m margin_left_xl margin_top_l" v-if=" item.status == 1">
@@ -78,30 +81,17 @@
 		},
 		data() {
 			return {
-				orderTitleList: [{
-					"title": "全部"
-				}, {
-					"title": "待付款"
-				}, {
-					"title": "待接单"
-				}, {
-					"title": "服务中"
-				}, {
-					"title": "已完成"
-				}, {
-					"title": "退款"
-				}],
 				keyWord: '',
 				orderIndex: 0,
 				orderList: [],
 				cancelStatus: false,
 				cancelSucess: false,
 				page: 1,
-				loading: true
+				loading: true,
+				cancelIndex: ''
 			}
 		},
-		onLoad(options) {
-		},
+		onLoad(options) {},
 		onShow() {
 			this.getfresh();
 		},
@@ -144,13 +134,26 @@
 					url: '/aUserPages/my/orderDetail?status=' + item.status
 				})
 			},
-			cancelOrder(e) {
+			cancelOrder(index) {
 				this.cancelStatus = !this.cancelStatus
+				this.cancelIndex = index
 			},
 			closeQuickPop(type) {
 				this.cancelStatus = !this.cancelStatus
 				if (type == 1) {
-					this.cancelSucess = true
+					this.$api.cancelOrder({
+						order_id: this.orderList[this.cancelIndex].order_id
+					}).then(res => {
+						this.orderList.splice(this.cancelIndex, 1)
+						this.cancelSucess = true
+						let time = setTimeout(x => {
+							this.cancelSucess = false
+							clearTimeout(time)
+						}, 3000)
+						if (this.orderList.length < 4) {
+							this.getOrder()
+						}
+					})
 				}
 			},
 			closeQuick(e) {
@@ -160,17 +163,12 @@
 			closeSucess(e) {
 				this.cancelSucess = !this.cancelSucess
 			},
-			refund(e) { //申请退款
+			toDetail(item) { //查看详情
 				uni.navigateTo({
-					url: '/aUserPages/my/refund'
+					url: '/aUserPages/my/orderDetail?orderId=' + item.order_id + "&type=" + 0 +
+						"&serviceId=" + item.record_info[0].id
 				})
 			},
-			toInvoice(e) {
-				uni.navigateTo({
-					url: "/aUserPages/my/invoice"
-				})
-			}
-
 		}
 	}
 </script>
