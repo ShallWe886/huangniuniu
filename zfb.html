@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>叮咚陪诊登录</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 90vh;
+            font-size: .9375rem;
+        }
+        content{
+            display: flex;
+            flex-direction: column;
+            justify-content: center ;
+            align-items: center;
+        }
+
+        .logo_img {
+            width: 6.875rem;
+            height: 6.875rem;
+            margin-bottom: .625rem;
+        }
+
+        #box {
+            width: 80%;
+            height: 2rem;
+            text-align: center;
+            line-height: 2rem;
+            border-radius: 20px;
+            background-color: rgb(23, 120, 194);
+            color: white;
+            margin: .9375rem auto;
+        }
+
+        .desc {
+            font-size: .3125rem;
+            color: gray;
+        }
+    </style>
+	
+
+</head>
+
+<body>
+    <content>
+        <img src="./logo.png" class="logo_img">
+        <div id="box" onclick="func()">返回叮咚陪诊</div>
+        <div class="desc">您已授权登录，请点击返回叮咚陪诊</div>
+    </content>
+<script>
+var code ;
+function getQueryVariable(variable) {  
+	var query = window.location.search.substring(1);  
+	var vars = query.split("&");  
+	for (var i = 0; i < vars.length; i++) {  
+		var pair = vars[i].split("=");  
+		if (pair[0] == variable) {  
+			return pair[1];  
+		}  
+	}  
+	return (false);  
+}  
+
+
+function func(){
+ 
+  code = getQueryVariable("auth_code");  
+// 判断是那种设备
+  let u = navigator.userAgent;
+  console.log(u);
+  var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1;   // Android系统或者uc浏览器
+  var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);   // iOS系统
+
+  // 如果为Android系统
+  if (isAndroid) {
+    window.location.href = "hbuilder://?auth_code="+code; // 注意*** 这里需要修改为刚刚设置的urlscheme，auth_code需要后端拼接。auth_code只有后端才能拿到
+    window.setTimeout(function () {
+      window.location.href = "http://www.baidu.com";   // 3s后如果不能跳转到 App，则跳转到 App 的下载地址，一般是应用宝的对应的下载地址
+    }, 2000);
+    return;
+  }
+
+  // ios设备：原理：判断是否认识这个协议，认识则直接跳转，不认识就在这里下载appios();
+  if (isiOS) {
+    let startIndex = u.indexOf('iPhone OS') + 9;
+    let endIndex = u.indexOf('like Mac OS') - 1;
+    let num = +u.slice(startIndex, endIndex).split('_')[0];  // 计算版本号的前面数值
+    if (num < 9) {
+      window.location.href = "hbuilder://?auth_code="+code;   //  注意*** 这里需要修改为刚刚设置的urlscheme，auth_code需要后端拼接。auth_code只有后端才能拿到
+    } else {
+      window.location.href = " ";   // universal link 链接
+    }
+    window.setTimeout(function () {
+      window.location.href = " ";   // 3s后如果不能跳转到 App，则跳转到 AppStore 的下载地址
+    }, 3000);
+    return;
+  };
+}
+
+
+</script>
+
+</body>
+
+</html>

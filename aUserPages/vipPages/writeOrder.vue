@@ -1,9 +1,9 @@
 <template>
-	<view class="padding_bottom_l">
+	<view class="padding_bottom_l" :class="{popupShow:popupShow}">
 		<view class="box_690 padding_0_l margin_left_l ">
 			<view v-show="ordinaryInfo.isShow">
-				<view class="font_weight font_size_text_xl padding_m_0 color_black ">
-					预约普通号：
+				<view class="font_weight font_size_text_xxl padding_m_0 color_black ">
+					代办挂号-普通号：
 				</view>
 				<view class="flex_row padding_m_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
@@ -22,13 +22,24 @@
 					<view class="font_size_text_xl color_black_333 font_weight">
 						就诊科室<text class="color_orange margin_left_s">*</text>
 					</view>
-					<view class="margin_left flex_row" @click="openHospital(2,ordinaryInfo.service_type,ordinaryInfo.hospital_id)">
+					<view class="margin_left flex_row"
+						@click="openHospital(2,ordinaryInfo.service_type,ordinaryInfo.hospital_id)">
 						<view class="font_size_text_l text_align_right margin_right_s">
 							<text class="color_black_beb" v-if="!ordinaryInfo.clinicName">请选择就诊科室</text>
 							<text v-if="ordinaryInfo.clinicName"
 								class="color_black_333">{{ordinaryInfo.clinicName}}</text>
 						</view>
 						<u-icon name="arrow-right" color="#B4B4B4"></u-icon>
+					</view>
+				</view>
+				<view class="flex_row padding_m_0 border_bottom">
+					<view class="font_size_text_xl color_black_333 font_weight">
+						指定专家
+					</view>
+					<view class="margin_left flex_row">
+						<input type="text" class="text_align_right margin_right_s  font_size_text_l color_black_333"
+							v-model="ordinaryInfo.expert_doctor" placeholder="请填写指定专家"
+							placeholder-class="font_size_text_l color_black_beb">
 					</view>
 				</view>
 				<view class="flex_row padding_m_0 border_bottom">
@@ -62,15 +73,15 @@
 						特殊要求
 					</view>
 					<view class="margin_left flex_row">
-						<input type="text" class="text_align_right margin_right_s color_black_beb"
-							v-model="ordinaryInfo.remark" placeholder="请填写备注"
+						<input type="text" class="text_align_right margin_right_s  font_size_text_l color_black_333"
+							v-model="ordinaryInfo.special_request" placeholder="请填写特殊要求"
 							placeholder-class="font_size_text_l color_black_beb">
 					</view>
 				</view>
 			</view>
 			<view v-show="expertInfo.isShow">
-				<view class="font_weight font_size_text_xl padding_m_0 color_black ">
-					预约专家号：
+				<view class="font_weight font_size_text_xxl padding_m_0 color_black ">
+					代办挂号-专家号：
 				</view>
 				<view class="flex_row padding_m_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
@@ -89,13 +100,24 @@
 					<view class="font_size_text_xl color_black_333 font_weight">
 						就诊科室<text class="color_orange margin_left_s">*</text>
 					</view>
-					<view class="margin_left flex_row" @click="openHospital(2,expertInfo.service_type,expertInfo.hospital_id)">
+					<view class="margin_left flex_row"
+						@click="openHospital(2,expertInfo.service_type,expertInfo.hospital_id)">
 						<view class="font_size_text_l text_align_right margin_right_s">
 							<text class="color_black_beb" v-if="!expertInfo.clinicName">请选择就诊科室</text>
 							<text v-if="expertInfo.hospitalName"
 								class="color_black_333">{{expertInfo.clinicName}}</text>
 						</view>
 						<u-icon name="arrow-right" color="#B4B4B4"></u-icon>
+					</view>
+				</view>
+				<view class="flex_row padding_m_0 border_bottom">
+					<view class="font_size_text_xl color_black_333 font_weight">
+						指定专家
+					</view>
+					<view class="margin_left flex_row">
+						<input type="text" class="text_align_right margin_right_s  font_size_text_l color_black_333"
+							v-model="expertInfo.expert_doctor" placeholder="请填写指定专家"
+							placeholder-class="font_size_text_l color_black_beb">
 					</view>
 				</view>
 				<view class="flex_row padding_m_0 border_bottom">
@@ -129,14 +151,15 @@
 						特殊要求
 					</view>
 					<view class="margin_left flex_row">
-						<input type="text" class="text_align_right margin_right_s" v-model="expertInfo.remark"
-							placeholder="请填写备注" placeholder-class="font_size_text_l color_black_beb">
+						<input type="text" class="text_align_right margin_right_s font_size_text_l color_black_333"
+							v-model="expertInfo.special_request" placeholder="请填写特殊要求"
+							placeholder-class="font_size_text_l color_black_beb">
 					</view>
 				</view>
 			</view>
 			<view v-show="specialInfo.isShow">
-				<view class="font_weight font_size_text_xl padding_m_0 color_black ">
-					预约特诊号：
+				<view class="font_weight font_size_text_xxl padding_m_0 color_black ">
+					代办挂号-特诊号：
 				</view>
 				<view class="flex_row padding_m_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
@@ -155,13 +178,24 @@
 					<view class="font_size_text_xl color_black_333 font_weight">
 						就诊科室<text class="color_orange margin_left_s">*</text>
 					</view>
-					<view class="margin_left flex_row" @click="openHospital(2,specialInfo.service_type,specialInfo.hospital_id)">
+					<view class="margin_left flex_row"
+						@click="openHospital(2,specialInfo.service_type,specialInfo.hospital_id)">
 						<view class="font_size_text_l text_align_right margin_right_s">
 							<text class="color_black_beb" v-if="!specialInfo.clinicName">请选择就诊科室</text>
 							<text v-if="specialInfo.hospitalName"
 								class="color_black_333">{{specialInfo.clinicName}}</text>
 						</view>
 						<u-icon name="arrow-right" color="#B4B4B4"></u-icon>
+					</view>
+				</view>
+				<view class="flex_row padding_m_0 border_bottom">
+					<view class="font_size_text_xl color_black_333 font_weight">
+						指定专家
+					</view>
+					<view class="margin_left flex_row">
+						<input type="text" class="text_align_right margin_right_s  font_size_text_l color_black_333"
+							v-model="specialInfo.expert_doctor" placeholder="请填写指定专家"
+							placeholder-class="font_size_text_l color_black_beb">
 					</view>
 				</view>
 				<view class="flex_row padding_m_0 border_bottom">
@@ -195,14 +229,15 @@
 						特殊要求
 					</view>
 					<view class="margin_left flex_row">
-						<input type="text" class="text_align_right margin_right_s" v-model="specialInfo.remark"
-							placeholder="请填写备注" placeholder-class="font_size_text_l color_black_beb">
+						<input type="text" class="text_align_right margin_right_s font_size_text_l color_black_333"
+							v-model="specialInfo.special_request" placeholder="请填写特殊要求"
+							placeholder-class="font_size_text_l color_black_beb">
 					</view>
 				</view>
 			</view>
 			<view v-show="inspectInfo.isShow">
-				<view class="font_weight font_size_text_xl padding_m_0 color_black ">
-					开单及预约检查：
+				<view class="font_weight font_size_text_xxl padding_m_0 color_black ">
+					代办开单以及检查：
 				</view>
 				<view class="flex_row padding_m_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
@@ -217,7 +252,7 @@
 						<u-icon name="arrow-right" color="#B4B4B4"></u-icon>
 					</view>
 				</view>
-				<view class="flex_row padding_m_0 border_bottom">
+				<!-- <view class="flex_row padding_m_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
 						就诊科室<text class="color_orange margin_left_s">*</text>
 					</view>
@@ -229,10 +264,10 @@
 						</view>
 						<u-icon name="arrow-right" color="#B4B4B4"></u-icon>
 					</view>
-				</view>
+				</view> -->
 				<view class="flex_row padding_m_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
-						就诊时间<text class="color_orange margin_left_s">*</text>
+						期望检查时间<text class="color_orange margin_left_s">*</text>
 					</view>
 					<view class="margin_left flex_row" @click="openHospital(3,inspectInfo.service_type,0)">
 						<view class="font_size_text_l text_align_right margin_right_s">
@@ -258,17 +293,28 @@
 				</view>
 				<view class="flex_row padding_m_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
+						检查项目<text class="color_orange margin_left_s">*</text>
+					</view>
+					<view class="margin_left flex_row">
+						<input type="text" class="text_align_right margin_right_s font_size_text_l color_black_333"
+							v-model="inspectInfo.check_item" placeholder="请填写检查项目"
+							placeholder-class="font_size_text_l color_black_beb">
+					</view>
+				</view>
+				<view class="flex_row padding_m_0 border_bottom">
+					<view class="font_size_text_xl color_black_333 font_weight">
 						特殊要求
 					</view>
 					<view class="margin_left flex_row">
-						<input type="text" class="text_align_right margin_right_s" v-model="inspectInfo.remark"
-							placeholder="请填写备注" placeholder-class="font_size_text_l color_black_beb">
+						<input type="text" class="text_align_right margin_right_s font_size_text_l color_black_333"
+							v-model="inspectInfo.special_request" placeholder="请填写特殊要求"
+							placeholder-class="font_size_text_l color_black_beb">
 					</view>
 				</view>
 			</view>
 			<view v-show="consultationInfo.isShow">
-				<view class="font_weight font_size_text_xl padding_m_0 color_black ">
-					问诊：
+				<view class="font_weight font_size_text_xxl padding_m_0 color_black ">
+					代办问诊：
 				</view>
 				<view class="flex_row padding_m_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
@@ -287,7 +333,8 @@
 					<view class="font_size_text_xl color_black_333 font_weight">
 						就诊科室<text class="color_orange margin_left_s">*</text>
 					</view>
-					<view class="margin_left flex_row" @click="openHospital(2,consultationInfo.service_type,consultationInfo.hospital_id)">
+					<view class="margin_left flex_row"
+						@click="openHospital(2,consultationInfo.service_type,consultationInfo.hospital_id)">
 						<view class="font_size_text_l text_align_right margin_right_s">
 							<text class="color_black_beb" v-if="!consultationInfo.clinicName">请选择就诊科室</text>
 							<text v-if="consultationInfo.hospitalName"
@@ -324,17 +371,28 @@
 				</view>
 				<view class="flex_row padding_m_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
+						问诊内容<text class="color_orange margin_left_s">*</text>
+					</view>
+					<view class="margin_left flex_row">
+						<input type="text" class="text_align_right margin_right_s font_size_text_l color_black_333"
+							v-model="consultationInfo.wz_content" placeholder="请填写问诊内容"
+							placeholder-class="font_size_text_l color_black_beb">
+					</view>
+				</view>
+				<view class="flex_row padding_m_0 border_bottom">
+					<view class="font_size_text_xl color_black_333 font_weight">
 						特殊要求
 					</view>
 					<view class="margin_left flex_row">
-						<input type="text" class="text_align_right margin_right_s" v-model="consultationInfo.remark"
-							placeholder="请填写备注" placeholder-class="font_size_text_l color_black_beb">
+						<input type="text" class="text_align_right margin_right_s font_size_text_l color_black_333"
+							v-model="consultationInfo.special_request" placeholder="请填写特殊要求"
+							placeholder-class="font_size_text_l color_black_beb">
 					</view>
 				</view>
 			</view>
 			<view v-show="sendTakeInfo.isShow">
-				<view class="font_weight font_size_text_xl padding_m_0 color_black ">
-					取寄结果：
+				<view class="font_weight font_size_text_xxl padding_m_0 color_black ">
+					代办送取报告：
 				</view>
 				<view class="flex_row padding_m_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
@@ -349,7 +407,7 @@
 						<u-icon name="arrow-right" color="#B4B4B4"></u-icon>
 					</view>
 				</view>
-				<view class="flex_row padding_m_0 border_bottom">
+				<!-- <view class="flex_row padding_m_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
 						就诊科室<text class="color_orange margin_left_s">*</text>
 					</view>
@@ -361,7 +419,7 @@
 						</view>
 						<u-icon name="arrow-right" color="#B4B4B4"></u-icon>
 					</view>
-				</view>
+				</view> -->
 				<view class="flex_row padding_m_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
 						就诊时间<text class="color_orange margin_left_s">*</text>
@@ -390,32 +448,35 @@
 				</view>
 				<view class="flex_row padding_m_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
+						待取报告信息<text class="color_orange margin_left_s">*</text>
+					</view>
+					<view class="margin_left flex_row">
+						<input type="text" class="text_align_right margin_right_s font_size_text_xl color_black_333"
+							v-model="sendTakeInfo.voucher" placeholder="请填写待取报告信息"
+							placeholder-class="font_size_text_l color_black_beb">
+					</view>
+				</view>
+				<view class="flex_row padding_m_0 border_bottom">
+					<view class="font_size_text_xl color_black_333 font_weight">
 						特殊要求
 					</view>
 					<view class="margin_left flex_row">
-						<input type="text" class="text_align_right margin_right_s" v-model="sendTakeInfo.remark"
-							placeholder="请填写备注" placeholder-class="font_size_text_l color_black_beb">
+						<input type="text" class="text_align_right margin_right_s font_size_text_l color_black_333"
+							v-model="sendTakeInfo.special_request" placeholder="请填写特殊要求"
+							placeholder-class="font_size_text_l color_black_beb">
 					</view>
 				</view>
 				<view class="flex_row padding_m_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
-						收件信息
+						收件信息<text class="color_orange margin_left_s">*</text>
 					</view>
 					<view class="margin_left flex_row">
-						<input type="text" class="text_align_right margin_right_s" v-model="sendTakeInfo.receivingInfo"
-							placeholder="请填写收件信息" placeholder-class="font_size_text_l color_black_beb">
+						<input type="text" class="text_align_right margin_right_s font_size_text_xl color_black_333"
+							v-model="sendTakeInfo.address_id" placeholder="请填写收件人姓名地址电话"
+							placeholder-class="font_size_text_l color_black_beb">
 					</view>
 				</view>
-				<view class="flex_row padding_m_0 border_bottom">
-					<view class="font_size_text_xl color_black_333 font_weight">
-						报告信息
-					</view>
-					<view class="margin_left flex_row">
-						<input type="text" class="text_align_right margin_right_s" v-model="sendTakeInfo.report"
-							placeholder="请填写报告信息" placeholder-class="font_size_text_l color_black_beb">
-					</view>
-				</view>
-				<view class="flex_row padding_m_0 border_bottom">
+				<!-- <view class="flex_row padding_m_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
 						订单备注
 					</view>
@@ -423,11 +484,11 @@
 						<input type="text" class="text_align_right margin_right_s" v-model="sendTakeInfo.order"
 							placeholder="请填写订单备注" placeholder-class="font_size_text_l color_black_beb">
 					</view>
-				</view>
+				</view> -->
 			</view>
 			<view v-show="buyMedicine.isShow">
-				<view class="font_weight font_size_text_xl padding_m_0 color_black ">
-					买药：
+				<view class="font_weight font_size_text_xxl padding_m_0 color_black ">
+					代办取药：
 				</view>
 				<view class="flex_row padding_m_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
@@ -444,7 +505,17 @@
 				</view>
 				<view class="flex_row padding_m_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
-						就诊时间<text class="color_orange margin_left_s">*</text>
+						购药医院<text class="color_orange margin_left_s">*</text>
+					</view>
+					<view class="margin_left flex_row">
+						<input type="text" class="text_align_right margin_right_s font_size_text_l color_black_333"
+							v-model="buyMedicine.drug_hospital" placeholder="请填写购买医院"
+							placeholder-class="font_size_text_l color_black_beb">
+					</view>
+				</view>
+				<view class="flex_row padding_m_0 border_bottom">
+					<view class="font_size_text_xl color_black_333 font_weight">
+						期望时间<text class="color_orange margin_left_s">*</text>
 					</view>
 					<view class="margin_left flex_row" @click="openHospital(3,buyMedicine.service_type,0)">
 						<view class="font_size_text_l text_align_right margin_right_s">
@@ -457,29 +528,42 @@
 				</view>
 				<view class="flex_row padding_m_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
+						药品名称<text class="color_orange margin_left_s">*</text>
+					</view>
+					<view class="margin_left flex_row">
+						<input type="text" class="text_align_right margin_right_s font_size_text_xl color_black_333"
+							v-model="buyMedicine.drug_name" placeholder="请填写购买药名,逗号分割"
+							placeholder-class="font_size_text_l color_black_beb">
+					</view>
+				</view>
+				<view class="flex_row padding_m_0 border_bottom">
+					<view class="font_size_text_xl color_black_333 font_weight">
 						特殊要求
 					</view>
 					<view class="margin_left flex_row">
-						<input type="text" class="text_align_right margin_right_s" v-model="buyMedicine.remark"
-							placeholder="请填写备注" placeholder-class="font_size_text_l color_black_beb">
+						<input type="text" class="text_align_right margin_right_s font_size_text_l color_black_333"
+							v-model="buyMedicine.special_request" placeholder="请填写特殊要求"
+							placeholder-class="font_size_text_l color_black_beb">
 					</view>
 				</view>
 				<view class="flex_row padding_m_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
-						购买地址
+						购买地址<text class="color_orange margin_left_s">*</text>
 					</view>
 					<view class="margin_left flex_row">
-						<input type="text" class="text_align_right margin_right_s" v-model="buyMedicine.buyAddress"
-							placeholder="请填写购买地址" placeholder-class="font_size_text_l color_black_beb">
+						<input type="text" class="text_align_right margin_right_s font_size_text_l color_black_333"
+							v-model="buyMedicine.address_to_buy" placeholder="请填写购买地址"
+							placeholder-class="font_size_text_l color_black_beb">
 					</view>
 				</view>
 				<view class="flex_row padding_m_0 border_bottom">
 					<view class="font_size_text_xl color_black_333 font_weight">
-						收件信息
+						收件信息<text class="color_orange margin_left_s">*</text>
 					</view>
 					<view class="margin_left flex_row">
-						<input type="text" class="text_align_right margin_right_s" v-model="buyMedicine.receivingInfo"
-							placeholder="请填写收件信息" placeholder-class="font_size_text_l color_black_beb">
+						<input type="text" class="text_align_right margin_right_s font_size_text_xl color_black_333"
+							v-model="buyMedicine.address_id" placeholder="请填写收件人姓名地址电话"
+							placeholder-class="font_size_text_l color_black_beb">
 					</view>
 				</view>
 				<view class="flex_row padding_m_0 border_bottom">
@@ -487,62 +571,128 @@
 						订单备注
 					</view>
 					<view class="margin_left flex_row">
-						<input type="text" class="text_align_right margin_right_s" v-model="buyMedicine.drugName"
-							placeholder="请填写订单备注" placeholder-class="font_size_text_l color_black_beb">
+						<input type="text" class="text_align_right margin_right_s font_size_text_l color_black_333"
+							v-model="buyMedicine.remark" placeholder="请填写订单备注"
+							placeholder-class="font_size_text_l color_black_beb">
 					</view>
 				</view>
 			</view>
 			<view class="margin_l_0 font_size_text_xl color_black_333 font_weight">
 				支付方式
 			</view>
-			<view class="flex_row width_all margin_top_s padding_bottom_xl" v-for="(item, index) in payStyle"
-				:key="index" @click="selectPayStyle(item,index)">
-				<image :src="item.img" class="pay_img"></image>
+			<view class="flex_row width_all margin_top_s padding_bottom_xl">
+				<image src="/static/image/pay03.png" class="pay_img"></image>
 				<view class="font_size_text_l color_black_333 font_weight margin_left_l">
-					{{item.name}} <text class="color_orange font_size_text_l font_weight margin_left_m"
-						v-if="index == 2">（余额：254）</text>
+					积分 <text
+						class="color_orange font_size_text_l font_weight margin_left_m">（积分：{{userInfo.user_integral || '0.00'}}）</text>
 				</view>
-				<view class="margin_left">
-					<image src="/static/image/select01.png" class="icon_img" v-if="payValue == item.name"></image>
-					<image src="/static/image/select02.png" class="icon_img" v-if="payValue != item.name"></image>
+				<view class="margin_left" @click="selectPayIntegral">
+					<image src="/static/image/select01.png" class="icon_img" v-if="pay_integral">
+					</image>
+					<image src="/static/image/select02.png" class="icon_img" v-if="!pay_integral">
+					</image>
 				</view>
 
 			</view>
+			<view class="flex_row width_all margin_top_s padding_bottom_xl" v-for="(item, index) in payStyle"
+				:key="index">
+				<image :src="item.img" class="pay_img"></image>
+				<view class="font_size_text_l color_black_333 font_weight margin_left_l">
+					{{item.name}} <text class="color_orange font_size_text_l font_weight margin_left_m"
+						v-if="index == 0">（余额：{{ userInfo.balance || '0.00'}}）</text>
+				</view>
+				<view class="margin_left" @click="selectPayStyle(item, index)">
+					<image src="/static/image/select01.png" class="icon_img" v-if="pay_channel == item.pay_channel">
+					</image>
+					<image src="/static/image/select02.png" class="icon_img" v-if="pay_channel != item.pay_channel">
+					</image>
+				</view>
+
+			</view>
+			<view class="flex_row width_all margin_top_s padding_bottom_xl">
+				<view class="font_size_text_l color_black_333 font_weight margin_left_l">
+					总金额
+				</view>
+				<view class="margin_left" style="font-size: 24rpx;">
+					{{total || 0}}
+				</view>
+			</view>
+			<view class="flex_row width_all margin_top_s padding_bottom_xl">
+				<view class="font_size_text_l color_black_333 font_weight margin_left_l">
+					积分抵扣
+				</view>
+				<view class="margin_left" style="font-size: 24rpx;">
+					{{integral_total || 0}}<text v-if="pay_integral && integral_total && integral_total > 20">积分抵扣{{total - discount_total}}元</text>
+				</view>
+			</view>
+			<view class="flex_row width_all margin_top_s padding_bottom_xl">
+				<view class="font_size_text_l color_black_333 font_weight margin_left_l">
+					优惠后金额
+				</view>
+				<view class="margin_left" style="font-size: 24rpx;">
+					{{discount_total || 0}}
+				</view>
+			</view>
 		</view>
-		<view class="sure_buttton margin_top_xxl " @click="toPay">
+		<view class="sure_buttton margin_top_xxl margin_bottom_l" @click="toPay">
 			立即支付
 		</view>
-		<u-picker :show="departmentShow" :columns="clinicList" keyName="name" :title="selecttitle" @confirm="sureSelect"
-			@close="cancelSelect" visibleItemCount="12" itemHeight="48" confirmColor="#FF6437">
-		</u-picker>
+		<!-- <u-picker :show="departmentShow" :columns="clinicList" keyName="name" :title="selecttitle" @confirm="sureSelect"
+			@cancel="cancelSelect" visibleItemCount="12" itemHeight="48" confirmColor="#FF6437">
+		</u-picker> -->
 		<u-datetime-picker :show="timeShow" v-model="time" mode="datetime" :formatter="formatter"
-			@confirm="sureSelectTime" @close="cancelSelectTime" visibleItemCount="12" itemHeight="48"
-			confirmColor="#FF6437"></u-datetime-picker>
-		<u-popup :show="hospitalShow" mode="bottom" :round="15" :closeable="true"  @close="closeSelectHospital"  @scrolltolower="getPull">
+			@confirm="sureSelectTime" :minDate="minDate" @cancel="cancelSelectTime" visibleItemCount="12"
+			itemHeight="48" confirmColor="#FF6437"></u-datetime-picker>
+		<u-popup :show="hospitalShow" mode="bottom" :round="15" :closeable="true" @close="closeSelectHospital"
+			@scrolltolower="getPull">
 			<view class="padding_l text_align_center font_size_title_s color_black font_weight">
 				选择就诊医院
 			</view>
-		    <scroll-view scroll-y="true" style="height: 450rpx;">
-				<view class="margin_top_l text_align_center font_size_title_s color_black_999" v-if="hospitalList.length == 0">
+			<scroll-view scroll-y="true" style="height: 450rpx;">
+				<view class="margin_top_l text_align_center font_size_title_s color_black_999"
+					v-if="hospitalList.length == 0">
 					暂无可选医院
 				</view>
-		    	<view class="font_size_text_l color_black_333 border_bottom padding_l text_align_center" v-for="(item,index) in hospitalList" :key="index" @click="sureHospital(item)">
-		    	    {{item.name}}
-		    	</view>
-		    </scroll-view>
+				<view class="font_size_text_l color_black_333 border_bottom padding_l text_align_center"
+					v-for="(item,index) in hospitalList" :key="index" @click="sureHospital(item)">
+					{{item.name}}
+				</view>
+			</scroll-view>
 		</u-popup>
-		<u-popup :show="patientShow" mode="bottom" :round="15" :closeable="true"  @close="closeSelectPatient"  @scrolltolower="getPatient">
+		<u-popup :show="departmentShow" mode="bottom" :round="15" :closeable="true" @close="cancelSelect"
+			@scrolltolower="getPull">
+			<view class="padding_l text_align_center font_size_title_s color_black font_weight">
+				选择就诊科室
+			</view>
+			<scroll-view scroll-y="true" style="height: 450rpx;">
+				<view class="margin_top_l text_align_center font_size_title_s color_black_999"
+					v-if="clinicList.length == 0">
+					暂无可选科室
+				</view>
+				<view class="font_size_text_l color_black_333 border_bottom padding_l text_align_center"
+					v-for="(item,index1) in clinicList" :key="index1" @click="sureSelect(item)">
+					{{item.name}}
+				</view>
+			</scroll-view>
+		</u-popup>
+		<u-popup :show="patientShow" mode="bottom" :round="15" :closeable="true" @close="closeSelectPatient"
+			@scrolltolower="getPatient">
 			<view class="padding_l text_align_center font_size_title_s color_black font_weight">
 				选择患者
 			</view>
-		    <scroll-view scroll-y="true" style="height: 450rpx;">
-				<view class="margin_top_l text_align_center font_size_title_s color_black_999" v-if="patientList.length == 0">
+			<scroll-view scroll-y="true" style="height: 450rpx;">
+				<view class="margin_top_l text_align_center font_size_title_s color_black_999"
+					v-if="patientList.length == 0">
 					暂无可选患者
+					<view class="sure_buttton " style="position: fixed;bottom: 60rpx;" @click="addPatient(0)">
+						添加就诊人信息
+					</view>
 				</view>
-		    	<view class="font_size_text_l color_black_333 border_bottom padding_l text_align_center" v-for="(item,index) in patientList" :key="index" @click="surePatient(item)">
-		    	    {{item.patient_name}}
-		    	</view>
-		    </scroll-view>
+				<view class="font_size_text_l color_black_333 border_bottom padding_l text_align_center"
+					v-for="(item,index) in patientList" :key="index" @click="surePatient(item)">
+					{{item.patient_name}}
+				</view>
+			</scroll-view>
 		</u-popup>
 	</view>
 </template>
@@ -551,8 +701,11 @@
 	export default {
 		data() {
 			return {
-				hospitalShow:false,
+				minDate: Number(new Date()),
+				popupShow: false,
+				hospitalShow: false,
 				ordinaryInfo: { //普通号
+					special_request: '', //特殊要求
 					service_type: 6,
 					hospitalName: '',
 					clinicName: '',
@@ -562,9 +715,12 @@
 					hospital_id: '',
 					patient_id: '',
 					department_id: '',
-					isShow: false
+					isShow: false,
+					product_count: 1,
+					expert_doctor: '', //指定专家
 				},
 				expertInfo: { //专家号
+					product_count: 1,
 					service_type: 7,
 					hospitalName: '',
 					clinicName: '',
@@ -573,12 +729,15 @@
 					remark: '',
 					hospital_id: '',
 					patient_id: '',
+					expert_doctor: '',
 					department_id: '',
-					isShow: false
+					isShow: false,
+					special_request: '', //特殊要求
 				},
-				specialInfo: { //特约号
+				specialInfo: { //特诊号
 					service_type: 8,
 					hospitalName: '',
+					expert_doctor: '',
 					clinicName: '',
 					service_time: '',
 					patientName: '',
@@ -586,7 +745,10 @@
 					hospital_id: '',
 					patient_id: '',
 					department_id: '',
-					isShow: false
+					product_count: 1,
+					isShow: false,
+					check_item: '', //检查项目
+					special_request: '', //特殊要求
 				},
 				inspectInfo: { //预约检查
 					service_type: 12,
@@ -595,10 +757,13 @@
 					service_time: '',
 					patientName: '',
 					remark: '',
+					project: '',
 					hospital_id: '',
 					patient_id: '',
 					department_id: '',
-					isShow: false
+					product_count: 1,
+					isShow: false,
+					special_request: '', //特殊要求
 				},
 				consultationInfo: { //问诊
 					service_type: 9,
@@ -607,9 +772,12 @@
 					service_time: '',
 					patientName: '',
 					remark: '',
+					special_request: '', //特殊要求
+					wz_content: '', //问诊内容
 					hospital_id: '',
 					patient_id: '',
 					department_id: '',
+					product_count: 1,
 					isShow: false
 				},
 				sendTakeInfo: { //送取
@@ -618,13 +786,16 @@
 					clinicName: '',
 					service_time: '',
 					patientName: '',
-					remark: '', //特殊要求
+					remark: '',
+					special_request: '', //特殊要求
 					hospital_id: '',
 					patient_id: '',
 					department_id: '',
-					receivingInfo: '', //收件信息
-					report: '', //报告信息
+					receivingInfo: '',
+					address_id: '', //收件信息
+					voucher: '', //报告信息
 					order: '', //订单备注
+					product_count: 1,
 					isShow: false
 
 				},
@@ -632,41 +803,69 @@
 					service_type: 10,
 					service_time: '',
 					patientName: '',
+					hospitalName: '',
+					drug_hospital: '', //购药医院
+					drug_name: '', //药名称
 					remark: '',
 					patient_id: '',
 					buyAddress: '', //购买地址
-					receivingInfo: '', //收件信息
-					drugName: '', //订单备注
+					receivingInfo: '',
+					address_id: '', //收件信息
+					remark: '', //订单备注
+					special_request: '', //特殊要求
+					product_count: 1,
 					isShow: false
 				},
 				payStyle: [{
+						name: '咚咚币',
+						img: '/static/image/pay03.png',
+						pay_channel: 1
+					},
+					// #ifdef APP-PLUS
+					{
 						name: '微信支付',
-						img: '/static/image/pay01.png'
+						img: '/static/image/pay01.png',
+						pay_channel: 3
 					},
 					{
 						name: '支付宝支付',
-						img: '/static/image/pay02.png'
+						img: '/static/image/pay02.png',
+						pay_channel: 2
 					},
+					// #endif
+					// #ifdef MP-WEIXIN
 					{
-						name: '冬冬币',
-						img: '/static/image/pay03.png'
-					}
+						name: '微信支付',
+						img: '/static/image/pay01.png',
+						pay_channel: 4
+					},
+					// {
+					// 	name: '支付宝支付',
+					// 	img: '/static/image/pay02.png',
+					// 	pay_channel: 5
+					// },
+					// #endif
 				],
 				payValue: '微信支付',
 				time: Number(new Date()),
 				departmentShow: false,
 				selecttitle: '',
-				hospitalList: [],//医院列表
-				clinicList:[[]],//科室列表
+				hospitalList: [], //医院列表
+				clinicList: [], //科室列表
 				timeShow: false,
-				typeList: [] ,//就诊类型
-				addressInfo:null ,// 定位信息
-				page:1,
-				loading:true,
-				operateType:'',//选择时的操作类型
-				patientShow:false,//患者弹窗
-				patientList:[],//患者列表
-				pay_channel:1
+				typeList: [], //就诊类型
+				addressInfo: null, // 定位信息
+				page: 1,
+				loading: true,
+				operateType: '', //选择时的操作类型
+				patientShow: false, //患者弹窗
+				patientList: [], //患者列表
+				pay_channel: 4,
+				userInfo: {},
+				discount_total: 0,
+				total: 0,
+				pay_integral: false,
+				integral_total: 0,
 			}
 		},
 		onReady() {
@@ -675,13 +874,94 @@
 			this.$refs.datetimePicker.setFormatter(this.formatter)
 		},
 		onLoad(options) {
-			// console.log(options.typeList)
+			console.log(options.typeList)
+			// #ifdef APP-PLUS
+			this.pay_channel = 3;
+			// #endif
+			uni.showLoading({
+				title: '加载中',
+				mask: true
+			});
 			this.typeList = JSON.parse(options.typeList)
+			this.total = options.total
+			this.discount_total = options.total
 			this.getData()
 			this.addressInfo = uni.getStorageSync('addressInfo')
-			this.getDepartment()
+		},
+		onShow() {
+			this.getUserInfo()
+			this.getPatientFresh()
 		},
 		methods: {
+			getPushMes(discount_total){
+				uni.requestSubscribeMessage({
+				  tmplIds: [ '52083IMd24SOcYVqMGmmY1DYJxAEMXSuQEFpqmNceIQ', 'hwYtsSpoITsXoYxDqcA3vhN_jASpKpTjj050zpS7g1U', 'fu1zd6WBDdlUHHao9zoiHh2-9ucoHri_yIykQG-v1d4'],
+				  success (res) {
+					  uni.navigateTo({
+					  	url:"/aUserPages/resultPage/resultPage?type="+3+"&amount="+discount_total
+					  })
+					  console.log('小程序推送消息',res);
+				  },
+				  fail(err) {
+				  	console.log('小程序推送消息11111', err);
+					uni.navigateTo({
+						url:"/aUserPages/resultPage/resultPage?type="+3+"&amount="+discount_total
+					})
+				  }
+				})
+			},
+			addPatient(e) {
+				//添加就诊人信息
+				uni.navigateTo({
+					url: '/aUserPages/patientList/addPatient?type=' + e
+				})
+			},
+			selectPayIntegral() {
+				//根据沟通，客户希望积分能够兑换现金抵扣，例如XX积分=XX元，（20积分分等于一元，每次不能抵扣超过当前订单总额的30%）
+				if(this.userInfo.user_integral <20) {
+					this.pay_integral = false
+					this.integral_total = 0;
+					return;
+				}
+				this.pay_integral = !this.pay_integral
+				if (this.pay_integral) {
+					this.integralCompute()
+				} else {
+					this.discount_total = this.total
+				}
+			},
+			integralCompute() {
+				//0.2积分 == 1分  2积分=1毛  #跑腿总费用的30%，全程陪诊不可超过20%，VIP陪诊不可超过10%
+				let price = (this.total * 0.3).toFixed(2)
+				if (price <= 0) {
+					return;
+				}
+				//抵扣所需积分
+				let num = (price * 100) * 0.2
+				let num1 = 0;
+				let remainder = 0;
+				if (num > this.userInfo.user_integral) {
+					remainder = this.userInfo.user_integral % 20
+					this.integral_total = this.userInfo.user_integral - remainder;
+					console.log('@@@', (this.userInfo.user_integral / 0.2) % 20);
+				} else {
+					remainder = num % 20
+					this.integral_total = num - remainder;
+					console.log('@@', remainder, this.integral_total, num / 0.2);
+				}
+				num1 = (this.integral_total / 0.2) / 100
+				this.integral_total = this.integral_total.toFixed(2)
+				this.discount_total = (this.total - num1.toFixed(2)).toFixed(2)
+
+
+			},
+			getUserInfo(e) {
+				this.$api.getMyInfo({}).then(res => {
+					console.log('!!!!!!!!', res);
+					this.userInfo = res
+					this.userInfo.user_integral = parseInt(res.user_integral)
+				})
+			},
 			getData(e) { //初始化数据
 				if (this.typeList.includes(6)) {
 					console.log(2222)
@@ -706,6 +986,7 @@
 				if (this.typeList.includes(10)) {
 					this.buyMedicine.isShow = true
 				}
+				uni.hideLoading()
 			},
 			formatter(type, value) {
 				if (type === 'year') {
@@ -727,126 +1008,143 @@
 			},
 			sureSelect(e) { // 确定选定科室
 				if (this.operateType == 6) {
-					this.ordinaryInfo.clinicName = e.value[0].name
-					this.ordinaryInfo.department_id = e.value[0].id
+					this.ordinaryInfo.clinicName = e.name
+					this.ordinaryInfo.department_id = e.id
 				}
 				if (this.operateType == 7) {
-					this.expertInfo.clinicName = e.value[0].name
-					this.expertInfo.department_id = e.value[0].id
+					this.expertInfo.clinicName = e.name
+					this.expertInfo.department_id = e.id
 				}
 				if (this.operateType == 8) {
-					this.specialInfo.clinicName = e.value[0].name
-					this.specialInfo.department_id = e.value[0].id
+					this.specialInfo.clinicName = e.name
+					this.specialInfo.department_id = e.id
 				}
 				if (this.operateType == 12) {
-					this.inspectInfo.clinicName = e.value[0].name
-					this.inspectInfo.department_id = e.value[0].id
+					this.inspectInfo.clinicName = e.name
+					this.inspectInfo.department_id = e.id
 				}
 				if (this.operateType == 9) {
-					this.consultationInfo.clinicName = e.value[0].name
-					this.consultationInfo.department_id = e.value[0].id
+					this.consultationInfo.clinicName = e.name
+					this.consultationInfo.department_id = e.id
 				}
 				if (this.operateType == 11) {
-					this.sendTakeInfo.clinicName = e.value[0].name
-					this.sendTakeInfo.department_id = e.value[0].id
+					this.sendTakeInfo.clinicName = e.name
+					this.sendTakeInfo.department_id = e.id
 				}
 				if (this.operateType == 10) {
-					this.buyMedicine.clinicName = e.value[0].name
-					this.buyMedicine.hospital_id = e.value[0].id
+					this.buyMedicine.clinicName = e.name
+					this.buyMedicine.hospital_id = e.id
 				}
 				this.departmentShow = !this.departmentShow
+				this.popupShow = false;
 			},
 			cancelSelect(e) { //取消选择
 				this.departmentShow = !this.departmentShow
+				this.popupShow = false;
 			},
 			sureSelectTime(e) { //确定选择时间
-			let time = this.getFullTime(e.value)
-			if (this.operateType == 6) {
-				this.ordinaryInfo.service_time = time
-			}
-			if (this.operateType == 7) {
-				this.expertInfo.service_time = time
-			}
-			if (this.operateType == 8) {
-				this.specialInfo.service_time = time
-			}
-			if (this.operateType == 12) {
-				this.inspectInfo.service_time = time
-			}
-			if (this.operateType == 9) {
-				this.consultationInfo.service_time = time
-			}
-			if (this.operateType == 11) {
-				this.sendTakeInfo.service_time = time
-			}
-			if (this.operateType == 10) {
-				this.buyMedicine.service_time = time
-			}
+				this.popupShow = false;
+				let time = this.getFullTime(e.value)
+				if (this.operateType == 6) {
+					this.ordinaryInfo.service_time = time
+				}
+				if (this.operateType == 7) {
+					this.expertInfo.service_time = time
+				}
+				if (this.operateType == 8) {
+					this.specialInfo.service_time = time
+				}
+				if (this.operateType == 12) {
+					this.inspectInfo.service_time = time
+				}
+				if (this.operateType == 9) {
+					this.consultationInfo.service_time = time
+				}
+				if (this.operateType == 11) {
+					this.sendTakeInfo.service_time = time
+				}
+				if (this.operateType == 10) {
+					this.buyMedicine.service_time = time
+				}
 				this.timeShow = !this.timeShow
-				
+
 			},
-			getFullTime(timestamp){//时间戳转化
-				let date = new Date(timestamp);    //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+			getFullTime(timestamp) { //时间戳转化
+				let date = new Date(timestamp); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
 				let Y = date.getFullYear() + '-';
 				let M = ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)) + '-';
 				let D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
 				let h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
 				let m = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
-				return Y + M + D + h + m +':00';
+				return Y + M + D + h + m + ':00';
 			},
 			cancelSelectTime(e) { //取消选择
 				this.timeShow = !this.timeShow
+				this.popupShow = false;
 			},
-			openHospital(type,operateType,value){ //打开选择医院的弹窗 type // 1.选择医院 2.选择诊所 3.选择时间 4 // 选择患者
+			openHospital(type, operateType, value) { //打开选择医院的弹窗 type // 1.选择医院 2.选择诊所 3.选择时间 4 // 选择患者
 				this.operateType = operateType
-				if(type == 1){ // 选择医院
+				if (type == 1) { // 选择医院
 					this.hospitalShow = true
 					this.getFresh()
-				}else if(type == 2){//选择诊所
-					// if(value){ // value 为医院id
-					// 	this.departmentShow = true
-					// 	this.getDepartment(value)
-					// }
-					this.departmentShow = true
-					// this.getDepartment(value)
-				}else if(type == 3){
-					this.timeShow =true
-				}else if(type == 4){
+				} else if (type == 2) { //选择诊所
+					if (!value || value < 1) { // value 为医院id
+						uni.showToast({
+							title: '请先选择医院',
+							icon: 'none'
+						})
+						return;
+						// this.getDepartment(value)
+					}
+					// this.departmentShow = true
+					this.getDepartment(value)
+				} else if (type == 3) {
+					this.timeShow = true
+				} else if (type == 4) {
 					this.patientShow = true
 					this.getPatientFresh()
 				}
-				
+				this.popupShow = true
 			},
-			closeSelectHospital(e){ // 关闭选择医院的弹窗
+			closeSelectHospital(e) { // 关闭选择医院的弹窗
 				this.hospitalShow = false
+				this.popupShow = false;
 			},
-			getFresh(e){//刷新获取列表
+			getFresh(e) { //刷新获取列表
 				this.hospitalList = []
 				this.page = 1
 				this.loading = true
 				this.getHospitalList()
 			},
-			getPull(e){//分页
-				if(this.loading){
+			getPull(e) { //分页
+				if (this.loading) {
 					this.getHospitalList()
 				}
 			},
-			getHospitalList(e){ // 获取医院列表
-				this.$api.getHospital({page:this.page,pageSize:8,address:this.addressInfo.city}).then(res=>{
+			getHospitalList(e) { // 获取医院列表
+				this.addressInfo.city = '深圳'
+				this.$api.getHospital({
+					page: this.page,
+					// pageSize: 8,
+					address: ''
+				}).then(res => {
 					this.hospitalList = this.hospitalList.concat(res.list)
 					this.page += 1
 					this.loading = res.list.length == 8
 				})
 			},
-			getDepartment(e){//获取科室列表
-				this.clinicList[0] = []
-				this.$api.getDepartmentList({}).then(res=>{
-					console.log(this.clinicList[0],res.list)
-					this.clinicList[0]=res.list
+			getDepartment(e) { //获取科室列表
+				this.clinicList= []
+				this.$api.getDepartmentLists({
+					hospital_id: e
+				}).then(res => {
+					this.clinicList = res
+					this.departmentShow = true
+					console.log('科室', this.clinicList, res)
 				})
-				
+
 			},
-			sureHospital(item){//确定选择的医院
+			sureHospital(item) { //确定选择的医院
 				if (this.operateType == 6) {
 					this.ordinaryInfo.hospitalName = item.name
 					this.ordinaryInfo.hospital_id = item.id
@@ -876,29 +1174,34 @@
 					this.buyMedicine.hospital_id = item.id
 				}
 				this.hospitalShow = false
+				this.popupShow = false;
 			},
-			getPatientFresh(e){//初始化获取患者列表
+			getPatientFresh(e) { //初始化获取患者列表
 				this.patientList = []
 				this.loading = true
 				this.page = 1
 				this.getPatientData()
 			},
-			getPatientData(e){//获取患者列表
-				this.$api.getPatientList({page:this.page,pageSize:8}).then(res=>{
+			getPatientData(e) { //获取患者列表
+				this.$api.getPatientList({
+					page: this.page,
+					pageSize: 8
+				}).then(res => {
 					this.patientList = this.patientList.concat(res.list)
 					this.page += 1
 					this.loading = res.list.length == 8
 				})
 			},
-			getPatient(e){//分页加载
-				if(this.loading){
+			getPatient(e) { //分页加载
+				if (this.loading) {
 					this.getPatientData()
 				}
 			},
-			closeSelectPatient(e){//关闭选择列表
-				this.patientShow = false 
+			closeSelectPatient(e) { //关闭选择列表
+				this.patientShow = false
+				this.popupShow = false;
 			},
-			surePatient(item){//选择就诊患者
+			surePatient(item) { //选择就诊患者
 				if (this.operateType == 6) {
 					this.ordinaryInfo.patientName = item.patient_name
 					this.ordinaryInfo.patient_id = item.id
@@ -928,29 +1231,143 @@
 					this.buyMedicine.patient_id = item.id
 				}
 				this.patientShow = false
+				this.popupShow = false;
 			},
-			selectPayStyle(item,index){//选择支付方式 1钱包，2支付宝，3微信支付，4微信小程序支付 5支付宝小程序支付
-				console.log(item,index)
-				this.payValue = item.name
-				// #ifdef MP-WEIXIN
-				if(index == 0){
-					this.pay_channel = 4
-				}else{
-					this.pay_channel = index + 1
-				}
-				// #endif
-				// #ifdef APP
-				this.pay_channel = index +1
-				// #endif
+			selectPayStyle(item, index) { //选择支付方式 1钱包，2支付宝，3微信支付，4微信小程序支付 5支付宝小程序支付
+				this.payValue = item.name;
+				console.log('payValue', this.payValue);
+				this.pay_channel = item.pay_channel
+				// console.log(item,index)
+				// this.payValue = item.name
+				// // #ifdef MP-WEIXIN
+				// if(index == 0){
+				// 	this.pay_channel = 4
+				// }else{
+				// 	this.pay_channel = index + 1
+				// }
+				// // #endif
+				// // #ifdef APP
+				// this.pay_channel = index +1
+				// // #endif
 			},
-			toPay(e){//提交订单
-				console.log(this.getInfo())
-				this.$api.addRecord({pay_channel:1,record_json:this.getInfo()}).then(res=>{
-					
+			toPay(e) { //提交订单
+				this.$api.addRecord({
+					pay_channel: this.pay_channel,
+					integral: this.integral_total,
+					record_json: this.getInfo()
+				}).then(res => {
+					console.log('付款', res);
+					let _this = this
+					switch (this.pay_channel) {
+						case 1: //东东币
+							// uni.navigateTo({
+							// 	url: "/aUserPages/resultPage/resultPage?type="+3+"&amount="+this..discount_total
+							// })
+							if(res.errorCode && res.errorMsg ) {
+								uni.showToast({
+									title:res.errorMsg,
+									icon:'none'
+								})
+								return;
+							}
+							// #ifdef MP-WEIXIN
+							_this.getPushMes(this.discount_total)
+							// #endif
+							// uni.navigateTo({
+							// 	url: "/aUserPages/resultPage/resultPage?type=" + 3 + "&amount=" + _this
+							// 		.discount_total
+							// })
+							break;
+						case 2: //app支付宝支付
+							uni.requestPayment({
+								provider: "alipay", //固定值为"alipay"
+								orderInfo: res.url, //此处为服务器返回的订单信息字符串
+								success: function(res) {
+									uni.navigateTo({
+										url: "/aUserPages/resultPage/resultPage?type=" + 3 +
+											"&amount=" + _this.discount_total
+									})
+									console.log("支付成功");
+								},
+								fail: function(err) {
+									console.log('支付失败:' + JSON.stringify(err));
+									setTimeout(function() {
+										uni.navigateTo({
+											url: '/aUserPages/my/myOrder?status=0'
+										})
+									}, 1000);
+								}
+							});
+							break;
+						case 3: //app微信支付
+							uni.requestPayment({
+								provider: "wxpay",
+								orderInfo: {
+									appid: res.appid, // 微信开放平台 - 应用 - AppId，注意和微信小程序、公众号 AppId 可能不一致
+									noncestr: res.nonceStr, // 随机字符串
+									package: res.package, // 固定值
+									partnerid: res.partnerid, // 微信支付商户号
+									prepayid: res.prepayid, // 统一下单订单号 
+									timestamp: res.timestamp, // 时间戳（单位：秒）
+									sign: res.sign // 签名，这里用的 MD5/RSA 签名
+								},
+								success(res) {
+									// uni.navigateTo({
+									// 	url: '/aUserPages/my/myOrder?status=1'
+									// })
+									uni.navigateTo({
+										url: "/aUserPages/resultPage/resultPage?type=" + 3 +
+											"&amount=" + _this.discount_total
+									})
+								},
+								fail(e) {
+									uni.showToast({
+										title: "支付失败",
+										icon: 'none',
+										duration: 1000
+									});
+									setTimeout(function() {
+										uni.navigateTo({
+											url: '/aUserPages/my/myOrder?status=0'
+										})
+									}, 1000);
+								}
+							})
+							break;
+						case 4: //小程序微信支付
+							uni.requestPayment({
+								provider: 'wxpay',
+								timeStamp: res.timeStamp,
+								nonceStr: res.nonceStr,
+								package: res.package,
+								signType: res.signType,
+								paySign: res.paySign,
+								success: function(res) {
+									console.log('success:' + JSON.stringify(res));
+									_this.getPushMes(this.discount_total)
+								},
+								fail: function(err) {
+									console.log('fail:' + JSON.stringify(err));
+									setTimeout(function() {
+										uni.navigateTo({
+											url: '/aUserPages/my/myOrder?status=0'
+										})
+									}, 1000);
+								}
+							})
+							break;
+						default:
+							console.log('支付方式不对');
+					}
+				}).catch(error => {
+					uni.showToast({
+						title: error.msg,
+						icon: 'none'
+					})
 				})
-				
+
 			},
-			getInfo(e){
+			getInfo(e) {
 				let record_json = []
 				if (this.typeList.includes(6)) {
 					record_json.push(this.ordinaryInfo)
@@ -980,6 +1397,13 @@
 </script>
 
 <style lang="scss" scoped>
+	.popupShow {
+		overflow: hidden;
+		position: fixed;
+		height: 100vh;
+		width: 100%;
+	}
+
 	.pay_img {
 		width: 46rpx;
 		height: 46rpx;

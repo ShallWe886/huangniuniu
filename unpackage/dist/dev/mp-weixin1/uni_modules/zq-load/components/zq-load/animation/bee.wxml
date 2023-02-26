@@ -1,0 +1,1 @@
+<view class="wrapper" style="{{'transform:'+('scale('+scale+')')+';'}}"><view class="bee"><view class="bee-body"><view class="blink"></view><view class="mouth"></view><view class="antenae"></view><view class="bee-left"></view><view class="bee-right"></view></view></view><view class="shadow">加载中</view></view>

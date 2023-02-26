@@ -280,7 +280,7 @@
 					navbarHeight:0,//状态栏高度
 					navbarTitleHieght:88,//标题高度
 					navbarNoneTitleHieght:20,//无标题时高度
-					navbarColor:"#333333",//导航栏字体颜色
+					navbarColor:"#000000",//导航栏字体颜色
 					navbarBackgroundColor:"#ffffff",//导航栏背景颜色
 					navbarBackgroundImage:null,//导航栏背景图
 					navbarBackgroundImageHeight:null,//导航栏背景图高度
@@ -288,7 +288,7 @@
 					navbarBackgroundImageOpacity:1,//导航栏透明度
 					navbarBorderBottom:null,//导航栏边框颜色
 					navbarTitle:"",//导航栏标题
-					navbarTitleFontSize:14,//标题字号大小
+					navbarTitleFontSize:16,//标题字号大小
 					hasBubble:false,//是否有气泡
 					hasBoxShadow:false,//是否有阴影
 					titleAlign:'center',//头部字体排列方式

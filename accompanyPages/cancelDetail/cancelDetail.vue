@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<search></search>
+		<!-- <search></search> -->
 		<view class="box_690 padding_l margin_left_l">
 			<view class="flex_row padding_bottom_l border_bottom">
 				<image src="" mode="aspectFill" class="accept_item_img flex_shrink"></image>
@@ -25,9 +25,9 @@
 					<view class=" color_black_333 font_size_text_l margin_top_m" style="line-height: 26rpx;">
 						李先生<text class="margin_left_l">185****9393</text>
 					</view>
-					<view class="font_size_text_m color_black_888 margin_top_m" style="line-height: 26rpx;">
+					<!-- <view class="font_size_text_m color_black_888 margin_top_m" style="line-height: 26rpx;">
 						2022-12-12 3:00-5:00
-					</view>
+					</view> -->
 				</view>
 			</view>
 			<view class="flex_row padding_l_0 border_bottom">

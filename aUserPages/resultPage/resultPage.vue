@@ -31,9 +31,9 @@
 					支付成功
 				</view>
 				<view class="margin_top_xxl color_black_999 font_size_title_l">
-					支付金额：<text class="font_weight color_black_333" style="font-size: 50rpx;">¥299.00</text>
+					支付金额：<text class="font_weight color_black_333" style="font-size: 50rpx;">¥{{amount}}</text>
 				</view>
-				<view class="result_button">
+				<view class="result_button" @click="backIndex">
 					返回首页
 				</view>
 			</block>
@@ -47,11 +47,13 @@
 	export default {
 		data() {
 			return {
+				amount: '0.00',
 				type: 0 // 0：接单成功 1：支付失败 3：支付成功
 			}
 		},
 		onLoad(options) {
 			this.type = options.type
+			this.amount = options.amount
 			if(this.type == 0){
 				uni.setNavigationBarTitle({
 					title: "接单成功"
@@ -68,7 +70,11 @@
 			
 		},
 		methods: {
-
+			backIndex() {
+				uni.navigateTo({
+					url: '/pages/index/index'
+				})
+			}
 		}
 	}
 </script>

@@ -5,7 +5,8 @@
 			<block v-for="(item,index) in list">
 				<swiper-item :style="{height:height+'px',width:width+'rpx'}"  >
 					<view >
-						<image :src="imageUrl+'/shopimg.png'" mode="aspectFill" :style="{height:height+'px',width:width+'rpx'}" @click="lookImg(item,index)"></image>
+						<image v-if="swiperList" :src="item.url" mode="aspectFill" :style="{height:height+'px',width:width+'rpx'}" @click="lookImg(item,index)"></image>
+						<image v-else :src="imageUrl+'/shopimg.png'" mode="aspectFill" :style="{height:height+'px',width:width+'rpx'}" @click="lookImg(item,index)"></image>
 					</view>
 					<view :style="{height:height+'px',width:width+'rpx'}" else>
 						<video :src="item.url" controls  :loop="true"  :style="{height:height+'px',width:width+'rpx'}" :show-mute-btn="true"  :enable-play-gesture="true" :id="MyVideo"></video>

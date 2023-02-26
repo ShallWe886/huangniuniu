@@ -6,10 +6,10 @@
 			</view>
 			<view class="answer_box flex_row  margin_l_0 padding_left_xl padding_right_xl">
 				<view class="font_size_text_xl color_black_333">
-					<radio value="1" :checked="answer.one" color='#FF6437' style="transform:scale(0.5)" @click="select(1,false)"/>否
+					<radio value="1" :checked="!answer.one" color='#FF6437' style="transform:scale(0.5)" @click="select(1,false)"/>否
 				</view>
 				<view class="font_size_text_xl color_black_333" style="margin-left: 260rpx;">
-					<radio value="2" :checked="!answer.one" color='#FF6437' style="transform:scale(0.5)"  @click="select(1,true)"/>是
+					<radio value="2" :checked="answer.one" color='#FF6437' style="transform:scale(0.5)"  @click="select(1,true)"/>是
 				</view>
 			</view>
 			<view class="color_black_333 font_size_text_xl font_weight padding_top_m">
@@ -23,10 +23,10 @@
 			</view>
 			<view class="answer_box flex_row  margin_l_0 padding_left_xl padding_right_xl">
 				<view class="font_size_text_xl color_black_333">
-					<radio value="1" :checked="answer.three" color='#FF6437' style="transform:scale(0.5)"  @click="select(2,false)" />不会
+					<radio value="1" :checked="!answer.three" color='#FF6437' style="transform:scale(0.5)"  @click="select(2,false)" />不会
 				</view>
 				<view class="font_size_text_xl color_black_333" style="margin-left: 260rpx;">
-					<radio value="2" :checked="!answer.three" color='#FF6437' style="transform:scale(0.5)"  @click="select(2,true)"/>会
+					<radio value="2" :checked="answer.three" color='#FF6437' style="transform:scale(0.5)"  @click="select(2,true)"/>会
 				</view>
 			</view>
 			<view class="color_black_333 font_size_text_xl font_weight padding_top_m">
@@ -73,6 +73,14 @@
 				}
 			},
 			toCommit(e){//提交评价
+			if(!this.answer.two) {
+				uni.showToast({
+					duration:2000,
+					title: '请完整填写表单',
+					icon: 'error'
+				})
+				return;
+			}
 				this.$api.addAnswer({record_id:this.recordId,attendant_id:this.attendantId,quest_one:this.answer.one,quest_two:this.answer.two,quest_three:this.answer.three,score:this.answer.four}).then(res=>{
 					getApp().globalData.upDate.isUpdateOrder = true
 				})

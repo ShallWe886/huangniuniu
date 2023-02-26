@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "candle": "/uni_modules/zq-load/components/zq-load/animation/bee",
+    "loading": "/uni_modules/zq-load/components/zq-load/animation/loading"
+  }
+}

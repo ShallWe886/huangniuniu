@@ -12,7 +12,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="margin_top_l">
+		<!-- <view class="margin_top_l">
 			<view class="card_box margin_top_l" v-for="(item,index) in cardList" :key="index">
 				<image :src="item.img" mode="aspectFill" class="card_img"></image>
 				<view class="card_con_box">
@@ -29,7 +29,7 @@
 					</view>
 				</view>
 			</view>
-		</view>
+		</view> -->
 	</view>
 </template>
 

@@ -7,13 +7,13 @@
 					<view class="color_white">
 						余额
 					</view>
-					<view class="margin_left color_white flex_row">
+					<!-- <view class="margin_left color_white flex_row">
 						我的卡包
 						<u-icon name="arrow-right" size="30" color="#ffffff"></u-icon>
-					</view>
+					</view> -->
 				</view>
 				<view class="color_white font_weight margin_top_m" style="font-size: 68rpx;">
-					{{accountInfo.balance}}
+					{{accountInfo.balance || 0}}
 				</view>
 				<view class="dong_top_man flex_row  font_weight  ">
 					<view class="man_box " @click="toRecharge">
@@ -22,31 +22,31 @@
 							充值
 						</view>
 					</view>
-					<view class="man_box" @click="toWithdrawal">
+					<!-- <view class="man_box" @click="toWithdrawal">
 						<image src="/static/image/dong02.png" mode="aspectFill" class="dong_la"></image>
 						<view class="margin_left_m font_size_text_xxl color_white">
 							提现
 						</view>
-					</view>
+					</view> -->
 				</view>
 			</view>
 		</view>
 		<view class="box_690 padding_0_l">
 			<view class="flex_row justify_around border_bottom">
 				<view class="flex_column">
-					<view class="select_box padding_m_0" :class="{'active':selectId == 0}" @click="select(0)">
-						充值记录
-					</view>
-					<view class="border_box" :class="{'active':selectId == 0}">
-					</view>
-				</view>
-				<view class="flex_column">
 					<view class="select_box padding_m_0" :class="{'active':selectId == 1}" @click="select(1)">
-						提现记录
+						充值记录
 					</view>
 					<view class="border_box" :class="{'active':selectId == 1}">
 					</view>
 				</view>
+				<!-- <view class="flex_column">
+					<view class="select_box padding_m_0" :class="{'active':selectId == 2}" @click="select(2)">
+						提现记录
+					</view>
+					<view class="border_box" :class="{'active':selectId == 2}">
+					</view>
+				</view> -->
 				
 			</view>
 			<view class="margin_top_l text_align_center font_size_text_l color_black_999 margin_bottom_l" v-if="list.length == 0">
@@ -55,14 +55,14 @@
 			<view class="flex_row border_bottom padding_l_0" v-for="(item,index) in list" :key="index">
 				<view class="">
 					<view class="font_size_title_s color_black_333 font_weight">
-						冬冬币
+						咚咚币
 					</view>
 					<view class="font_size_text_m color_black_999 margin_top_s">
-						{{item.pay_time}} 
+						{{item.pay_time || ''}} 
 					</view>
 				</view>
 				<view class="margin_left color_orange font_weight font_size_title_l" >
-					{{item.amount}}
+					{{item.amount ||  ''}}
 				</view>
 				<!-- <view class="margin_left color_orange font_weight font_size_title_l" v-if="selectId == 1">
 					-2222
@@ -76,7 +76,7 @@
 	export default {
 		data() {
 			return {
-				selectId: 0,
+				selectId: 1,
 				list: [],
 				accountInfo:null ,// 账户余额
 				page:1,
@@ -85,6 +85,7 @@
 		},
 		onLoad() {
 			this.getData()
+			// this.getfresh();
 		},
 		onShow() {
 			this.getfresh();
@@ -105,13 +106,13 @@
 				uni.stopPullDownRefresh();
 			},
 			getfresh(e) {
-				this.orderList = []
+				this.list = []
 				this.page = 1
 				this.loading = true;
 				this.getRecordList()
 			},
 			getRecordList(e){
-				this.$api.getMywallet({pageSize: 8,page: this.page,trade_type:this.selectId+1}).then(res=>{
+				this.$api.getMywallet({pageSize: 8,page: this.page,trade_type:this.selectId}).then(res=>{
 					this.list = this.list.concat(res.data)
 					this.loading = res.data.length == 8
 					this.page += 1
@@ -124,7 +125,7 @@
 			},
 			select(type) {
 				this.selectId = type
-				this.getfresh()
+				// this.getfresh()
 			},
 			lookMycard(e) {
 				//查看我的卡包
@@ -134,12 +135,12 @@
 			},
 			toRecharge(e) { //充值
 				uni.navigateTo({
-					url: '/aUserPages/my/myCard/recharge'
+					url: '/aUserPages/my/myCard/recharge?wallet_id='+this.accountInfo.id
 				})
 			},
 			toWithdrawal(e) { //提现
 				uni.navigateTo({
-					url: '/aUserPages/my/myCard/withdrawal'
+					url: '/aUserPages/my/myCard/withdrawal?type=0&amount='+this.accountInfo.balance
 				})
 			}
 		}
@@ -174,13 +175,13 @@
 					line-height: 38rpx;
 					display: flex;
 					flex-direction: row;
-					justify-content: center;
+					// justify-content: center;
 					box-sizing: border-box;
 					padding: 10rpx  0;
 
-					&:nth-child(1) {
-						border-right: 1rpx #FFFFFF solid;
-					}
+					// &:nth-child(1) {
+					// 	border-right: 1rpx #FFFFFF solid;
+					// }
 
 					.dong_la {
 						width: 38rpx;

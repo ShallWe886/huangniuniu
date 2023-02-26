@@ -1,0 +1,8 @@
+
+page{background-color: #FFFFFF;}
+.writeImg{width: 24rpx;height: 24rpx;}
+.item_box{border-bottom: 1rpx solid #EEEEEE;}
+.tip_box{line-height: 15px;padding: 0 5px;border-radius: 5px;background: #FFE6E6;}
+.add_box{position: fixed;bottom: 0;left: 0;height: 60px;z-index: 999;background: #FFFFFF;}
+.add{line-height: 40px;border-radius: 20px;padding: 0 10px;border: 1rpx solid #00A2E9;width: 690rpx;background: #00A2E9;text-align: center;}
+

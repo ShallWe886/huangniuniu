@@ -4,7 +4,7 @@
 			<view class="with_bg">
 			</view>
 			<view class="box_690 padding_left_l padding_right_l padding_top_l with_con">
-				<view class="font_size_text_l color_black_999">
+				<!-- <view class="font_size_text_l color_black_999">
 					提现到
 				</view>
 				<view class="flex_row padding_l_0 border_bottom" @click="selectCard">
@@ -20,19 +20,19 @@
 					<view class="margin_left">
 						<u-icon name="arrow-right" color="#999999"></u-icon>
 					</view>
-				</view>
+				</view> -->
 				<view class="padding_l_0 font_size_text_l color_black_999">
 					提现金额
 				</view>
 				<view class="flex_row border_bottom padding_bottom_s">
 					<u-icon name="rmb" size="40" color="#333333"> </u-icon>
-					<input type="text" placeholder="最低提现额度为100元" placeholder-style="font-size:34rpx;color:#BEBEBE;">
+					<input type="number" v-model="amount" placeholder="最低提现额度为100元" placeholder-style="font-size:34rpx;color:#BEBEBE;">
 				</view>
 				<view class="flex_row padding_l_0">
 					<view class="font_size_text_l color_black_999">
-						可提现金额<text class="color_orange font_weight">500.00</text>元
+						可提现金额<text class="color_orange font_weight">{{max_amount}}</text>元
 					</view>
-					<view class="margin_left font_weight color_orange font_size_text_l">
+					<view class="margin_left font_weight color_orange font_size_text_l" @click="alpayAll">
 						全部提现
 					</view>
 				</view>
@@ -40,12 +40,18 @@
 		</view>
 		<view class="padding_left_l padding_right_l padding_bottom_l">
 			<view class="flex_row " style="margin-top: 60rpx;">
-				<radio value="2" color='#FF6437' style="transform:scale(0.6)" />
+				<view class="" @click="checkedXs">
+					<image src="/static/image/select01.png" class="icon_img" v-if="checkedX" style="margin-right: 10rpx;margin-bottom: -6rpx;">
+					</image>
+					<image src="/static/image/select02.png" class="icon_img" v-if="!checkedX" style="margin-right: 10rpx;margin-bottom: -6rpx;">
+					</image>
+				</view>
+				<!-- <radio value="2" :checked="checkXY" @click="checkX" color='#FF6437' style="transform:scale(0.6)" /> -->
 				<view class=" font_size_text_m color_black_999">
-					已阅读并同意《<text class="color_orange font_weight">提现服务协议</text>》
+					已阅读并同意《<text class="color_orange font_weight" @click="openTixian">提现服务协议</text>》
 				</view>
 			</view>
-			<view class="sure_buttton margin_top_l margin_left_l">
+			<view class="sure_buttton margin_top_l margin_left_l" @click="walletApply">
 				确认提现
 			</view>
 			<view class="margin_top_xl">
@@ -104,6 +110,11 @@
 	export default {
 		data() {
 			return {
+				checkedX: false,
+				max_amount: 0,
+				amount: '',
+				checkXY: false,
+				type: 0,
 				withPop: false,
 				cardList: [{
 					img: '/static/image/card01.png'
@@ -114,7 +125,74 @@
 				}]
 			}
 		},
+		onLoad(options){
+			if(options.type) {
+				this.type = options.type
+			}
+			if(options.amount) {
+				this.max_amount = options.amount
+			}
+			
+		},
 		methods: {
+			//勾选用户协议
+			checkedXs() {
+				this.checkedX = !this.checkedX
+				if(this.checkedX) {
+					this.$api.readContractEscort({}).then(res => {
+						console.log('res', res);
+					})
+				}
+			},
+			alpayAll() {
+				this.amount = this.max_amount
+			},
+			//提现申请
+			walletApply() {
+				if(!this.checkXY) {
+					uni.showToast({
+						title:'请勾选服务协议',
+						icon:'none',
+						duration:1000
+					})
+					return;
+				}
+				console.log('###', this.amount, typeof this.amount, typeof this.max_amount,!this.amount, this.amount < 100, this.amount > this.max_amount);
+				if(this.amount < 100 && this.amount <= this.max_amount) {
+					uni.showToast({
+						title:'金额不能低于100',
+						icon:'none',
+						duration:1000
+					})
+					return;
+				}
+				if( this.amount >= 100 && parseFloat(this.amount) > parseFloat(this.max_amount)) {
+					uni.showToast({
+						title:'金额已超出可提现',
+						icon:'none',
+						duration:1000
+					})
+					return;
+				}
+				let api = {0:'', 1: 'escortWalletApply'}
+				this.$api[api[this.type]]({amount: this.amount}).then(res => {
+					console.log('res',res)
+					uni.showToast({
+						title:"提现申请成功",
+						icon:"success",
+						duration:1000
+					})
+					
+				})
+			},
+			checkX() {
+				this.checkXY = !this.checkXY;
+			},
+			openTixian() {
+				uni.navigateTo({
+					url: '/aUserPages/my/myCard/withdrawalTreaty'
+				})
+			},
 			selectCard(e){
 				this.withPop = true
 			},
@@ -127,6 +205,10 @@
 </script>
 
 <style lang="scss" scoped>
+	.icon_img {
+		width: 32rpx;
+		height: 32rpx;
+	}
 	.with_box {
 		position: relative;
 		height: 508rpx;

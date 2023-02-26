@@ -1,5 +1,5 @@
 <template>
-	<view class="padding_bottom_m flex_column">
+	<!-- <view class="padding_bottom_m flex_column">
 		<view class="box_690 addcard_box ">
 			<image src="/static/image/addCard01.png" mode="aspectFill" class="addcard_img"></image>
 			<view class="flex_row padding_l_0">
@@ -71,7 +71,7 @@
 		<view class="sure_buttton margin_top_xxl" >
 			确认绑定
 		</view>
-	</view>
+	</view> -->
 </template>
 
 <script>

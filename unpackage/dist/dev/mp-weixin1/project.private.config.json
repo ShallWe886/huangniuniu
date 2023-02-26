@@ -1,0 +1,54 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "accompanyPages/selfInfo/updateSelfInfo/updateSelfInfo",
+          "pathName": "accompanyPages/selfInfo/updateSelfInfo/updateSelfInfo",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "aUserPages/runOrder/runOrder",
+          "pathName": "aUserPages/runOrder/runOrder",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "accompanyPages/selfInfo/selfInfo",
+          "pathName": "accompanyPages/selfInfo/selfInfo",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "accompanyPages/orderList/orderList",
+          "pathName": "accompanyPages/orderList/orderList",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "aUserPages/login/register/register",
+          "pathName": "aUserPages/login/register/register",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "aUserPages/my/myCard/withdrawal",
+          "pathName": "aUserPages/my/myCard/withdrawal",
+          "query": "type=1&amount=10000.00",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

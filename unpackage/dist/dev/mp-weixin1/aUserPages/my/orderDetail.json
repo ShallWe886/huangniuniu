@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "订单详情",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "zq-load": "/uni_modules/zq-load/components/zq-load/zq-load",
+    "u-popup": "/uni_modules/uview-ui/components/u-popup/u-popup",
+    "step": "/components/step"
+  }
+}

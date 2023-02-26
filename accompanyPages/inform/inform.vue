@@ -42,8 +42,12 @@
 		},
 		data() {
 			return {
-				informList:[{},{},{},{}]
+				informList:[]
 			}
+		},
+		onLoad() {
+			getApp().globalData.upDate.newShow = false
+			console.log('app', getApp().globalData.upDate.newShow);
 		},
 		methods: {
 			lookDetail(e){

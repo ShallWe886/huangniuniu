@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "跑腿开单",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-swiper": "/uni_modules/uview-ui/components/u-swiper/u-swiper"
+  }
+}

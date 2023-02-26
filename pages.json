@@ -8,8 +8,9 @@
 			"path": "pages/index/index",
 			"style": {
 				"navigationStyle": "custom"
-
-
+			},
+			"app-plus": {
+				"background":"#ededed" //此处背景色与页面中一致			
 			}
 		}
 	],
@@ -21,6 +22,9 @@
 					"navigationBarTitleText": "VIP服务包",
 					"enablePullDownRefresh": true,
 					"backgroundColor": "#ffffff"
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -29,6 +33,9 @@
 					"navigationBarTitleText": "填写订单",
 					"enablePullDownRefresh": true,
 					"backgroundColor": "#ffffff"
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -36,6 +43,9 @@
 				"style": {
 					"navigationBarTitleText": "填写订单",
 					"enablePullDownRefresh": false
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			},
@@ -45,14 +55,20 @@
 					"navigationBarTitleText": "就诊人信息",
 					"enablePullDownRefresh": true,
 					"backgroundColor": "#ffffff"
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
 				"path": "patientList/addPatient",
 				"style": {
-					"navigationBarTitleText": "添加患者信息",
+					"navigationBarTitleText": "添加就诊人信息",
 					"enablePullDownRefresh": false,
 					"backgroundColor": "#ffffff"
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -60,6 +76,9 @@
 				"style": {
 					"navigationBarTitleText": "全程陪诊",
 					"enablePullDownRefresh": false
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -67,6 +86,9 @@
 				"style": {
 					"navigationBarTitleText": "",
 					"enablePullDownRefresh": false
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -74,6 +96,9 @@
 				"style": {
 					"navigationBarTitleText": "名家有约",
 					"enablePullDownRefresh": false
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -81,6 +106,9 @@
 				"style": {
 					"navigationBarTitleText": "请选择服务城市",
 					"enablePullDownRefresh": true
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			},
@@ -89,13 +117,19 @@
 				"style": {
 					"navigationBarTitleText": "",
 					"enablePullDownRefresh": false
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
 				"path": "my/my",
 				"style": {
 					"navigationBarTitleText": "我的",
-					"enablePullDownRefresh": true
+					"enablePullDownRefresh": false
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -103,6 +137,9 @@
 				"style": {
 					"navigationBarTitleText": "我的订单",
 					"enablePullDownRefresh": true
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -110,6 +147,9 @@
 				"style": {
 					"navigationBarTitleText": "订单详情",
 					"enablePullDownRefresh": true
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -117,6 +157,9 @@
 				"style": {
 					"navigationBarTitleText": "评价",
 					"enablePullDownRefresh": false
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -124,6 +167,9 @@
 				"style": {
 					"navigationBarTitleText": "开具发票",
 					"enablePullDownRefresh": true
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -131,6 +177,9 @@
 				"style": {
 					"navigationBarTitleText": "申请退款",
 					"enablePullDownRefresh": false
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -138,6 +187,19 @@
 				"style": {
 					"navigationBarTitleText": "积分商城",
 					"enablePullDownRefresh": true
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
+				}
+
+			}, {
+				"path": "integralShop/detailed",
+				"style": {
+					"navigationBarTitleText": "积分明细",
+					"enablePullDownRefresh": true
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -145,6 +207,9 @@
 				"style": {
 					"navigationBarTitleText": "商品详情",
 					"enablePullDownRefresh": true
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -152,6 +217,9 @@
 				"style": {
 					"navigationBarTitleText": "订单确认",
 					"enablePullDownRefresh": false
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -159,6 +227,9 @@
 				"style": {
 					"navigationBarTitleText": "添加地址",
 					"enablePullDownRefresh": false
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -166,6 +237,9 @@
 				"style": {
 					"navigationBarTitleText": "",
 					"enablePullDownRefresh": false
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -173,6 +247,9 @@
 				"style": {
 					"navigationBarTitleText": "咚咚币",
 					"enablePullDownRefresh": true
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -180,6 +257,9 @@
 				"style": {
 					"navigationBarTitleText": "我的卡包",
 					"enablePullDownRefresh": true
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -187,6 +267,19 @@
 				"style": {
 					"navigationBarTitleText": "提现",
 					"enablePullDownRefresh": false
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
+				}
+
+			}, {
+				"path": "my/myCard/withdrawalTreaty",
+				"style": {
+					"navigationBarTitleText": "提现协议",
+					"enablePullDownRefresh": false
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -194,6 +287,9 @@
 				"style": {
 					"navigationBarTitleText": "邀请好友",
 					"enablePullDownRefresh": false
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}
@@ -203,6 +299,9 @@
 				"style": {
 					"navigationBarTitleText": "充值",
 					"enablePullDownRefresh": false
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -210,6 +309,9 @@
 				"style": {
 					"navigationBarTitleText": "我的好友",
 					"enablePullDownRefresh": false
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -217,6 +319,9 @@
 				"style": {
 					"navigationBarTitleText": "常见问题",
 					"enablePullDownRefresh": false
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -224,6 +329,9 @@
 				"style": {
 					"navigationBarTitleText": "",
 					"enablePullDownRefresh": false
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -231,19 +339,29 @@
 				"style": {
 					"navigationBarTitleText": "消息推送设置",
 					"enablePullDownRefresh": false
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
 				"path": "healthy/healthy",
 				"style": {
 					"navigationStyle": "custom"
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
 				"path": "healthy/healthyCon/healthyCon",
 				"style": {
 					"navigationBarTitleText": "标题",
-					"enablePullDownRefresh": false
+					"enablePullDownRefresh": false,
+					"navigationStyle": "custom"
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -251,6 +369,9 @@
 				"style": {
 					"navigationBarTitleText": "标题",
 					"enablePullDownRefresh": false
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -258,6 +379,9 @@
 				"style": {
 					"navigationBarTitleText": "登录",
 					"enablePullDownRefresh": false
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
 
 			}, {
@@ -266,28 +390,41 @@
 					"navigationBarTitleText": "注册",
 					"enablePullDownRefresh": false
 				}
+				,
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
+				}
 
 			}, {
 				"path": "my/myCard/addCard/addCard",
 				"style": {
 					"navigationBarTitleText": "新增银行卡",
 					"enablePullDownRefresh": false
-				}
-
+				},
+					"app-plus": {
+						"background":"#ededed" //此处背景色与页面中一致			
+					}
+			
 			}, {
 				"path": "shopCar/shopCar",
 				"style": {
 					"navigationBarTitleText": "购物车",
 					"enablePullDownRefresh": true
-				}
-
+				},
+					"app-plus": {
+						"background":"#ededed" //此处背景色与页面中一致			
+					}
+			
 			}, {
 				"path": "runOrder/runOrder",
 				"style": {
 					"navigationBarTitleText": "跑腿开单",
 					"enablePullDownRefresh": false
+				},
+				"app-plus": {
+					"background":"#ededed" //此处背景色与页面中一致			
 				}
-
+			
 			}
 
 
@@ -297,7 +434,10 @@
                 {
                     "navigationBarTitleText": "名家有约",
                     "enablePullDownRefresh": true
-                }
+                },
+					"app-plus": {
+						"background":"#ededed" //此处背景色与页面中一致			
+					}
                 
                 }
                 ,{
@@ -306,7 +446,31 @@
                 {
                     "navigationBarTitleText": "",
                     "enablePullDownRefresh": false
+                },
+					"app-plus": {
+						"background":"#ededed" //此处背景色与页面中一致			
+					}
+                
                 }
+                ,{
+                    "path" : "orderFeedback/orderFeedback",
+                    "style" : {
+					"navigationBarTitleText": "留言列表",
+					"enablePullDownRefresh": false
+					},
+					"app-plus": {
+						"background":"#ededed" //此处背景色与页面中一致			
+					}
+                
+                },{
+                    "path" : "orderFeedback/editFeedback",
+                    "style" :{
+					"navigationBarTitleText": "编辑反馈",
+					"enablePullDownRefresh": false
+					},
+					"app-plus": {
+						"background":"#ededed" //此处背景色与页面中一致			
+					}
                 
                 }
             ]
@@ -317,6 +481,9 @@
 			"style": {
 				"navigationBarTitleText": "接单",
 				"enablePullDownRefresh": true
+			},
+			"app-plus": {
+				"background":"#ededed" //此处背景色与页面中一致			
 			}
 
 		}, {
@@ -324,6 +491,9 @@
 			"style": {
 				"navigationBarTitleText": "订单列表",
 				"enablePullDownRefresh": true
+			},
+			"app-plus": {
+				"background":"#ededed" //此处背景色与页面中一致			
 			}
 
 		}, {
@@ -331,6 +501,9 @@
 			"style": {
 				"navigationBarTitleText": "我的",
 				"enablePullDownRefresh": false
+			},
+			"app-plus": {
+				"background":"#ededed" //此处背景色与页面中一致			
 			}
 
 		}, {
@@ -338,6 +511,9 @@
 			"style": {
 				"navigationBarTitleText": "我的",
 				"enablePullDownRefresh": false
+			},
+			"app-plus": {
+				"background":"#ededed" //此处背景色与页面中一致			
 			}
 
 		}, {
@@ -345,6 +521,9 @@
 			"style": {
 				"navigationBarTitleText": "评价列表",
 				"enablePullDownRefresh": true
+			},
+			"app-plus": {
+				"background":"#ededed" //此处背景色与页面中一致			
 			}
 
 		}, {
@@ -352,6 +531,9 @@
 			"style": {
 				"navigationBarTitleText": "通知",
 				"enablePullDownRefresh": false
+			},
+			"app-plus": {
+				"background":"#ededed" //此处背景色与页面中一致			
 			}
 
 		}, {
@@ -359,6 +541,9 @@
 			"style": {
 				"navigationBarTitleText": "详情",
 				"enablePullDownRefresh": true
+			},
+			"app-plus": {
+				"background":"#ededed" //此处背景色与页面中一致			
 			}
 
 		}, {
@@ -366,6 +551,9 @@
 			"style": {
 				"navigationBarTitleText": "钱包",
 				"enablePullDownRefresh": true
+			},
+			"app-plus": {
+				"background":"#ededed" //此处背景色与页面中一致			
 			}
 
 		}, {
@@ -373,9 +561,21 @@
 			"style": {
 				"navigationBarTitleText": "意见反馈",
 				"enablePullDownRefresh": false
+			},
+			"app-plus": {
+				"background":"#ededed" //此处背景色与页面中一致			
 			}
 
-		}]
+		}    ,{
+                    "path" : "orderList/completeOrder",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "订单完成",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+            ]
 	}],
 	// "preloadRule": { // 分包预载配置。
 	// 		"pagesB/detail/detail": {

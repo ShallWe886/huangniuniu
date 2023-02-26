@@ -9,56 +9,6 @@
 					<u-switch v-model="isSure" size="50" activeColor="#FF8245"></u-switch>
 				</view>
 			</view>
-			<view class="flex_row padding_l_0">
-				<view class="font_size_title_s color_black_333 font_weight">
-					推送时间
-				</view>
-				<view class="margin_left">
-					<label>
-						<checkbox color="#FF6437" style="transform:scale(0.7)" />全选
-					</label>
-				</view>
-			</view>
-			<view class="flex_row">
-				<checkbox-group class="flex_row flex_wrap">
-					<block v-for="(item,index) in dayList" :key="index">
-						<view class="font_size_text_l color_black_999 flex_row margin_bottom_l time_item" >
-							<checkbox value="cb" :checked="item.check" color="#FF6437" style="transform:scale(0.6)" />{{item.label}}
-						</view>
-						
-					</block>
-					
-				</checkbox-group>
-			</view>
-			<view class="time_box  margin_top_xl justify_center flex_row " style="margin-bottom: 50rpx;" >
-				<view class="font_size_title_s color_black_333 font_weight padding_bottom_s">
-					时间
-				</view>
-				<view class="flex_row padding_bottom_s margin_left_xl" style="border-bottom: 1rpx solid #DCDCDC;">
-					<view class="font_size_title_s color_black_333 ">
-						00：00
-					</view>
-					<view class="margin_left_l">
-						<u-icon name="clock" size="40" ></u-icon>
-					</view>
-				</view>
-				
-				<view class="font_size_title_s color_black_333 margin_left_xl">
-					至
-				</view>
-				<view class="flex_row  padding_bottom_s margin_left_xl"  style="border-bottom: 1rpx solid #DCDCDC;">
-					<view class="font_size_title_s color_black_333 ">
-						23：59
-					</view>
-					<view class="margin_left_l">
-						<u-icon name="clock" size="40" ></u-icon>
-					</view>
-				</view>
-				
-			</view>
-		</view>
-		<view class="sure_buttton_letter margin_top_xxl">
-			确认
 		</view>
 	</view>
 </template>
@@ -97,27 +47,47 @@
 						check: false
 					}
 				],
-
+				checkBox: false,
+				jlFlag: true
 			}
 		},
 		methods: {
-
+			selectCheck(e) {
+				console.log('selectCheck', e, this.dayList);
+			},
+			selectAll(e) {
+				console.log('eee', e);
+				if (!this.jlFlag) {
+					return
+				}
+				this.jlFlag = false
+				setTimeout(() => {
+					this.dayList.map(res => {
+						res.check = !res.check;
+					})
+					this.checkBox = !this.checkBox
+					this.jlFlag = true
+				}, 300)
+				// 一定时间内，只执行一次有效事件
+			},
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-.time_box{
-	width: 610rpx;
-	height: 230rpx;
-	border-radius: 10rpx;
-	background: #F8F8F8;
-}
-.time_item{
-	width: 120rpx;
-	margin-right: 50rpx;
-	&:nth-child(4n){
-		margin-right: 0;
+	.time_box {
+		width: 610rpx;
+		height: 230rpx;
+		border-radius: 10rpx;
+		background: #F8F8F8;
 	}
-}
+
+	.time_item {
+		width: 120rpx;
+		margin-right: 50rpx;
+
+		&:nth-child(4n) {
+			margin-right: 0;
+		}
+	}
 </style>

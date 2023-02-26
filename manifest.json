@@ -1,6 +1,6 @@
 {
-    "name" : "AccompanyingConsultation",
-    "appid" : "__UNI__E71E405",
+    "name" : "麦咚陪诊",
+    "appid" : "__UNI__ED9B027",
     "description" : "",
     "versionName" : "1.0.0",
     "versionCode" : "100",
@@ -18,32 +18,68 @@
         },
         /* 模块配置 */
         "modules" : {
-            "Payment" : {}
+            "Payment" : {},
+            "OAuth" : {},
+            "Geolocation" : {},
+            "Share" : {},
+            "Maps" : {},
+            "LivePusher" : {},
+            "iBeacon" : {}
         },
         /* 应用发布信息 */
         "distribute" : {
             /* android打包配置 */
             "android" : {
                 "permissions" : [
-                    "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
-                    "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
-                    "<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
-                    "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
-                    "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.CAMERA\"/>",
-                    "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
-                    "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
-                    "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
-                    "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
                     "<uses-feature android:name=\"android.hardware.camera\"/>",
-                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
-                ]
+                    "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.BLUETOOTH\"/>",
+                    "<uses-permission android:name=\"android.permission.BLUETOOTH_ADMIN\"/>",
+                    "<uses-permission android:name=\"android.permission.CAMERA\"/>",
+                    "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
+                    "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
+                    "<uses-permission android:name=\"android.permission.INTERNET\"/>",
+                    "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
+                    "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_SMS\"/>",
+                    "<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>",
+                    "<uses-permission android:name=\"android.permission.SEND_SMS\"/>",
+                    "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
+                    "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_SMS\"/>",
+                    "<uses-permission android:name=\"android.permission.BLUETOOTH\"/>",
+                    "<uses-permission android:name=\"android.permission.BLUETOOTH_ADMIN\"/>"
+                ],
+                "abiFilters" : [ "armeabi-v7a", "x86" ],
+                "schemes" : "hbuilder",
+                "autoSdkPermissions" : true
             },
             /* ios打包配置 */
-            "ios" : {},
+            "ios" : {
+                "dSYMs" : false,
+                "capabilities" : {
+                    "entitlements" : {
+                        "com.apple.developer.associated-domains" : [ "applinks:static-f4ef8cbc-5c28-46ed-b245-a36b3d1d64c2.bspapp.com" ]
+                    }
+                },
+                "urltypes" : "hbuilder"
+            },
+            // "capabilities" : {
+            // 	"entitlements" : {
+            // 		"com.apple.developer.associated-domains" : [
+            // 			 "applinks:demo.example.cn"
+            // 		 ]
+            // 	}
+            // }
             /* SDK配置 */
             "sdkConfigs" : {
                 "speech" : {},
@@ -52,11 +88,34 @@
                 "payment" : {
                     "weixin" : {
                         "__platform__" : [ "ios", "android" ],
-                        "appid" : "",
-                        "UniversalLinks" : ""
+                        "appid" : "wxc343ca97c9397a0e",
+                        "UniversalLinks" : "https://static-f4ef8cbc-5c28-46ed-b245-a36b3d1d64c2.bspapp.com/uni-universallinks/__UNI__D94AF5B/"
                     },
                     "alipay" : {
                         "__platform__" : [ "ios", "android" ]
+                    }
+                },
+                "oauth" : {
+                    "weixin" : {
+                        "appid" : "wxc343ca97c9397a0e",
+                        "UniversalLinks" : "https://static-f4ef8cbc-5c28-46ed-b245-a36b3d1d64c2.bspapp.com/uni-universallinks/__UNI__D94AF5B/"
+                    }
+                },
+                "geolocation" : {
+                    "system" : {
+                        "__platform__" : [ "ios", "android" ]
+                    }
+                },
+                "push" : {
+                    "unipush" : {
+                        "offline" : false,
+                        "fcm" : {}
+                    }
+                },
+                "share" : {
+                    "weixin" : {
+                        "appid" : "wxc343ca97c9397a0e",
+                        "UniversalLinks" : "https://static-f4ef8cbc-5c28-46ed-b245-a36b3d1d64c2.bspapp.com/uni-universallinks/__UNI__D94AF5B/"
                     }
                 }
             }
@@ -66,10 +125,11 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "wx677aab0524031e5c",
+        "appid" : "wxc343ca97c9397a0e",
         "setting" : {
             "urlCheck" : false,
-            "minified" : true
+            "minified" : true,
+            "postcss" : true
         },
         "permission" : {
             "scope.userLocation" : {
@@ -77,7 +137,10 @@
             }
         },
         "requiredPrivateInfos" : [ "getLocation", "chooseLocation" ],
-        "usingComponents" : true
+        "usingComponents" : true,
+        "unipush" : {
+            "enable" : true
+        }
     },
     "mp-alipay" : {
         "usingComponents" : true
@@ -91,5 +154,6 @@
     "uniStatistics" : {
         "enable" : false
     },
-    "vueVersion" : "2"
+    "vueVersion" : "2",
+    "_spaceID" : "f4ef8cbc-5c28-46ed-b245-a36b3d1d64c2"
 }

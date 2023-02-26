@@ -1,8 +1,8 @@
 <template>
 	<view>
-		<zq-load v-model="info.load">
-			<block v-if="info.form">
-				<view class="box_690 padding_l flex_row" v-for="(item,index) in info.form" :key="index">
+		<!-- <zq-load v-model="info.load"> -->
+			<block v-if="info">
+				<view class="box_690 padding_l flex_row" v-for="(item,index) in info" :key="index">
 					<image src="/static/image/docImg.png" mode="aspectFill" class="doc_img flex_shrink">
 					</image>
 					<view class=" margin_left_l">
@@ -45,12 +45,16 @@
 		},
 		methods: {
 			getData(e){
-				this.info = new Load({
-					api:this.$api.getdoctorsList,
-					lazy:{subtractHeight:0,itemHeight:250},
-					queryParams:{}
+				// this.info = new Load({
+				// 	api:this.$api.getdoctorsList,
+				// 	lazy:{subtractHeight:0,itemHeight:250},
+				// 	queryParams:{}
+				// })
+				// this.info.getList()
+				this.$api.getdoctorsList({}).then(res => {
+					this.info = res;
+					
 				})
-				this.info.getList()
 			}
 		}
 	}

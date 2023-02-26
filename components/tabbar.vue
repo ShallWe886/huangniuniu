@@ -17,7 +17,7 @@
 				</block>
 
 			</view>
-			<view class="flex_column " @click="toTabbar(2)">
+			<!-- <view class="flex_column " @click="toTabbar(2)">
 				<block v-if="tabbarIndex == 2">
 					<image src="/static/image/tabbar04.png" class="tabbar_img"></image>
 					<view class="font_size_text_xxs margin_top_s color_orange">
@@ -31,29 +31,23 @@
 					</view>
 				</block>
 
-			</view>
-			<view class="flex_column " @click="toTabbar(3)">
-				<view style="position: relative;">
-					<view
-						style="position: absolute;top:-45px;left: -25px;width: 100rpx;height: 50px;border-radius: 50%;padding: 5px;background: #ffffff;">
-						<view class="centerImg flex_column " style="">
-							<image src="/static/image/tabbar09.png" class="tabbar_img_center margin_top_m"></image>
+			</view> -->
+			<view class="flex_column " style="position: relative;" @click="toTabbar(4)">
+				<view class="flex_column" style="position: absolute;top: -32px;"  @click.stop="toTabbar(3)">
+					<view style="position: relative;">
+						<view
+							style="position: absolute;top:-45px;left: -25px;width: 100rpx;height: 100rpx;border-radius: 50%;padding: 5px;background: #ffffff;">
+							<view class="centerImg flex_column " style="">
+								<image src="/static/image/tabbar09.png" class="tabbar_img_center margin_top_m"></image>
+							</view>
+					
 						</view>
-
+					</view>
+					
+					<view class="font_size_text_xxs margin_top_l color_black_888">
+						人工预约
 					</view>
 				</view>
-
-				<view class="font_size_text_xxs margin_top_xl color_black_888">
-					人工预约
-				</view>
-				<!-- <block>
-					<image src="/static/image/tabbar01.png" class="tabbar_img"></image>
-					<view class="font_size_text_xxs margin_top_s color_orange">
-						急速预约
-					</view>
-				</block> -->
-			</view>
-			<view class="flex_column " @click="toTabbar(4)">
 				<block v-if="tabbarIndex == 4">
 					<image src="/static/image/tabbar06.png" class="tabbar_img"></image>
 					<view class="font_size_text_xxs margin_top_s color_orange">
@@ -90,7 +84,7 @@
 					咨询热线
 				</view>
 				<view class="font_size_title_xl color_black_333 font_weight margin_top_m" @click="setText">
-					010-6565-556
+					131 8901 9301
 				</view>
 				<view class="flex_row margin_top_xl ">
 					<view class="quick_btn font_size_title_s color_orange " @click="closeQuickPop(0)">
@@ -145,7 +139,7 @@
 			setText(e) {
 				//点击复制
 				uni.setClipboardData({
-					data: '010-6565-556',
+					data: '131 8901 9301',
 					success: function() {
 						uni.showToast({
 							title: "复制成功",
@@ -158,7 +152,7 @@
 				this.quickAppointShow = !this.quickAppointShow
 				if (type == 1) {
 					uni.makePhoneCall({
-						phoneNumber: '010-6565-556' //仅为示例
+						phoneNumber: '131 8901 9301' //仅为示例
 					});
 				}
 			},

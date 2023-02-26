@@ -47,6 +47,7 @@
 						v-if="getItemType(item) === 'image'"
 						:src="getSource(item)"
 						:mode="imgMode"
+						@click="openUrl(item)"
 						@tap="clickHandler(index)"
 						:style="{
 							height: $u.addUnit(height),
@@ -196,6 +197,14 @@
 			// 点击某个item
 			clickHandler(index) {
 				this.$emit('click', index)
+			},
+			openUrl(item) {
+				console.log('@@', item);
+				if(item.url) {
+					uni.navigateTo({
+						url: item.url
+					})
+				}
 			}
 		},
 	}

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "订单确认",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-icon": "/uni_modules/uview-ui/components/u-icon/u-icon"
+  }
+}

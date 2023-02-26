@@ -12,7 +12,7 @@
 					<view class="flex_row margin_top_l">
 						<image src="/static/image/patientList02.png" class="patient_icon_img flex_shrink"></image>
 						<view class="font_size_text_l color_black_888  margin_left_s">
-							女
+							{{item.sex == 1 ? '男' : '女'}}
 						</view>
 					</view>
 					<view class="flex_row margin_top_l">
@@ -40,9 +40,9 @@
 			<view class="font_size_text_l color_black_999 margin_top_xl">
 				请点击下方按钮添加就诊人～
 			</view>
-			<view class="sure_buttton " style="position: fixed;bottom: 120rpx;left: 70rpx;" @click="addPatient(0)">
-				添加就诊人信息
-			</view>
+		</view>
+		<view class="sure_buttton " style="position: fixed;bottom: 120rpx;left: 70rpx;" @click="addPatient(0)">
+			添加就诊人信息
 		</view>
 	</view>
 </template>

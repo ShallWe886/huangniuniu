@@ -1,61 +1,60 @@
 <template>
 	<view class="padding_bottom_xl" >
-		<zq-load v-model="info.load">
-			<view class="vip_box" v-if="info.form">
-				<image :src="info.form.picture" class="vip_topImg"></image>
-				<view class="box_690 padding_top_l padding_bottom_xl padding_left_xl padding_right_xl vip_tip_box">
-					<view class="font_weight color_black_333 font_size_title_l">
-						{{info.form.name}}
+		<!-- #ifdef MP-WEIXIN -->
+		<!-- #endif -->
+		
+		<view class="vip_box" v-if="detail">
+			<image :src="detail.picture" class="vip_topImg"></image>
+			<view class="box_690 padding_top_l padding_bottom_xl padding_left_xl padding_right_xl vip_tip_box">
+				<view class="font_weight color_black_333 font_size_title_l">
+					{{detail.name}}
+				</view>
+				<view class="flex_row margin_top_m">
+					<view class="lable_box">
+						{{levelMap[detail.level].name}}
 					</view>
-					<view class="flex_row margin_top_m">
-						<view class="lable_box">
-							{{levelMap[info.form.level].name}}
-						</view>
-						<view class="lable_box margin_left_s">
-							{{typeMap[info.form.type].name}}
-						</view>
-					</view>
-					<view class="font_size_text_xl color_black_999 margin_top_m">
-						咨询电话：{{info.form.telephone}}
-					</view>
-					<view class="font_size_text_xl color_black_999 margin_top_s">
-						医院位置：{{info.form.address}}
+					<view class="lable_box margin_left_s">
+						{{typeMap[detail.type].name}}
 					</view>
 				</view>
-			</view>
-			<view class="padding_0_l " style="margin-top: 120px;">
-				<view class="flex_row justify_around border_bottom">
-					<view class="tab_box" :class="{'active':tabId == 0}" @click="selectTab(0)">
-						医院介绍
-					</view>
-					<view class="tab_box" :class="{'active':tabId == 1}" @click="selectTab(1)">
-						优势科室
-					</view>
+				<view class="font_size_text_xl color_black_999 margin_top_m">
+					咨询电话：{{detail.telephone}}
 				</view>
-				<swiper :indicator-dots="false" style="height: 600rpx;" :autoplay="false" :current="tabId"
-					@change='change' @transition="selectSwiper">
-					<swiper-item>
-						<view class="box_690 padding_l font_size_text_l color_black_333">
-							<rich-text :nodes="info.form.description"></rich-text>
-						</view>
-					</swiper-item>
-					<swiper-item>
-						<scroll-view scroll-y="true" style="height: 600rpx;" >
-							<view class="font_size_text_l color_black_999 text_align_center margin_top_l" v-if="info.form.department.length == 0">
-								暂无数据
-							</view>
-							<view v-for="(item,index) in info.form.department" :key="index">
-								<view class="box_690 padding_l font_size_title_m color_black_333">
-									{{item.department_name}}
-								</view>
-							</view>
-						</scroll-view>
-					</swiper-item>
-				</swiper>
+				<view class="font_size_text_xl color_black_999 margin_top_s">
+					医院位置：{{detail.address}}
+				</view>
 			</view>
-		</zq-load>
-
-
+		</view>
+		<view class="padding_0_l " style="margin-top: 40px;">
+			<view class="flex_row justify_around border_bottom">
+				<view class="tab_box" :class="{'active':tabId == 0}" @click="selectTab(0)">
+					医院介绍
+				</view>
+				<view class="tab_box" :class="{'active':tabId == 1}" @click="selectTab(1)">
+					特色科室
+				</view>
+			</view>
+			<swiper :indicator-dots="false" style="height: 600rpx;" :autoplay="false" :current="tabId"
+				@change='change' @transition="selectSwiper">
+				<swiper-item>
+					<view class="box_690 padding_l font_size_text_l color_black_333">
+						<rich-text :nodes="detail.description"></rich-text>
+					</view>
+				</swiper-item>
+				<swiper-item>
+					<scroll-view scroll-y="true" style="height: 600rpx;" >
+						<view class="font_size_text_l color_black_999 text_align_center margin_top_l" v-if="detail.department.length == 0">
+							暂无数据
+						</view>
+						<view v-for="(item,index) in detail.department" :key="index">
+							<view class="box_690 padding_l font_size_title_m color_black_333">
+								{{item.department_name}}
+							</view>
+						</view>
+					</scroll-view>
+				</swiper-item>
+			</swiper>
+		</view>
 	</view>
 </template>
 
@@ -73,6 +72,7 @@
 				tabId: 0,
 				docList: [{}, {}, {}],
 				info: '',
+				detail: {},
 				hospitalId: ''
 			}
 		},
@@ -83,6 +83,7 @@
 		},
 		methods: {
 			getData(e) {
+				// #ifdef MP-WEIXIN
 				this.info = new Load({
 					api: this.$api.getHospitalDetail,
 					queryParams: {
@@ -97,6 +98,15 @@
 						title: this.info.form.name
 					})
 				})
+				// #endif
+				
+					this.$api.getHospitalDetail({hospital_id: this.hospitalId}).then(res => {
+						this.detail = res;
+						uni.setNavigationBarTitle({
+							title: this.detail.name
+						})
+					})
+
 			},
 			getDepartment(e) {
 				this.$api.getDepartment({}).then(res => {
@@ -127,9 +137,11 @@
 		}
 
 		.vip_tip_box {
-			position: absolute;
-			top: 270rpx;
-			left: 30rpx;
+			margin-top: -88rpx;
+			margin-left: 30rpx;
+			// position: absolute;
+			// top: 270rpx;
+			// left: 30rpx;
 
 			.lable_box {
 				font-size: 26rpx;

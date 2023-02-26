@@ -29,6 +29,9 @@ export default{
 	getDepartmentList:function(upJson){//科室列表
 		return request({url:"/api/hospital/department",param:upJson,methods:"GET",type:0})
 	},
+	getDepartmentLists:function(upJson){//新科室列表
+		return request({url:"/api/hospital/relationDepartment",param:upJson,methods:"GET",type:0})
+	},
 	getDoctors:function(upJson){//科室列表【下单的时候选择医生的列表】
 		return request({url:"/api/hospital/doctors",param:upJson,methods:"GET",type:0})
 	},
@@ -117,11 +120,20 @@ export default{
 	getOrderList:function(upJson){//订单列表
 		return request({url:"/api/order/list",param:upJson,methods:"GET",type:0})
 	},
+	getGoodsOrderList:function(upJson){//积分订单列表
+		return request({url:"/api/goods/orderList",param:upJson,methods:"GET",type:0})
+	},
 	getOrderRefund:function(upJson){//订单列表
 		return request({url:"/api/order/refundList",param:upJson,methods:"GET",type:0})
 	},
 	getOrderDetail:function(upJson){//订单详情
 		return request({url:"/api/order/detail",param:upJson,methods:"GET",type:0})
+	},
+	getOrderPay:function(upJson){//订单支付
+		return request({url:"/api/record/pay",param:upJson,methods:"GET",type:0})
+	},
+	getGoodsPay:function(upJson){//积分订单支付
+		return request({url:"/api/goods/toPay",param:upJson,methods:"GET",type:0})
 	},
 	getOrderView:function(upJson){//订单详情
 		return request({url:"/api/order/view",param:upJson,methods:"GET",type:0})
@@ -144,5 +156,158 @@ export default{
 	},
 	getGoodOrder:function(upJson){//商品下单
 		return request({url:"/api/goods/order",param:upJson,methods:"GET",type:0})
+	},
+	getRecharge:function(upJson){//余额充值
+		return request({url:"/api/order/recharge",param:upJson,methods:"GET",type:0})
+	},
+	escortRegister:function(upJson){//陪诊注册
+		return request({url:"/escort/login/register",param:upJson,methods:"GET",type:0})
+	},
+	escortDistribute:function(upJson){//陪诊抢单列表
+		return request({url:"/escort/record/distribute",param:upJson,methods:"GET",type:0})
+	},
+	smsSendEscort:function(upJson){//短信发送接口
+		return request({url:"/escort/login/smsSend",data:upJson,methods:"POST",type:2,eMsg:"已发送"})
+	},
+	smsLoginEscort:function(upJson){//短信登陆接口
+		return request({url:"/escort/login/smsLogin",data:upJson,methods:"POST",type:0})
+	},
+	escortUnassigned:function(upJson){//陪诊派单列表
+		return request({url:"/escort/record/unassigned",data:upJson,methods:"GET",type:0})
+	},
+	escortRob:function(upJson){//陪诊抢单
+		return request({url:"/escort/record/rob",data:upJson,methods:"GET",type:0})
+	},
+	escortAccept:function(upJson){//陪诊抢单
+		return request({url:"/escort/record/accept",data:upJson,methods:"GET",type:0})
+	},
+	escortTransfer:function(upJson){//陪诊转单
+		return request({url:"/escort/order/transfer",data:upJson,methods:"GET",type:0})
+	},
+	escortCancle:function(upJson){//陪诊取消订单
+		return request({url:"/escort/order/cancle",data:upJson,methods:"GET",type:0})
+	},
+	escortFinish:function(upJson){//陪诊完成订单
+		return request({url:"/escort/order/finish",data:upJson,methods:"GET",type:0})
+	},
+	escortOrder:function(upJson){//陪诊订单
+		return request({url:"/escort/order/list",data:upJson,methods:"GET",type:0})
+	},
+	escortInfo:function(upJson){//陪诊个人信息
+		return request({url:"/escort/my/info",data:upJson,methods:"GET",type:0})
+	},
+	escortSetPlan:function(upJson){//陪诊个人设置排班
+		return request({url:"/escort/my/setPlan",data:upJson,methods:"GET",type:0})
+	},
+	escortGetPlan:function(upJson){//陪诊个人读取排班
+		return request({url:"/escort/my/getPlan",data:upJson,methods:"GET",type:0})
+	},
+	escortBill:function(upJson){//陪诊个人账户记录
+		return request({url:"/escort/wallet/bill",data:upJson,methods:"GET",type:0})
+	},
+	escortWalletApply:function(upJson){//陪诊个人账户提现申请
+		return request({url:"/escort/wallet/apply",data:upJson,methods:"GET",type:0})
+	},
+	miniLogin:function(upJson){//用户端微信登录获取code
+		return request({url:"/api/login/miniLogin",data:upJson,methods:"GET",type:0})
+	},
+	getMobileInfo:function(upJson){//用户端小程序解析手机号
+		return request({url:"/api/login/getMobileInfo",data:upJson,methods:"POST",type:0})
+	},
+	miniLoginEscort:function(upJson){//陪诊端微信登录获取code
+		return request({url:"/escort/login/miniLogin",data:upJson,methods:"GET",type:0})
+	},
+	getMobileInfoEscort:function(upJson){//陪诊端小程序解析手机号
+		return request({url:"/escort/login/getMobileInfo",data:upJson,methods:"POST",type:0})
+	},
+	escortFeedback:function(upJson){//陪诊端意见反馈
+		return request({url:"/escort/feedback/add",data:upJson,methods:"GET",type:0})
+	},
+	escortPing:function(upJson){//陪诊个人评价列表
+		return request({url:"/escort/my/ping",data:upJson,methods:"GET",type:0})
+	},
+	escortArticle:function(upJson){//陪诊个人常见问题
+		return request({url:"/escort/article/index",data:upJson,methods:"GET",type:0})
+	},
+	feedbackList:function(upJson){//用户订单留言列表
+		return request({url:"/api/order/feedbackList",data:upJson,methods:"GET",type:0})
+	},
+	feedbackReplay:function(upJson){//用户订单留言回复
+		return request({url:"/api/order/replay",data:upJson,methods:"GET",type:0})
+	},
+	feedbackAdd:function(upJson){//用户订单留言新增
+		return request({url:"/api/order/feedbackAdd",data:upJson,methods:"GET",type:0})
+	},
+	feedbackListEscort:function(upJson){//陪诊订单留言列表
+		return request({url:"/escort/order/feedbackList",data:upJson,methods:"GET",type:0})
+	},
+	feedbackReplayEscort:function(upJson){//陪诊订单留言回复
+		return request({url:"/escort/order/replay",data:upJson,methods:"GET",type:0})
+	},
+	feedbackAddEscort:function(upJson){//陪诊订单留言新增
+		return request({url:"/escort/order/feedbackAdd",data:upJson,methods:"GET",type:0})
+	},
+	articleList:function(upJson){//陪诊个人常见问题
+		return request({url:"/api/article/index",data:upJson,methods:"GET",type:0})
+	},
+	isFirstLogin:function(upJson){//微信授权登陆-判断是不是第一次登陆
+		return request({url:"/api/Login/isFirstLogin",data:upJson,methods:"POST",type:0})
+	},
+	isFirstLogin:function(upJson){//微信授权登陆-判断是不是第一次登陆
+		return request({url:"/api/Login/isFirstLogin",data:upJson,methods:"POST",type:0})
+	},
+	isFirstLoginEscort:function(upJson){//陪诊端微信授权登陆-判断是不是第一次登陆
+		return request({url:"/escort/Login/isFirstLogin",data:upJson,methods:"POST",type:0})
+	},
+	getWechatVertify:function(upJson){//微信授权登陆-发送验证码
+		return request({url:"/api/Login/getWechatVertify",data:upJson,methods:"POST",type:0})
+	},
+	getWechatVertifyEscort:function(upJson){//陪诊端微信授权登陆-发送验证码
+		return request({url:"/escort/Login/getWechatVertify",data:upJson,methods:"POST",type:0})
+	},
+	checkWechatVertify:function(upJson){//微信授权登陆-检验验证码
+		return request({url:"/api/login/checkWechatVertify",data:upJson,methods:"POST",type:0})
+	},
+	checkWechatVertifyEscort:function(upJson){//陪诊端微信授权登陆-检验验证码
+		return request({url:"/escort/Login/checkWechatVertify",data:upJson,methods:"POST",type:0})
+	},
+	updateWechatByMobile:function(upJson){//微信授权登陆-首次登陆接口
+		return request({url:"/api/login/updateWechatByMobile",data:upJson,methods:"POST",type:0})
+	},
+	updateWechatByMobileEscort:function(upJson){//陪诊端微信授权登陆-首次登陆接口
+		return request({url:"/escort/Login/updateWechatByMobile",data:upJson,methods:"POST",type:0})
+	},
+	weixinLogin:function(upJson){//微信授权登陆-非第一次登陆
+		return request({url:"/api/login/weixinLogin",data:upJson,methods:"POST",type:0})
+	},
+	weixinLoginEscort:function(upJson){//陪诊端微信授权登陆-非第一次登陆
+		return request({url:"/escort/Login/weixinLogin",data:upJson,methods:"POST",type:0})
+	},
+	setProfileEscort:function(upJson){//陪诊端修改信息
+		return request({url:"/escort/my/setProfile",data:upJson,methods:"POST",type:0})
+	},
+	getDepartmentEscort:function(upJson){//陪诊端新科室列表
+		return request({url:"/escort/hospital/relationDepartment",param:upJson,methods:"GET",type:0})
+	},
+	getHospitalEscort:function(upJson){//陪诊端医院列表
+		return request({url:"/escort/hospital/list",param:upJson,methods:"GET",type:0})
+	},
+	intergalLog:function(upJson){//用户端积分明细
+		return request({url:"/api/my/intergalLog",data:upJson,methods:"get",type:0})
+	},
+	shareImg:function(upJson){//用户端分享图片
+		return request({url:"/api/my/share",data:upJson,methods:"get",type:0})
+	},
+	shareImgEscort:function(upJson){//用户端分享图片
+		return request({url:"/escort/my/share",data:upJson,methods:"get",type:0})
+	},
+	setProfile:function(upJson){//陪诊端修改信息
+		return request({url:"/api/my/setProfile",data:upJson,methods:"POST",type:0})
+	},
+	recordVip:function(upJson){//陪诊端修改信息
+		return request({url:"/api/record/vip",data:upJson,methods:"POST",type:0})
+	},
+	readContractEscort:function(upJson){//预览协议接口
+		return request({url:"/escort/Contract/read",data:upJson,methods:"get",type:0})
 	},
 }

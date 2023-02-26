@@ -7,7 +7,7 @@
 				<view class="UpLoad_Del" @click="del(index)" v-if="!disabled">x</view>
 			</view>
 		</block>
-		<view class="UpLoad_item" @click="add()" v-if="imgList.length < 12 && !disabled">
+		<view class="UpLoad_item" @click="add()" v-if="imgList.length < ShowNum && !disabled">
 			<view class="flex_grow text_center">
 				<view class="font_size_title_xl color_black margin_top_m">+</view>
 				<view class="font_size_text_m color_black">点击上传</view>
@@ -54,6 +54,10 @@
 			imgLogo:{
 				default:null,//{title:"水印头部",text:[{title:"内容标题",content:"内容内容"}]}
 				type:Object
+			},
+			ShowNum: {
+				default: 12,
+				type: Number
 			}
 		},
 		created() {
@@ -85,6 +89,7 @@
 					title:"删除成功",icon:"none"
 				})
 				this.$emit("input",this.imgList);
+				console.log('删除', this.imgList);
 				this.$emit('change',this.imgList)
 			},
 			preview(item){
@@ -94,12 +99,15 @@
 				})
 			},
 			add(){
+				console.log('img', this.imgList);
 				uni.chooseImage({
-					count:12 - this.imgList.length,
+					count:this.ShowNum - this.imgList.length,
 					sizeType:['compressed'],
 					success: (res) => {
+						console.log('###',res.tempFilePaths, this.imgList);
 						this.$api.upLoad(res.tempFilePaths).then(res =>{
                             this.imgList = this.imgList.concat(res);
+							console.log('res', res, this.imgList);
 							this.$emit("input",this.imgList);
 							this.$emit('change',res);
 						})

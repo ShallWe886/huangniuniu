@@ -1,0 +1,153 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.self_box.data-v-ce484952 {
+  position: relative;
+}
+.self_box .my_bg.data-v-ce484952 {
+  width: 100%;
+  height: 450rpx;
+}
+.self_box .selfInfo_box.data-v-ce484952 {
+  width: 750rpx;
+  position: absolute;
+  top: 0;
+  box-sizing: border-box;
+  padding: 50rpx 30rpx 0 30rpx;
+}
+.self_box .selfInfo_box .avator_img.data-v-ce484952 {
+  width: 110rpx;
+  height: 110rpx;
+  border-radius: 50%;
+  background-color: bisque;
+}
+.self_box .selfInfo_box .self_tip_box.data-v-ce484952 {
+  position: relative;
+}
+.self_box .selfInfo_box .self_tip_box .self_tip_img.data-v-ce484952 {
+  width: 32rpx;
+  height: 44rpx;
+}
+.self_box .selfInfo_box .self_tip_box .self_tip_num.data-v-ce484952 {
+  width: 20rpx;
+  height: 20rpx;
+  font-size: 18rpx;
+  color: #ffffff;
+  border-radius: 50%;
+  line-height: 20rpx;
+  text-align: center;
+  background: #FF3333;
+  position: absolute;
+  top: 2rpx;
+  right: -3rpx;
+}
+.self_box .selfInfo_box .self_label.data-v-ce484952 {
+  width: 135rpx;
+  height: 40rpx;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0rpx 4rpx 7rpx 0rpx rgba(255, 109, 92, 0.1);
+  border-radius: 18rpx;
+  font-size: 22rpx;
+  color: #FF6437;
+  text-align: center;
+  line-height: 40rpx;
+}
+.self_img.data-v-ce484952 {
+  width: 34rpx;
+  height: 34rpx;
+}
+.new_box.data-v-ce484952 {
+  width: 80rpx;
+  height: 40rpx;
+  background: #FF4512;
+  border-radius: 20rpx;
+  text-align: center;
+  line-height: 40rpx;
+  color: #ffffff;
+  font-size: 28rpx;
+}
+.date_box.data-v-ce484952 {
+  width: 200rpx;
+  height: 92rpx;
+  line-height: 80rpx;
+  text-align: center;
+  background: #F5F5F5;
+  color: #888888;
+  font-size: 30rpx;
+}
+.date_box.active.data-v-ce484952 {
+  color: #FF6437;
+  background: #ffffff;
+}
+.time_box_first.data-v-ce484952 {
+  width: 140rpx;
+  height: 80rpx;
+  background: #FF8F00;
+  border-radius: 10rpx;
+  color: #ffffff;
+  font-size: 30rpx;
+  box-sizing: border-box;
+  margin-bottom: 20rpx;
+  line-height: 80rpx;
+  text-align: center;
+}
+.time_box_second.data-v-ce484952 {
+  width: 140rpx;
+  height: 80rpx;
+  background: #FFD8C6;
+  border-radius: 10rpx;
+  color: #ffffff;
+  font-size: 30rpx;
+  box-sizing: border-box;
+  margin-bottom: 20rpx;
+  line-height: 80rpx;
+  text-align: center;
+}
+.time_box_third.data-v-ce484952 {
+  width: 140rpx;
+  height: 80rpx;
+  border-radius: 10rpx;
+  color: #333333;
+  font-size: 30rpx;
+  margin-bottom: 20rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border: 1rpx solid #BEBEBE;
+  box-sizing: border-box;
+}
+.work_box.data-v-ce484952 {
+  width: 750rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  background: #ffffff;
+}
+.time_item view.data-v-ce484952 {
+  margin-right: 20rpx;
+}
+.time_item view.data-v-ce484952:nth-child(3n) {
+  margin-right: 0;
+}
+

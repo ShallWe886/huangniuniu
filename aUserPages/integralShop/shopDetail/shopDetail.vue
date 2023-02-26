@@ -1,8 +1,8 @@
 <template>
-	<view>
+	<view :class="{popupShow:popShow}">
 		<zq-load v-model="info.load">
 			<block v-if="info.form">
-				<sswiper :swiperList="info.form.slider" :height="210"></sswiper>
+				<sswiper :swiperList="info.form.goods_pic.split('|')" :height="210"></sswiper>
 				<view class="shop_detail_box padding_xl">
 					<view class="font_size_title_xl color_orange font_weight">
 						{{info.form.pay_integral}}积分+{{info.form.deduct_price}}元
@@ -19,7 +19,7 @@
 								{{info.form.goods_num}}
 							</view>
 						</view>
-						<view class="flex_row margin_top_m">
+						<!-- <view class="flex_row margin_top_m">
 							<view class="font_size_text_l color_black_888">
 								规格
 							</view>
@@ -50,7 +50,7 @@
 							<view class="font_size_text_l color_black_888 margin_left">
 								0000000
 							</view>
-						</view>
+						</view> -->
 					</view>
 					<view class="shop_item_box flex_column padding_bottom_l margin_top_l">
 						<!-- <image src="/static/image/detail.png" mode="aspectFill" class="detail_img"></image>
@@ -133,6 +133,7 @@
 		},
 		data() {
 			return {
+				popupShow: false,
 				shopInfo: {
 					slider: ['', '', ''],
 					specList: [{
@@ -168,6 +169,9 @@
 			this.info.scrollLazy(event.scrollTop)
 		},
 		methods: {
+			valChange(e) {
+				
+			},
 			toBuy(e) {
 				this.popShow = true
 			},
@@ -183,6 +187,7 @@
 					return
 				}
 				let userInfo = uni.getStorageSync('userInfo')
+				console.log('userInfo', userInfo);
 				if (userInfo.user_integral < this.info.form.pay_integral) {
 					uni.showToast({
 						icon: "none",
@@ -200,6 +205,12 @@
 </script>
 
 <style lang="scss" scoped>
+	.popupShow {
+		overflow: hidden;
+		position: fixed;
+		height: 100vh;
+		width: 100%;
+	}
 	.shop_detail_box {
 		border-radius: 40rpx 40rpx 0 0;
 		background-color: #ffffff;

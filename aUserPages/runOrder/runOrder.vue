@@ -1,19 +1,77 @@
 <template>
 	<view>
 		<view class="" style="padding-bottom: 200rpx;">
-			<view class="box_690 margin_left_l ">
+			<view class="vip_box">
+				<image :src="imageUrl+'/vipTopImg.png'" class="vip_topImg"></image>
+				<view class="box_690 padding_l_xl vip_tip_box">
+					<view class=" flex_column">
+						<view class="service_box ">
+							<view
+								style="width: 15rpx;height: 15rpx;border-radius: 50%;background-color: #fff;position: absolute;left: 10px;top: 13px;">
+							</view>
+							<view class="font_size_title_s color_orange">
+								跑腿开单
+							</view>
+							<view
+								style="width: 15rpx;height: 15rpx;border-radius: 50%;background-color: #fff;position: absolute;right: 10px;top: 13px;">
+							</view>
+						</view>
+					</view>
+					<!-- <view class="font_weight color_black_333 font_size_title_l">
+						跑腿开单
+					</view> -->
+					<view class="font_size_text_xl .color_black_333 margin_top_m" style="text-align:justify;">
+						麦咚顾问为您代办挂号、问诊、开单、购药、预约检查、纸质检查报告送取。您无需花时间往返医院，让您省时省心。
+					</view>
+				</view>
+			</view>
+			<!-- <view class="box_690 margin_left_l ">
 				<u-swiper :list="swiperList" @click="lookSwiper" indicator indicatorMode="dot" circular height="300">
 				</u-swiper>
+				<view class="box_690 padding_l_xl vip_tip_box">
+					<view class="font_weight color_black_333 font_size_title_l">
+						跑腿开单
+					</view>
+					<view class="font_size_text_xl color_black_999 margin_top_m">
+						麦咚顾问为您代办挂号、问诊、开单、购药、预约检查、纸质检查报告送取。您无需花时间往返医院，让您省时省心
+					</view>
+				</view>
+			</view> -->
+			<view class="margin_left_l margin_right_l margin_top_l margin_bottom_s" style="margin-top: 190rpx;">
+				<view class="box_690 padding_xl_l flex_column ">
+					<view class="service_box ">
+						<view
+							style="width: 15rpx;height: 15rpx;border-radius: 50%;background-color: #fff;position: absolute;left: 10px;top: 13px;">
+						</view>
+						<view class="font_size_title_s color_orange font_weight">
+							适用人群
+						</view>
+						<view
+							style="width: 15rpx;height: 15rpx;border-radius: 50%;background-color: #fff;position: absolute;right: 10px;top: 13px;">
+						</view>
+					</view>
+					<view class="font_size_text_xl color_black_333 margin_top_m">
+						繁忙人士/老年人/孕妇/异地患者/特殊人群等
+					</view>
+				</view>
 			</view>
-			<view class="margin_left_l margin_right_l margin_top_l margin_bottom_s">
-				<text class="font_size_text_l color_black_333 font_weight">适合人群/场景：</text>
-				<text
-					class="font_size_text_l color_black_333">繁忙人士、老人、孕妇等检查开单预约长期需要购药、需要纸质检查报告异地患者检查、购药、取报告精准挂号门诊就诊预约检查</text>
-			</view>
-			<view class="box_690 margin_left_l">
-				<view class="flex_row border_bottom padding_l" v-for="(item,index) in list" :key="index">
+			<view class="box_690 margin_left_l padding_xl_l">
+				<view class="flex_column">
+					<view class="service_box margin_top_l margin_bottom_l">
+						<view
+							style="width: 15rpx;height: 15rpx;border-radius: 50%;background-color: #fff;position: absolute;left: 10px;top: 13px;">
+						</view>
+						<view class="font_size_title_s color_orange font_weight">
+							收费标准
+						</view>
+						<view
+							style="width: 15rpx;height: 15rpx;border-radius: 50%;background-color: #fff;position: absolute;right: 10px;top: 13px;">
+						</view>
+					</view>
+				</view>
+				<view class="flex_row border_bottom padding_l" v-for="(item,index) in list" :key="index" @click="selectStatus(item)">
 					<view class="flex_row">
-						<radio :checked="item.status" v-model="item.status" color='#FF6437' style="transform:scale(0.7)" @click="selectStatus(item)"/>
+						<radio :checked="item.status" v-model="item.status" color='#FF6437' style="transform:scale(0.7)"/>
 						<text class="font_size_text_xl color_black_333">{{item.name}}</text>
 					</view>
 					<view class="margin_left color_orange font_weight font_size_title_m">
@@ -26,7 +84,7 @@
 		<view class="run_bottom">
 			<view class="flex_row">
 				<view class="font_size_text_xl color_black_999 flex_shrink">
-					<radio  color='#FF6437' style="transform:scale(0.7)" />
+					<radio  color='#FF6437' style="transform:scale(0.7)" :checked="checkAll" @click="selectStatusAll" />
 					<text class="margin_left_s">全部</text>
 				</view>
 				<view class="margin_left flex_row">
@@ -70,7 +128,8 @@
 					price:0 // 优惠价钱
 					
 				},
-				typeList:[]
+				typeList:[],
+				checkAll: false,
 				
 			}
 		},
@@ -81,8 +140,35 @@
 			this.typeList = []
 		},
 		methods: {
+			selectStatusAll() {
+				this.checkAll = !this.checkAll
+				if(this.checkAll) {
+					this.buyInfo.num = 0;
+					this.buyInfo.allMoney = 0.00;
+					this.buyInfo.price = 0;
+				}
+				this.list.map(res=>{
+					if(this.checkAll) {
+						res.status = true;
+					} else {
+						if(res.status) {
+							this.buyInfo.num --
+							 this.tocount(res.money,2)
+						}
+						res.status = false;
+					}
+					// res.status = !res.status;
+					if(res.status){
+						this.buyInfo.num ++ 
+						this.tocount(res.money,1)
+					}
+				})
+				console.log('this.checkAll', this.checkAll)
+			},
 			getData(e){
+				uni.showLoading({title: '加载中',mask:true});
 				this.$api.getbusiness({type:4}).then(res=>{
+					uni.hideLoading()
 					this.list = res.map(obj=>{
 						obj.status = false
 						return obj
@@ -111,8 +197,12 @@
 					})
 					return
 				}
+				let total = this.buyInfo.allMoney;
+				if(this.buyInfo.price > 0 && this.typeList.length > 1) {
+					total = this.buyInfo.price
+				}
 				uni.navigateTo({
-					url: '/aUserPages/vipPages/writeOrder?typeList='+JSON.stringify(this.typeList)
+					url: '/aUserPages/vipPages/writeOrder?typeList='+JSON.stringify(this.typeList)+'&total='+total
 				})
 			},
 			selectStatus(item){ // 选择状态
@@ -124,7 +214,6 @@
 					this.buyInfo.num --
 					 this.tocount(item.money,2)
 				}
-				
 			},
 			tocount(money,type){ //type 1 :+ 2: -  计算价钱
 				if(type == 1){
@@ -136,9 +225,11 @@
 			},
 			toDiscount(){//计算折扣
 				for (var i = 0; i < this.discountlist.length; i++) {
-					if(Number(this.discountlist[i].number) <= this.buyInfo.num){
-						this.buyInfo.price = this.buyInfo.allMoney * Number(this.discountlist[i].rate)*0.1
+					if(this.buyInfo.num >= Number(this.discountlist[i].number)){
+						this.buyInfo.price = (this.buyInfo.allMoney * Number(this.discountlist[i].rate)*0.1).toFixed(2)
 						break;
+					} else {
+						this.buyInfo.price = 0;
 					}
 				}
 			}
@@ -147,6 +238,29 @@
 </script>
 
 <style lang="scss" scoped>
+	.service_box {
+		background: #FFEAE3;
+		width: 290rpx;
+		height: 70rpx;
+		border-radius: 40rpx;
+		line-height: 70rpx;
+		text-align: center;
+		position: relative;
+	}
+	.vip_box {
+		position: relative;
+	
+		.vip_topImg {
+			width: 100%;
+			height: 370rpx;
+		}
+	
+		.vip_tip_box {
+			position: absolute;
+			top: 270rpx;
+			left: 30rpx;
+		}
+	}
 	.run_bottom {
 		position: fixed;
 		width: 100%;

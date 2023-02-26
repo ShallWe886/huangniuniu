@@ -31,7 +31,7 @@
 					hover-class="u-popup__content__close--hover"
 					hover-stay-time="150"
 				>
-					<image src="/static/image/close_icon.png" mode="aspectFill" class="close_icon margin_left" @click="closeQuick"></image>
+					<image src="/static/image/close_icon.png" mode="aspectFill" class="close_icon margin_left"></image>
 				</view>
 				<u-safe-bottom v-if="safeAreaInsetBottom"></u-safe-bottom>
 			</view>
@@ -170,6 +170,7 @@
 			},
 		},
 		methods: {
+			closeQuick() {},
 			// 点击遮罩
 			overlayClick() {
 				if (this.closeOnClickOverlay) {

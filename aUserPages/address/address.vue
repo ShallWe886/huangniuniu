@@ -4,18 +4,18 @@
 			<view class="flex_shrink flex_row">
 				<u-icon name="map" size="40" color="#333333"></u-icon>
 				<view class="font_size_title_s color_black_333 font_weight margin_left_xs margin_right_s">
-					深圳市
+					{{addressInfo.city || '广州'}}
 				</view>
 			</view>
 
 			<u-icon name="arrow-down-fill" size="30" color="#333333"></u-icon>
 			<view class="margin_left_l width_all">
-				<u-search placeholder="请输入服务城市" v-model="keyword" :show-action="false" searchIconSize="50" height="60">
+				<!-- <u-search placeholder="请输入服务城市" v-model="keyword" :show-action="false" searchIconSize="50" @search="searchCity" height="60"> -->
 				</u-search>
 			</view>
 		</view>
 		<view class="flex_row padding_m_l">
-			<view class="font_size_title_l color_black_333" @click="updateAddresss(0,0)">
+			<view class="font_size_title_l color_black_333" @click="updateAddresss(0,{'region_name':LoactionInfo.city})">
 				{{LoactionInfo.city}}
 			</view>
 			<view class="margin_left flex_row" @click="reLocation">
@@ -59,16 +59,26 @@
 				addressInfo:{//位置信息
 					longitude:'',
 					latitude:'',
-					city:'上海市'
+					city:''
 				},
 			}
 		},
 		onLoad() {
-			this.qqmapsdk = new QQMapWX({key:'TJNBZ-JMTLI-CGWGZ-5QDAQ-BBP3K-4KFIE'});
+			// this.qqmapsdk = new QQMapWX({key:'TJNBZ-JMTLI-CGWGZ-5QDAQ-BBP3K-4KFIE'});
+			this.qqmapsdk = new QQMapWX({key:'2PWBZ-ZJWKJ-Z2AFK-FCMDI-MTTDS-KZBPP'});
 			this.getAddressData()
+			let addressInfo = uni.getStorageSync('addressInfo');
+			if(JSON.stringify(addressInfo) !=='{}') {
+				this.addressInfo.city = addressInfo.city
+				this.LoactionInfo.longitude = addressInfo.longitude
+				this.LoactionInfo.latitude = addressInfo.latitude
+			} 
 			this.reLocation()
 		},
 		methods: {
+			searchCity(e){
+				console.log('eee',e);
+			},
 			getAddressData(e){
 				uni.showLoading({})
 				this.$api.getArea({}).then(res=>{
@@ -82,18 +92,30 @@
 				this.cityId = index
 			},
 			reLocation(e){//重新定位
+				let addressInfo = {};
+				uni.getStorage({
+					key: 'addressInfo',
+					success: function (res) {
+						addressInfo = res.data;
+						console.log(res.data);
+					}
+				});
 				uni.getLocation({
 				    type: 'wgs84',
 				    success: (res) =>{
-						this.LoactionInfo.longitude = res.longitude
-						this.LoactionInfo.latitude = res.latitude
+						console.log('addressInfor333', uni.getStorageSync('addressInfo'));
+						// if(!this.LoactionInfo.longitude) {
+							this.LoactionInfo.longitude = res.longitude
+							this.LoactionInfo.latitude = res.latitude
+						// }
 						this.qqmapsdk.reverseGeocoder({
 							location: {
-								latitude: res.latitude,
-								longitude: res.longitude
+								latitude: this.LoactionInfo.latitude,
+								longitude: this.LoactionInfo.longitude
 						    }, 
 							success:(obj)=> {
 								this.LoactionInfo.city = obj.result.address_component.city
+								console.log('@@@', this.LoactionInfo.city);
 							},
 							fail:function(obj){
 								console.error(123,obj)
@@ -101,6 +123,7 @@
 						})
 				    },
 					fail:(res)=> {
+						console.log('地址error111', res);
 						uni.showModal({
 							title:"温馨提示",
 							content:"获取定位是为了提供更好的服务~请手动打开定位，然后重启小程序！",
@@ -112,12 +135,14 @@
 				});
 			},
 			updateAddresss(type,item){//选择位置信息
-				if(type == 0){
-					this.addressInfo = this.LoactionInfo
-				}else{
+			console.log('type', type);
+				// if(type == 0){
+				// 	this.addressInfo = this.LoactionInfo
+				// }else{
 					this.qqmapsdk.geocoder({
-						address: '', //地址参数，例：固定地址，address: '北京市海淀区彩和坊路海淀西大街74号'
+						address: item.region_name, //地址参数，例：固定地址，address: '北京市海淀区彩和坊路海淀西大街74号'
 						success: (res) =>{
+							console.log('fffff', res);
 							this.addressInfo.id = res.result.ad_info.adcode
 							this.addressInfo.city = item.district_name
 							this.addressInfo.longitude = res.result.location.lng
@@ -138,7 +163,7 @@
 							console.error(res)
 						}
 					})
-				}
+				// }
 				
 			}
 		}

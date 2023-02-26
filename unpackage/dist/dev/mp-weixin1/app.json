@@ -1,0 +1,91 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "subPackages": [
+    {
+      "root": "aUserPages",
+      "pages": [
+        "vipPages/vipPages",
+        "vipPages/writeOrder",
+        "vipPages/wholeWriteOrder",
+        "patientList/patientList",
+        "patientList/addPatient",
+        "vipPages/wholeProcess",
+        "hospital/hospital",
+        "hospital/expertAppoing",
+        "address/address",
+        "address/managerAddress/managerAddress",
+        "my/my",
+        "my/myOrder",
+        "my/orderDetail",
+        "my/evaluate",
+        "my/invoice",
+        "my/refund",
+        "integralShop/integralShop",
+        "integralShop/shopDetail/shopDetail",
+        "integralShop/confirm/confirm",
+        "my/addAddress/addAddress",
+        "resultPage/resultPage",
+        "my/dongdong/dongdong",
+        "my/myCard/myCard",
+        "my/myCard/withdrawal",
+        "my/myCard/withdrawalTreaty",
+        "inviteFriends/inviteFriends",
+        "my/myCard/recharge",
+        "inviteFriends/myFriend",
+        "question/question",
+        "contract/contract",
+        "setTime/setTime",
+        "healthy/healthy",
+        "healthy/healthyCon/healthyCon",
+        "healthy/comment/comment",
+        "login/login",
+        "login/register/register",
+        "my/myCard/addCard/addCard",
+        "shopCar/shopCar",
+        "runOrder/runOrder",
+        "expertList/expertList",
+        "hospitalList/hospitalList",
+        "orderFeedback/orderFeedback",
+        "orderFeedback/editFeedback"
+      ]
+    },
+    {
+      "root": "accompanyPages",
+      "pages": [
+        "acceptOrder/acceptOrder",
+        "orderList/orderList",
+        "selfInfo/selfInfo",
+        "selfInfo/updateSelfInfo/updateSelfInfo",
+        "commentList/commentList",
+        "inform/inform",
+        "cancelDetail/cancelDetail",
+        "wallet/wallet",
+        "feedback/feedback"
+      ]
+    }
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#ffffff"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "requiredPrivateInfos": [
+    "getLocation",
+    "chooseLocation"
+  ],
+  "unipush": {
+    "enable": true
+  },
+  "usingComponents": {
+    "tabbar": "/components/tabbar",
+    "u-foot": "/components/u-foot/u-foot"
+  }
+}

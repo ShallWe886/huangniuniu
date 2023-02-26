@@ -47,9 +47,9 @@
 		</view> 
 		<view class="box_690 padding_l">
 			<view class="tip_box font_size_text_l color_black_333">
-				您现有积分<text class="color_orange">{{userInfo.user_integral}}</text>，还需支付<text class="color_orange">{{goodInfo.deduct_price}}</text>元
+				您现有积分<text class="color_orange">{{userInfo.user_integral}}</text>，还需支付<text class="color_orange">{{goodInfo.deduct_price*shopNum}}</text>元
 			</view>
-			<!-- #ifdef APP -->
+			<!-- #ifdef APP-PLUS -->
 			<view class="flex_row margin_top_xl" v-for="(item,index) in payStyle1" :key="index">
 					<image :src="item.img" mode="aspectFill" class="pay_img"></image>
 					<view class="font_size_text_l color_black_333 font_weight margin_left_s">
@@ -76,6 +76,7 @@
 		<view class="sure_buttton margin_top_xxl" @click="toSucess">
 			确认支付
 		</view>
+	</view>
 	</view>
 </template>
 
@@ -123,6 +124,9 @@
 			// #ifdef MP-WEIXIN
 			this.pay_channel = 4
 			// #endif
+			// #ifdef APP-PLUS
+			this.pay_channel = 3;
+			// #endif
 			this.goodInfo = uni.getStorageSync('goodInfo')
 			this.shopNum = options.shopNum
 			
@@ -142,10 +146,103 @@
 					})
 					return
 				}
+				console.log('this.goodInfo.deduct_price', this.goodInfo.deduct_price);
 				this.$api.getGoodOrder({goods_id:this.goodInfo.id,goods_num:this.shopNum,pay_channel:this.pay_channel,address_id:this.addressInfo.id}).then(res=>{
-					uni.navigateTo({
-						url:"/aUserPages/resultPage/resultPage?type="+3
-					})
+					let _this = this;
+					switch (this.pay_channel) {
+						case 1: //东东币
+							uni.navigateTo({
+								url:"/aUserPages/resultPage/resultPage?type="+3+"&amount="+this.goodInfo.deduct_price*_this.shopNum
+							})
+							break;
+						case 2: //app支付宝支付
+							uni.requestPayment({
+								provider: "alipay", //固定值为"alipay"
+								orderInfo: res.url, //此处为服务器返回的订单信息字符串
+								success: function(res) {
+									uni.navigateTo({
+										url:"/aUserPages/resultPage/resultPage?type="+3+"&amount="+_this.goodInfo.deduct_price*_this.shopNum
+									})
+									console.log("支付成功");
+								},
+								fail: function(err) {
+									console.log('支付失败:' + JSON.stringify(err));
+									uni.showToast({
+										title: "支付失败",
+										icon:'none',
+										duration: 1000
+									});
+									setTimeout(function() {
+										uni.navigateTo({
+											url: '/aUserPages/my/myOrder?status=0&type=1'
+										})
+									}, 1000);
+								}
+							});
+							break;
+						case 3: //app微信支付
+							uni.requestPayment({
+								provider: "wxpay",
+								orderInfo: {
+									appid: res.appid, // 微信开放平台 - 应用 - AppId，注意和微信小程序、公众号 AppId 可能不一致
+									noncestr: res.nonceStr, // 随机字符串
+									package: res.package, // 固定值
+									partnerid: res.partnerid, // 微信支付商户号
+									prepayid: res.prepayid, // 统一下单订单号 
+									timestamp: res.timestamp, // 时间戳（单位：秒）
+									sign: res.sign // 签名，这里用的 MD5/RSA 签名
+								},
+								success(res) {
+									uni.navigateTo({
+										url:"/aUserPages/resultPage/resultPage?type="+3+"&amount=" + _this.goodInfo.deduct_price*_this.shopNum
+									})
+								},
+								fail(e) {
+									uni.showToast({
+										title: "支付失败",
+										icon:'none',
+										duration: 1000
+									});
+									setTimeout(function() {
+										uni.navigateTo({
+											url: '/aUserPages/my/myOrder?status=0&type=1'
+										})
+									}, 1000);
+								}
+							})
+							break;
+						case 4: //小程序微信支付
+							uni.requestPayment({
+								provider: 'wxpay',
+								timeStamp: res.timeStamp,
+								nonceStr: res.nonceStr,
+								package: res.package,
+								signType: res.signType,
+								paySign: res.paySign,
+								success: function(res) {
+									console.log('success:' + JSON.stringify(res));
+									uni.navigateTo({
+										url:"/aUserPages/resultPage/resultPage?type=3&amount=" + _this.goodInfo.deduct_price*_this.shopNum
+									})
+								},
+								fail: function(err) {
+									console.log('fail:' + JSON.stringify(err));
+									uni.showToast({
+										title: "支付失败",
+										icon:'none',
+										duration: 1000
+									});
+									setTimeout(function() {
+										uni.navigateTo({
+											url: '/aUserPages/my/myOrder?status=0&type=1'
+										})
+									}, 1000);
+								}
+							})
+							break;
+						default:
+							console.log('支付方式不对');
+					}
 				})
 				
 			},

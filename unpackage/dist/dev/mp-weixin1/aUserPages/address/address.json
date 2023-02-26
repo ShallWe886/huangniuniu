@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "请选择服务城市",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "u-icon": "/uni_modules/uview-ui/components/u-icon/u-icon"
+  }
+}

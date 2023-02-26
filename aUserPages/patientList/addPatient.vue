@@ -1,7 +1,6 @@
 <template>
-	<view class="padding_left_l padding_bottom_xl">
+	<view class="padding_left_l padding_bottom_xl" :class="{popupShow:popupShow}">
 		<view class="flex_row">
-			<view class="add_bg"></view>
 			<view class="font_size_title_l color_black_333 font_weight margin_left_s">
 				患者信息
 			</view>
@@ -13,12 +12,12 @@
 						{{value.label}}<text class="color_red " v-if="value.isSure"> *</text>
 					</view>
 					<view class="margin_left flex_row">
-						<input type="text" class="text_align_right margin_right_s width_all" v-model="value.content"
+						<input @input="getAge(value)" :type="value.type" class="text_align_right margin_right_s width_all" v-model="value.content"
 							:placeholder="value.placeholderText" placeholder-class="font_size_text_l">
 					</view>
 
 				</view>
-				<view class="flex_row padding_l_0 border_bottom" v-if="key == 'name'">
+				<view class="flex_row padding_l_0 border_bottom" v-if="key == 'age'">
 					<view class="font_size_text_xl color_black_333 font_weight">
 						性别
 					</view>
@@ -30,8 +29,8 @@
 								男
 							</view>
 						</view>
-						<view class="flex_row font_size_text_l color_black_333 margin_left_xl" @click="selectSex(0)">
-							<image src="/static/image/select01.png" class="icon_img" v-if="sex == 0"></image>
+						<view class="flex_row font_size_text_l color_black_333 margin_left_xl" @click="selectSex(2)">
+							<image src="/static/image/select01.png" class="icon_img" v-if="sex == 2"></image>
 							<image src="/static/image/select02.png" class="icon_img" v-else></image>
 							<view class="margin_left_s">
 								女
@@ -39,10 +38,10 @@
 						</view>
 					</view>
 				</view>
-				<block v-if="key == 'idCard'">
+				<block v-if="key == 'age'">
 					<view class=" padding_l_0 ">
 						<view class="font_size_text_xl color_black_333 font_weight">
-							个人情况
+							个人病情描述
 						</view>
 						<textarea v-model="personInfo" cols="30" rows="8" class="area_box margin_top_m"></textarea>
 
@@ -53,7 +52,7 @@
 								图片
 							</view>
 							<view class="color_black_888 font_size_text_xs margin_left">
-								<text class="color_red">*</text>病例，体检报告，检查报告之类
+								<text class="color_red "> </text>病历，体检报告，检查报告之类
 							</view>
 						</view>
 						<UpLoadImg @input="uploadImg" :list="imgList"></UpLoadImg>
@@ -88,7 +87,8 @@
 					<view class="flex_row relatin_item_box border_bottom padding_m_0" v-for="(item,index) in cardList"
 						:key="index" @click="selectRealte(item)">
 						<view class="flex_row">
-							<radio value="1" color='#FF6437' style="transform:scale(0.7)" />
+							<image src="/static/image/select01.png" class="icon_img check" v-if="item.is_default == 1"></image>
+							<image src="/static/image/select02.png" class="icon_img check" v-else></image>
 							<view class="">
 								<view class="font_size_text_xl color_black_333 font_weight text_overflow_1">
 									{{item.hospital_name}}
@@ -135,7 +135,7 @@
 						就诊卡号
 					</view>
 					<input type="text" style="text-align: end;margin-left: auto;" placeholder="请输入就诊卡号"
-						placeholder-style="font-size:28rpx;color:#BEBEBE;" v-model="cardInfo.card_no">
+						placeholder-style="font-size:28rpx;color:#BEBEBE;" v-model="cardInfo.card_no" maxlength="10">
 				</view>
 				<view class="flex_row font_size_text_l color_black_666 margin_top_xl">
 					<radio v-model="cardInfo.is_default" color='#FF6437' :checked="cardInfo.is_default == 1"
@@ -160,36 +160,41 @@
 		},
 		data() {
 			return {
+				popupShow: false,
 				inputinfo: {
 					name: {
 						label: '姓名',
 						placeholderText: '请输入姓名',
 						content: '',
-						isSure: true // 是否必填
-					},
-
-					age: {
-						label: '年龄',
-						placeholderText: '请输入年龄',
-						content: '',
-						isSure: false // 是否必填
-					},
-					phone: {
-						label: '联系方式',
-						placeholderText: '请输入联系方式',
-						content: '',
+						type:'text',
 						isSure: true // 是否必填
 					},
 					idCard: {
 						label: '身份证号码',
 						placeholderText: '请输入身份证号码',
 						content: '',
+						type:'idcard',
 						isSure: true // 是否必填
+					},
+					phone: {
+						label: '联系方式',
+						placeholderText: '请输入联系方式',
+						content: '',
+						type:'number',
+						isSure: true // 是否必填
+					},
+					age: {
+						label: '年龄',
+						placeholderText: '请输入年龄',
+						content: '',
+						type:'number',
+						isSure: false // 是否必填
 					},
 					emerge: {
 						label: '紧急联系人',
 						placeholderText: '请输入紧急联系人',
 						content: '',
+						type:'text',
 						isSure: false // 是否必填
 					},
 
@@ -197,12 +202,14 @@
 						label: '联系电话',
 						placeholderText: '请输入紧急联系人电话号码',
 						content: '',
+						type:'number',
 						isSure: false // 是否必填
 					},
 					relation: {
 						label: '与就诊人关系',
 						placeholderText: '请输入与就诊人的关系',
 						content: '',
+						type:'text',
 						isSure: false // 是否必填
 					}
 
@@ -233,6 +240,40 @@
 			}
 		},
 		methods: {
+			getAge(value) {
+				if(value.label !== '身份证号码') {
+					return;
+				}
+				let age = 0,
+					yearBirth, monthBirth, dayBirth;
+				//获取用户身份证号码
+				let userCard = value.content;
+				if(userCard.length < 18) {
+					return;
+				}
+				console.log('userCard', value,userCard);
+				//如果身份证号码为undefind则返回空
+				if (!userCard) {
+					return age;
+				}
+				let reg = /(^\d{15}$)|(^\d{17}([0-9]|X)$)/; //验证身份证号码的正则
+				console.log('reg', reg, reg.test(userCard));
+				if (reg.test(userCard)) {
+					//获取出生年月日
+					yearBirth = userCard.substring(6, 10);
+					monthBirth = userCard.substring(10, 12);
+					dayBirth = userCard.substring(12, 14);
+					let myDate = new Date();
+					let monthNow = myDate.getMonth() + 1;
+					let dayNow = myDate.getDate();
+					let age = myDate.getFullYear() - yearBirth;
+					if (monthNow < monthBirth || (monthNow == monthBirth && dayNow < dayBirth)) {
+						age--;
+					}
+					console.log('age', age, this.inputinfo);
+					this.inputinfo.age.content = age
+				}
+			},
 			getData(e) { //获取患者详情
 				this.$api.getPatientDetail({
 					id: this.patientId
@@ -247,26 +288,37 @@
 					this.personInfo = res.description
 					this.cardId = res.medical_card
 					this.inputinfo.relation.content = res.user_relasion
-					this.imgList = res.picture.split(',')
+					this.imgList = res.picture?res.picture.split(','):[]
 				})
 			},
 			toRelation() { //关联
 				this.relationPopShow = true
+				this.popupShow = true;
 				this.getCard()
 			},
 			selectRealte(item) {
+				this.$api.editCard({
+					hospital_name: item.hospital_name,
+					card_no: item.card_no,
+					is_default: item.is_default,
+					id: item.id,
+					is_default:1
+				})
 				this.cardId = item.id
 				this.relationPopShow = false
+				this.popupShow = false
 			},
 			closeRelationPop() {
 				//关闭关联弹窗
 				this.relationPopShow = false
+				this.popupShow = false
 			},
 			updateCard(type, info, index) { //更改卡片信息
 				if (type == 0) { //修改卡片信息
 					this.relationPopShow = false
 					this.cardType = 1
 					this.addCardShow = true
+					this.popupShow = true;
 					this.cardInfo = info
 				} else if (type == 1) { //删除卡片
 					uni.showModal({
@@ -289,6 +341,7 @@
 			addCard(e) { //新增卡片
 				this.relationPopShow = false
 				this.addCardShow = true
+				this.popupShow = true;
 				this.cardType = 0
 				this.cardInfo.card_no = ''
 				this.cardInfo.hospital_name = ''
@@ -314,6 +367,7 @@
 						this.cardInfo.hospital_name = ''
 						this.cardInfo.is_default = 0
 						this.addCardShow = false
+						this.popupShow = false
 					})
 				} else { // 修改
 					this.$api.editCard({
@@ -326,11 +380,13 @@
 						this.cardInfo.hospital_name = ''
 						this.cardInfo.is_default = 0
 						this.addCardShow = false
+						this.popupShow = false
 					})
 				}
 			},
 			closeAddPop(e) { //关闭添加卡片
 				this.addCardShow = false
+				this.popupShow = false
 
 			},
 			getCard(e) { //获取卡片列表
@@ -440,6 +496,12 @@
 </script>
 
 <style lang="scss" scoped>
+	.popupShow {
+		overflow: hidden;
+		position: fixed;
+		height: 100vh;
+		width: 100%;
+	}
 	.add_bg {
 		width: 10rpx;
 		height: 30rpx;
@@ -450,6 +512,9 @@
 	.icon_img {
 		width: 32rpx;
 		height: 32rpx;
+		&.check{
+			margin-right: 16rpx;
+		}
 	}
 
 	.area_box {

@@ -1,0 +1,8 @@
+
+.UpLoad_box{width: 100%;display: flex;flex-direction: row;align-items: center;box-sizing: border-box;flex-wrap: wrap;background-color: #FFFFFF;}
+.UpLoad_title{width:  100%;line-height: 80rpx;border-bottom: 1px solid #dddddd;font-size: 28rpx;color: #333333;margin-left: 10px;}
+.UpLoad_item{width: 190rpx;height: 190rpx;margin: 10rpx;border-radius: 15rpx; box-sizing: border-box;text-align: center;font-size: 100rpx;color: #aaaaaa;position:relative;display: flex;flex-direction: row;align-items: center;justify-content: center;border: 1px solid #DDDDDD;box-sizing: border-box;}
+.UpLoad_item_image{width: 180rpx;height: 180rpx;border-radius: 10rpx;}
+.UpLoad_add{width: 200rpx;height: 200rpx;border: 1px solid #DDDDDD;margin: 18rpx;box-sizing: border-box;background-color: #EEEEEE;}
+.UpLoad_Del{position: absolute;right: -20rpx;top: -20rpx;width: 40rpx;height: 40rpx;font-size: 30rpx;text-align: center;line-height: 34rpx;color: #FFFFFF;background-color: #DD524D;border-radius: 50%;}
+

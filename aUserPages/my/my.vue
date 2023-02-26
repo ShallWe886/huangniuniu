@@ -1,18 +1,18 @@
 <template>
-	<view class="fixed_padding_bottom_xxxl">
+	<view class="fixed_padding_bottom_xxxl" :class="{popupShow:popupShow}">
 		<view class="bg_box">
 			<image :src="imageUrl+'/my_bg.png'" mode="aspectFill" class="my_bg"></image>
 			<view class="avator_box">
 				<view class="flex_row ">
-					<image src="/static/image/avator.png" mode="aspectFill" class="avator_img flex_shrink" v-if="!userInfo.headimgurl"></image>
-					<image :src="userInfo.headimgurl" mode="aspectFill" class="avator_img flex_shrink" v-else></image>
+					<image v-if="userInfo && userInfo.headimgurl" @click="openAvator(0)" :src="userInfo.headimgurl" mode="aspectFill" class="avator_img flex_shrink" ></image>
+					<image @click="openAvator(0)" src="/static/image/avator2.png" mode="aspectFill" class="avator_img flex_shrink" v-else></image>
 					<view class="width_all margin_left_m">
 						<view class="flex_row">
 							<view class="font_size_title_l color_black_333 font_weight">
-								{{userInfo.nickname}}
+								{{userInfo.nickname || ''}}
 							</view>
 							<view class="patient_man color_white font_size_text_s margin_left" @click="toManPatient">
-								患者管理
+								就诊人信息
 							</view>
 						</view>
 						<view class="flex_row margin_top_l">
@@ -21,9 +21,20 @@
 								</image>
 								<view class="font_size_text_s color_orange flex_row">
 									<view class="margin_right_xs">
-										我的积分 {{userInfo.user_integral}}
+										我的积分 
+										<!-- #ifdef APP-PLUS -->
+										{{userInfo && userInfo.user_integral ? userInfo.user_integral : 0}}
+										<!-- #endif -->
+										<!-- #ifdef MP-WEIXIN -->
+										{{userInfo.user_integral || 0}}
+										<!-- #endif -->
 									</view>
+									<!-- #ifdef APP-PLUS -->
+									<span class="margin_left_s" style="font-size: 32rpx;">></span>
+									<!-- #endif -->
+									<!-- #ifdef MP-WEIXIN -->
 									<u-icon name="arrow-right" color="#FF6437" size="25"></u-icon>
+									<!-- #endif -->
 								</view>
 							</view>
 							<view class="flex_row my_label margin_left_m" @click="lookDong">
@@ -31,9 +42,20 @@
 								</image>
 								<view class="font_size_text_s color_orange flex_row" >
 									<view class="margin_right_xs">
-										咚咚币 {{userInfo.balance}}
+										咚咚币
+										<!-- #ifdef APP-PLUS -->
+										{{userInfo ? userInfo.balance : 0}}
+										<!-- #endif -->
+										<!-- #ifdef MP-WEIXIN -->
+										{{userInfo.balance || 0}}
+										<!-- #endif -->
 									</view>
+									<!-- #ifdef APP-PLUS -->
+									<span class="margin_left_s" style="font-size: 32rpx;">></span>
+									<!-- #endif -->
+									<!-- #ifdef MP-WEIXIN -->
 									<u-icon name="arrow-right" color="#FF6437" size="25"></u-icon>
+									<!-- #endif -->
 								</view>
 							</view>
 						</view>
@@ -46,7 +68,13 @@
 						</view>
 						<view class="flex_row margin_left font_size_text_s color_black_888" @click="toMyOrder(0)">
 							更多
-							<u-icon name="arrow-right" size="26" color="#999999"></u-icon>
+							
+							<!-- #ifdef APP-PLUS -->
+							<span style="font-size: 32rpx;">></span>
+							<!-- #endif -->
+							<!-- #ifdef MP-WEIXIN -->
+							<u-icon name="arrow-right" size="25"></u-icon>
+							<!-- #endif -->
 						</view>
 					</view>
 					<view class="flex_row justify_between margin_top_l">
@@ -63,21 +91,21 @@
 
 		<view class="flex_row  margin_left_l margin_top_l">
 			
-			<view class="my_center_box " >
+			<view class="my_center_box " @click="lookQuestion">
 				<image :src="imageUrl+'/my_center02.png'" mode="aspectFill"></image>
 				<view class="my_center_item">
 					<view class="font_size_title_m color_white font_weight">
 						常见问题
 					</view>
-					<view class="font_size_text_s color_white margin_top_s">
-						副标题副标题
+					<view style="height: 26rpx;" class="font_size_text_s color_white margin_top_s">
+						<!-- 副标题副标题 -->
 					</view>
-					<view class="font_size_text_xs color_white my_center_invite margin_top_s" @click="lookQuestion">
+					<view class="font_size_text_xs color_white my_center_invite margin_top_s">
 						立即查看
 					</view>
 				</view>
 			</view>
-			<view class="my_center_box margin_left_l" >
+			<view class="my_center_box margin_left_l" @click="invitefriend">
 				<image :src="imageUrl+'/my_center01.png'" mode="aspectFill"></image>
 				<view class="my_center_item" >
 					<view class="font_size_title_m color_white font_weight">
@@ -86,7 +114,7 @@
 					<view class="font_size_text_s color_white margin_top_s">
 						患者邀请赠送100积分
 					</view>
-					<view class="font_size_text_xs color_white my_center_invite margin_top_s" @click="invitefriend">
+					<view class="font_size_text_xs color_white my_center_invite margin_top_s" >
 						立即邀请
 					</view>
 				</view>
@@ -128,15 +156,139 @@
 				</view>
 			</view>
 		</u-popup>
-		<tabbar :tabbarIndex="5"></tabbar>
+		<!-- #ifdef MP-WEIXIN || H5 -->
+		<tabbar tabbarIndex="5"></tabbar>
+		<!-- #endif -->
+		<!-- #ifdef APP-PLUS -->
+		<view class="flex_row justify_around tabbar_box bg_white">
+			<view class="flex_column " @click="toTabbar(1)">
+				<block v-if="tabbarIndex == 1">
+					<image src="/static/image/tabbar02.png" class="tabbar_img"></image>
+					<view class="font_size_text_xxs margin_top_s color_orange">
+						首页
+					</view>
+				</block>
+				<block v-else>
+					<image src="/static/image/tabbar01.png" class="tabbar_img"></image>
+					<view class="font_size_text_xxs margin_top_s color_black_888">
+						首页
+					</view>
+				</block>
+		
+			</view>
+			<!-- <view class="flex_column " @click="toTabbar(2)">
+				<block v-if="tabbarIndex == 2">
+					<image src="/static/image/tabbar04.png" class="tabbar_img"></image>
+					<view class="font_size_text_xxs margin_top_s color_orange">
+						购物车
+					</view>
+				</block>
+				<block v-else>
+					<image src="/static/image/tabbar03.png" class="tabbar_img"></image>
+					<view class="font_size_text_xxs margin_top_s color_black_888">
+						购物车
+					</view>
+				</block>
+		
+			</view> -->
+			<view class="flex_column " style="position: relative;" @click="toTabbar(4)">
+				<view class="flex_column" style="position: absolute;top: -32px;"  @click.stop="toTabbar(3)">
+					<view style="position: relative;">
+						<view
+							style="position: absolute;top:-45px;left: -25px;width: 100rpx;height: 100rpx;border-radius: 50%;padding: 5px;background: #ffffff;">
+							<view class="centerImg flex_column " style="">
+								<image src="/static/image/tabbar09.png" class="tabbar_img_center margin_top_m"></image>
+							</view>
+					
+						</view>
+					</view>
+					
+					<view class="font_size_text_xxs margin_top_m color_black_888">
+						人工预约
+					</view>
+				</view>
+				<block v-if="tabbarIndex == 4">
+					<image src="/static/image/tabbar06.png" class="tabbar_img"></image>
+					<view class="font_size_text_xxs margin_top_s color_orange">
+						健康百科
+					</view>
+				</block>
+				<block v-else>
+					<image src="/static/image/tabbar05.png" class="tabbar_img"></image>
+					<view class="font_size_text_xxs margin_top_s color_black_888">
+						健康百科
+					</view>
+				</block>
+		
+			</view>
+			<view class="flex_column " @click="toTabbar(5)">
+				<block v-if="tabbarIndex == 5">
+					<image src="/static/image/tabbar08.png" class="tabbar_img"></image>
+					<view class="font_size_text_xxs margin_top_s color_orange">
+						我的
+					</view>
+				</block>
+				<block v-else>
+					<image src="/static/image/tabbar07.png" class="tabbar_img"></image>
+					<view class="font_size_text_xxs margin_top_s color_black_888">
+						我的
+					</view>
+				</block>
+		
+			</view>
+		</view>
+		<u-popup :show="quickAppointShow" :closeable="true" mode="center" :round="20" @close="closeQuick">
+			<view class="flex_column " style="width: 600rpx; box-sizing: border-box;padding: 50rpx 30rpx 60rpx 30rpx ;">
+				<view class="font_size_title_xxl color_black_333 font_weight " style="margin-top: 30rpx;">
+					咨询热线
+				</view>
+				<view class="font_size_title_xl color_black_333 font_weight margin_top_m" @click="setText">
+					010-6565-556
+				</view>
+				<view class="flex_row margin_top_xl ">
+					<view class="quick_btn font_size_title_s color_orange " @click="closeQuickPop(0)">
+						取消
+					</view>
+					<view class="quick_btn font_size_title_s color_white margin_left_l" @click="closeQuickPop(1)">
+						确认
+					</view>
+				</view>
+			</view>
+		</u-popup>
+		<!-- #endif -->
+		<u-popup :show="avatorShow" mode="bottom" :round="15" :closeable="true" @close="closeAvator">
+			<view class="padding_l text_align_center font_size_title_s color_black font_weight">
+				修改头像
+			</view>
+			<view class="justify_center flex_row">
+				<UpLoadImg @input="uploadImg" :list="list_img" ShowNum="1"></UpLoadImg>
+			</view>
+			<view class="flex_row margin_top_xl justify_center margin_bottom_l">
+				<view class="quick_btn font_size_title_s color_orange " @click="closeAvator">
+					取消
+				</view>
+				<view class="quick_btn font_size_title_s color_white margin_left_l" @click="openAvator(1)">
+					确认
+				</view>
+			</view>
+		</u-popup>
 	</view>
 </template>
 
 <script>
-	import enviroment from "@/static/js/enviroment.js"
+	import UpLoadImg from "@/components/UpLoad.vue"
+	// import enviroment from "@/static/js/enviroment.js"
+	// import Load from '@/static/utils/load.js'
 	export default {
+		components: {
+			UpLoadImg
+		},
 		data() {
 			return {
+				tabbarIndex: 5,
+				popupShow: false,
+				avatorShow: false,
+				quickAppointShow: false,
 				clearShow: false,
 				orderList: [{
 						title: '待付款',
@@ -198,7 +350,8 @@
 				// },
 				userInfo:null,
 				cacheSize:0,
-				verson:1
+				verson:1,
+				list_img: []
 				
 			}
 		},
@@ -207,20 +360,86 @@
 				this.myList.splice(2,1)
 			// #endif
 			this.checkCache()
+			uni.showLoading({title: '加载中',mask:true});
 		},
 		onShow() {
 			this.getUserInfo()
 		},
 		methods: {
+			closeAvator() {
+				this.avatorShow = false
+				this.popupShow = false
+			},
+			openAvator(status) {
+				if(status > 0) {
+					this.$api.setProfile({headimgurl: this.list_img.toString()}).then(res=>{
+						console.log('res',res);
+						this.getUserInfo()
+						this.avatorShow = false
+						this.popupShow = false
+					})
+				} else {
+					this.avatorShow = true
+					this.popupShow = true
+					this.list_img = this.userInfo && this.userInfo.headimgurl ? [this.userInfo.headimgurl] :[]
+				}
+			},
+			uploadImg(e) {
+				this.list_img = e
+			},
+			toTabbar(status) {
+				if (status == 1) {
+					uni.reLaunch({
+						url: '/pages/index/index'
+					})
+				} else if (status == 2) {//购物车
+					uni.reLaunch({
+						url: '/aUserPages/shopCar/shopCar'
+					})
+				} else if (status == 3) { //急速预约
+					this.quickAppointShow = true
+			
+				} else if (status == 4) {
+					uni.reLaunch({
+						url: '/aUserPages/healthy/healthy'
+					})
+				} else if (status == 5) {
+					uni.reLaunch({
+						url: '/aUserPages/my/my'
+					})
+				}
+			},
+			setText(e) {
+				//点击复制
+				uni.setClipboardData({
+					data: '131 8901 9301',
+					success: function() {
+						uni.showToast({
+							title: "复制成功",
+							icon: "none"
+						})
+					}
+				});
+			},
+			closeQuickPop(type) {
+				this.quickAppointShow = !this.quickAppointShow
+				if (type == 1) {
+					uni.makePhoneCall({
+						phoneNumber: '010-6565-556' //仅为示例
+					});
+				}
+			},
+			closeQuick(e) {
+				console.log("关闭")
+				this.quickAppointShow = false
+			},
 			getUserInfo(e){
 				this.$api.getMyInfo({}).then(res=>{
-					// this.userInfo.user_id = res.user_id
-					// this.userInfo.balance = res.balance
-					// this.userInfo.nickname = res.nickname
-					// this.userInfo.user_integral = res.user_integral
-					// this.userInfo.headimgurl = res.headimgurl
-					// this.userInfo.username = res.username
 					this.userInfo = res
+					this.userInfo.user_integral = parseInt(res.user_integral)
+					// this.userInfo.user_integral = this.userInfo ? parseFloat(this.userInfo.user_integral).toFixed(2) : 0;
+					console.log('@@', res,this.userInfo);
+					uni.hideLoading()
 				})
 			},
 			//查看订单
@@ -231,12 +450,12 @@
 			},
 			invitefriend(e){ // 邀请好友
 				uni.navigateTo({
-					url:"/aUserPages/inviteFriends/inviteFriends"
+					url:"/aUserPages/inviteFriends/inviteFriends?invite_type=1"
 				})
 			},
 			lookQuestion(e){ //常见问题
 				uni.navigateTo({
-					url:"/aUserPages/question/question"
+					url:"/aUserPages/question/question?type=1"
 				})
 			},
 			lookItem(item,index){
@@ -265,7 +484,7 @@
 			},
 			lookIntShop(e){//积分商城
 				uni.navigateTo({
-					url:"/aUserPages/integralShop/integralShop"
+					url:"/aUserPages/integralShop/detailed"
 				})
 			},
 			toManPatient(e){//患者管理
@@ -277,6 +496,7 @@
 				this.clearShow = false
 			},
 			signOut(e){
+				uni.removeStorageSync('token')
 				uni.navigateTo({
 					url:'/aUserPages/login/login'
 				})
@@ -321,6 +541,61 @@
 </script>
 
 <style lang="scss" scoped>
+	image {
+		will-change: transform;
+		width: auto;
+		height: auto;
+	}
+	.popupShow {
+		overflow: hidden;
+		position: fixed;
+		height: 100vh;
+		width: 100%;
+	}
+	.tabbar_box {
+		height: 160rpx;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		z-index: 9999;
+	}
+	
+	.tabbar_img {
+		width: 38rpx;
+		height: 38rpx;
+	}
+	
+	.centerImg {
+		width: 90rpx;
+		height: 90rpx;
+		border-radius: 50%;
+		background: linear-gradient(to bottom right, #FF6437, #FF9B51);
+		box-shadow: 0px 0px 0px #fff
+	}
+	
+	.tabbar_img_center {
+		width: 44rpx;
+		height: 44rpx;
+	}
+	
+	.quick_btn {
+		width: 220rpx;
+		text-align: center;
+		height: 72rpx;
+		line-height: 72rpx;
+		border-radius: 70rpx;
+	
+	
+		&:nth-child(1) {
+			background-color: #f8f8f8;
+			border: 2rpx solid #FF6437;
+		}
+	
+		&:nth-child(2) {
+			background: linear-gradient(to right, #FF6437, #FF9B51);
+		}
+	}
 	.bg_box {
 		width: 100%;
 		height: 470rpx;
@@ -360,7 +635,7 @@
 		}
 
 		.patient_man {
-			width: 126rpx;
+			width: 142rpx;
 			height: 42rpx;
 			line-height: 42rpx;
 			text-align: center;

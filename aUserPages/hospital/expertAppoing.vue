@@ -52,7 +52,7 @@
 					<view class="label_gray_s margin_left" v-if="item.isFree == 0">
 						预约已截止
 					</view>
-					<view class="label_orange_s margin_left" v-if="item.isFree ==1">
+					<view class="label_orange_s margin_left" v-if="item.isFree ==1" @click="submitOrder">
 						预约
 					</view>
 					
@@ -74,7 +74,12 @@
 			}
 		},
 		methods: {
-
+			submitOrder(e) {
+				//提交订单
+				uni.navigateTo({
+					url: '/aUserPages/vipPages/wholeWriteOrder?service_type=5'
+				})
+			}
 		}
 	}
 </script>

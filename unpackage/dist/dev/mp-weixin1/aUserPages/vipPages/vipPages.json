@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "VIP服务包",
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#ffffff",
+  "usingComponents": {
+    "u-number-box": "/uni_modules/uview-ui/components/u-number-box/u-number-box",
+    "u-popup": "/uni_modules/uview-ui/components/u-popup/u-popup"
+  }
+}

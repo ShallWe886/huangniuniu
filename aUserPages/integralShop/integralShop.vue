@@ -2,14 +2,14 @@
 	<view class="padding_bottom_m">
 		<view class="flex_row" style="background-color: #ffffff;height: 80rpx;box-sizing: border-box;padding: 15rpx 0;">
 			<view class="flex_row width_all order_input_box margin_left_l  padding_0_s " >
-				<u-icon name="search" size="40" color="#999999"></u-icon>
-				<input type="text" style="width: 600rpx;" placeholder="请输入搜索内容" v-model="keyWord"
+				<u-icon name="search" size="40" color="#999999" @click="getfresh"></u-icon>
+				<input type="text" style="width: 600rpx;" @confirm="getfresh" placeholder="请输入搜索内容" v-model="keyWord"
 					placeholder-class="font_size_text_m color_black_999">
-				<view>
+				<!-- <view>
 					<u-icon name="mic" size="30" color="#999999"></u-icon>
-				</view>
+				</view> -->
 			</view>
-			<u-icon name="grid" size="50"></u-icon>
+			<!-- <u-icon name="grid" size="50"></u-icon> -->
 		</view>
 		<view class="flex_row flex_wrap padding_left_l padding_top_l ">
 			<view class="shop_box flex_column " v-for="(item,index) in shopList" :key="index" @click="lookDetail(item,index)">
@@ -31,6 +31,7 @@
 	export default {
 		data() {
 			return {
+				keyWord: '',
 				shopList:[],
 				pageNo:1,
 				loading:true
@@ -57,13 +58,15 @@
 				uni.stopPullDownRefresh();
 			},
 			getfresh(e) {
+				uni.showLoading({title: '加载中',mask:true});
 				this.shopList = []
 				this.pageNo = 1
 				this.loading = true;
 				this.getData();
 			},
 			getData(e){
-				this.$api.getGoodList({page:this.pageNo,pageSize:20}).then(res=>{
+				this.$api.getGoodList({page:this.pageNo,pageSize:20, goods_name: this.keyWord}).then(res=>{
+					uni.hideLoading()
 					this.loading = res.list.length == 10
 					this.shopList = this.shopList.concat(res.list)
 					this.pageNo += 1
